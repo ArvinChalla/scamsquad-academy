@@ -1,0 +1,1922 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScamSquad Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
+
+<style>
+:root{
+  --ground:#EEF2FF;
+  --surface:#FFFFFF;
+  --surface-2:#F4F6FE;
+  --ink:#171A38;
+  --ink-2:#4A507A;
+  --ink-3:#7C82A8;
+  --line:#DCE1F5;
+  --line-2:#C3CAEA;
+
+  --brand:#4B3FE4;
+  --brand-ink:#3A2FBE;
+  --brand-soft:#E4E1FF;
+
+  --good:#0E8F68;
+  --good-soft:#D7F5EA;
+  --warn:#A66207;
+  --warn-soft:#FDEFD4;
+
+  --t-explore:#E07C00;
+  --t-explore-soft:#FFEDD2;
+  --t-squad:#0E7F94;
+  --t-squad-soft:#D6F0F5;
+  --t-crew:#6B3FD4;
+  --t-crew-soft:#E8E0FF;
+
+  --shadow:0 2px 4px rgba(23,26,56,.06), 0 14px 32px -16px rgba(23,26,56,.28);
+  --shadow-lg:0 4px 8px rgba(23,26,56,.08), 0 26px 60px -22px rgba(23,26,56,.4);
+
+  --f-display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1024;
+    --surface:#181B36;
+    --surface-2:#20244A;
+    --ink:#EAEDFB;
+    --ink-2:#AEB5DC;
+    --ink-3:#848CB8;
+    --line:#2A2F58;
+    --line-2:#3A4070;
+    --brand:#8E86FF;
+    --brand-ink:#B0AAFF;
+    --brand-soft:#282465;
+    --good:#4FD3A6;
+    --good-soft:#123A2F;
+    --warn:#F0B65C;
+    --warn-soft:#3A2C12;
+    --t-explore:#FFB553;
+    --t-explore-soft:#3C2A10;
+    --t-squad:#4FCBE0;
+    --t-squad-soft:#0F3540;
+    --t-crew:#AE8CFF;
+    --t-crew-soft:#2C2160;
+    --shadow:0 2px 4px rgba(0,0,0,.4), 0 14px 32px -16px rgba(0,0,0,.7);
+    --shadow-lg:0 4px 8px rgba(0,0,0,.45), 0 26px 60px -22px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1024;
+  --surface:#181B36;
+  --surface-2:#20244A;
+  --ink:#EAEDFB;
+  --ink-2:#AEB5DC;
+  --ink-3:#848CB8;
+  --line:#2A2F58;
+  --line-2:#3A4070;
+  --brand:#8E86FF;
+  --brand-ink:#B0AAFF;
+  --brand-soft:#282465;
+  --good:#4FD3A6;
+  --good-soft:#123A2F;
+  --warn:#F0B65C;
+  --warn-soft:#3A2C12;
+  --t-explore:#FFB553;
+  --t-explore-soft:#3C2A10;
+  --t-squad:#4FCBE0;
+  --t-squad-soft:#0F3540;
+  --t-crew:#AE8CFF;
+  --t-crew-soft:#2C2160;
+  --shadow:0 2px 4px rgba(0,0,0,.4), 0 14px 32px -16px rgba(0,0,0,.7);
+  --shadow-lg:0 4px 8px rgba(0,0,0,.45), 0 26px 60px -22px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--f-body);font-size:17px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;line-height:1.15;}
+button{font-family:inherit;}
+:focus-visible{outline:3px solid var(--brand);outline-offset:3px;border-radius:8px;}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+
+.shell{max-width:860px;margin:0 auto;padding:22px 18px 60px;}
+
+/* ============ top bar ============ */
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap;}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:21px;letter-spacing:-.01em;}
+.logo .mark{
+  width:36px;height:36px;border-radius:11px;background:var(--brand);
+  display:grid;place-items:center;flex-shrink:0;
+}
+.topbar .spacer{margin-left:auto;}
+.ghost{
+  background:transparent;border:2px solid var(--line-2);color:var(--ink-2);
+  font-weight:700;font-size:14px;padding:7px 14px;border-radius:999px;cursor:pointer;
+}
+.ghost:hover{border-color:var(--brand);color:var(--brand-ink);}
+
+/* ============ home ============ */
+.hero{
+  background:var(--surface);border:2px solid var(--line);border-radius:22px;
+  padding:32px 28px;box-shadow:var(--shadow);margin-bottom:22px;
+  display:flex;gap:26px;align-items:center;flex-wrap:wrap;
+}
+.hero-copy{flex:1 1 320px;}
+.hero h1{font-size:clamp(30px,5vw,44px);font-weight:700;margin-bottom:10px;}
+.hero p{margin:0;color:var(--ink-2);font-size:18px;max-width:46ch;}
+.hero-art{flex:0 0 auto;}
+
+.pick-label{
+  font-family:var(--f-display);font-size:20px;font-weight:600;margin:26px 0 14px;
+}
+.tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
+.track{
+  background:var(--surface);border:3px solid var(--line);border-radius:20px;
+  padding:22px 20px;text-align:left;cursor:pointer;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:12px;
+  transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.track:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.track.explore:hover{border-color:var(--t-explore);}
+.track.squad:hover{border-color:var(--t-squad);}
+.track.crew:hover{border-color:var(--t-crew);}
+.track .age{
+  font-family:var(--f-display);font-size:13px;font-weight:600;letter-spacing:.04em;
+  padding:4px 11px;border-radius:999px;align-self:flex-start;
+}
+.track.explore .age{background:var(--t-explore-soft);color:var(--t-explore);}
+.track.squad .age{background:var(--t-squad-soft);color:var(--t-squad);}
+.track.crew .age{background:var(--t-crew-soft);color:var(--t-crew);}
+.track h3{font-size:24px;font-weight:700;}
+.track p{margin:0;font-size:15px;color:var(--ink-2);}
+.track .bar{height:9px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:auto;}
+.track .bar i{display:block;height:100%;border-radius:99px;width:0;transition:width .5s ease;}
+.track.explore .bar i{background:var(--t-explore);}
+.track.squad .bar i{background:var(--t-squad);}
+.track.crew .bar i{background:var(--t-crew);}
+.track .prog{font-size:13px;font-weight:700;color:var(--ink-3);}
+.track .go{
+  margin-top:2px;font-family:var(--f-display);font-weight:600;font-size:16px;
+  border:none;border-radius:12px;padding:11px;color:#fff;cursor:pointer;width:100%;
+}
+.track.explore .go{background:var(--t-explore);}
+.track.squad .go{background:var(--t-squad);}
+.track.crew .go{background:var(--t-crew);}
+
+.homenote{
+  margin-top:22px;background:var(--brand-soft);border-radius:16px;padding:18px 20px;
+  font-size:15px;color:var(--ink-2);
+}
+.homenote strong{color:var(--ink);}
+
+/* ============ game ============ */
+.hud{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  background:var(--surface);border:2px solid var(--line);border-radius:18px;
+  padding:12px 16px;margin-bottom:16px;box-shadow:var(--shadow);
+}
+.hud .buddy{display:flex;align-items:center;gap:10px;}
+.hud .bname{font-family:var(--f-display);font-weight:600;font-size:16px;}
+.hud .brole{font-size:12px;color:var(--ink-3);font-weight:700;}
+.hud .stat{margin-left:auto;display:flex;gap:16px;align-items:center;}
+.hud .stat b{font-family:var(--f-display);font-size:20px;font-weight:700;}
+.hud .stat span{font-size:12px;color:var(--ink-3);font-weight:700;display:block;line-height:1;}
+
+.steps{display:flex;gap:6px;margin-bottom:16px;}
+.steps i{flex:1;height:8px;border-radius:99px;background:var(--line);}
+.steps i.done{background:var(--good);}
+.steps i.now{background:var(--brand);}
+
+.stage{
+  background:var(--surface);border:2px solid var(--line);border-radius:22px;
+  padding:26px;box-shadow:var(--shadow);
+}
+.scene-top{display:flex;gap:18px;align-items:flex-start;margin-bottom:6px;}
+.scene-art{
+  flex:0 0 auto;width:88px;height:88px;border-radius:20px;display:grid;place-items:center;font-size:44px;
+}
+.lvl-tag{
+  font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:4px;
+}
+.stage h2{font-size:clamp(21px,3vw,27px);font-weight:700;margin-bottom:8px;}
+.scene{font-size:17px;color:var(--ink-2);margin:0 0 20px;}
+.scene .quote{
+  display:block;background:var(--surface-2);border-left:4px solid var(--line-2);
+  padding:11px 15px;border-radius:0 10px 10px 0;margin:12px 0;
+  font-style:italic;color:var(--ink);
+}
+.ask{font-family:var(--f-display);font-size:19px;font-weight:600;margin-bottom:14px;}
+
+.opts{display:grid;gap:12px;margin-bottom:8px;}
+.opt{
+  display:flex;gap:14px;align-items:flex-start;text-align:left;width:100%;
+  background:var(--surface-2);border:3px solid transparent;border-radius:16px;
+  padding:16px 18px;cursor:pointer;color:var(--ink);
+  transition:border-color .14s ease, transform .14s ease, background .14s ease;
+}
+.opt:hover:not(:disabled){border-color:var(--brand);transform:translateX(3px);}
+.opt:disabled{cursor:default;opacity:.55;}
+.opt .key{
+  flex:0 0 auto;width:30px;height:30px;border-radius:10px;background:var(--surface);
+  display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:15px;color:var(--ink-2);
+  border:2px solid var(--line);
+}
+.opt .otxt b{display:block;font-family:var(--f-display);font-weight:600;font-size:17px;margin-bottom:2px;}
+.opt .otxt span{font-size:15px;color:var(--ink-2);}
+.opt.picked-good{border-color:var(--good);background:var(--good-soft);opacity:1;}
+.opt.picked-soft{border-color:var(--warn);background:var(--warn-soft);opacity:1;}
+
+.reply{border-radius:18px;padding:20px;margin-top:18px;display:none;}
+.reply.show{display:block;animation:pop .3s ease;}
+@keyframes pop{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.reply.win{background:var(--good-soft);border:2px solid var(--good);}
+.reply.hint{background:var(--warn-soft);border:2px solid var(--warn);}
+.reply h3{font-size:20px;font-weight:700;margin-bottom:8px;}
+.reply.win h3{color:var(--good);}
+.reply.hint h3{color:var(--warn);}
+.reply p{margin:0 0 10px;font-size:16px;}
+.reply p:last-child{margin-bottom:0;}
+.reply .why{
+  background:var(--surface);border-radius:12px;padding:13px 16px;margin-top:12px;font-size:15px;color:var(--ink-2);
+}
+.reply .why b{color:var(--ink);}
+
+.nextrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.big{
+  font-family:var(--f-display);font-weight:600;font-size:18px;border:none;border-radius:14px;
+  padding:14px 26px;color:#fff;background:var(--brand);cursor:pointer;
+}
+.big:hover{background:var(--brand-ink);}
+.big.alt{background:transparent;color:var(--ink-2);border:2px solid var(--line-2);}
+.big.alt:hover{border-color:var(--brand);color:var(--brand-ink);background:transparent;}
+
+.helpline{
+  margin-top:16px;background:var(--surface);border:2px dashed var(--line-2);border-radius:16px;
+  padding:14px 18px;font-size:14.5px;color:var(--ink-2);
+}
+.helpline b{color:var(--ink);font-family:var(--f-display);}
+
+/* ============ track scale ============ */
+body[data-track="explore"] .stage{font-size:19px;}
+body[data-track="explore"] .scene{font-size:20px;line-height:1.6;}
+body[data-track="explore"] .ask{font-size:22px;}
+body[data-track="explore"] .opt .otxt b{font-size:19px;}
+body[data-track="explore"] .opt .otxt span{font-size:17px;}
+body[data-track="explore"] .reply p{font-size:18px;}
+
+/* ============ finish ============ */
+.finish{
+  background:var(--surface);border:2px solid var(--line);border-radius:22px;
+  padding:34px 28px;text-align:center;box-shadow:var(--shadow);
+}
+.finish h2{font-size:clamp(26px,4vw,36px);font-weight:700;margin-bottom:8px;}
+.finish .sc{font-family:var(--f-display);font-size:52px;font-weight:700;color:var(--brand);line-height:1;margin:14px 0 4px;}
+.finish .scl{font-size:14px;color:var(--ink-3);font-weight:700;margin-bottom:20px;}
+.badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:20px 0;}
+.badge{
+  background:var(--surface-2);border:2px solid var(--line);border-radius:16px;
+  padding:14px 16px;width:158px;display:flex;flex-direction:column;
+}
+.badge span{margin-top:auto;}
+.badge.earned{border-color:var(--good);background:var(--good-soft);}
+.badge .bi{font-size:30px;line-height:1;}
+.badge b{display:block;font-family:var(--f-display);font-size:15px;font-weight:600;margin:6px 0 2px;}
+.badge span{font-size:12.5px;color:var(--ink-2);}
+.recap{text-align:left;background:var(--surface-2);border-radius:16px;padding:18px 22px;margin-top:22px;}
+.recap h4{font-size:17px;font-weight:600;margin-bottom:10px;}
+.recap ul{margin:0;padding-left:20px;font-size:15.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px;}
+
+/* ============ grown-ups ============ */
+.panel{
+  background:var(--surface);border:2px solid var(--line);border-radius:22px;
+  padding:30px 28px;box-shadow:var(--shadow);
+}
+.panel h2{font-size:28px;font-weight:700;margin-bottom:6px;}
+.panel .sub{color:var(--ink-2);margin:0 0 22px;}
+.panel h3{font-size:19px;font-weight:600;margin:24px 0 8px;}
+.panel p{font-size:15.5px;color:var(--ink-2);margin:0 0 10px;}
+.panel ul{font-size:15.5px;color:var(--ink-2);padding-left:20px;margin:0 0 10px;display:flex;flex-direction:column;gap:5px;}
+.panel a{color:var(--brand-ink);font-weight:700;}
+.covers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:8px;}
+.cover{background:var(--surface-2);border-radius:14px;padding:16px 18px;}
+.cover b{display:block;font-family:var(--f-display);font-size:16px;font-weight:600;margin-bottom:6px;}
+.cover ul{font-size:14px;padding-left:18px;gap:3px;}
+.rules{border-left:4px solid var(--brand);padding-left:18px;}
+
+
+/* ============ home v2 ============ */
+.blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.blobs i{position:absolute;border-radius:50%;filter:blur(48px);opacity:.5;}
+.blobs i:nth-child(1){width:340px;height:340px;background:var(--t-explore-soft);top:-90px;left:-70px;}
+.blobs i:nth-child(2){width:300px;height:300px;background:var(--t-squad-soft);top:32%;right:-90px;}
+.blobs i:nth-child(3){width:320px;height:320px;background:var(--t-crew-soft);bottom:-110px;left:22%;}
+.shell{position:relative;z-index:1;}
+
+.hero2{
+  background:var(--surface);border:3px solid var(--line);border-radius:28px;
+  padding:38px 30px 32px;box-shadow:var(--shadow-lg);text-align:center;
+}
+.crew-row{display:flex;justify-content:center;align-items:flex-end;gap:6px;margin-bottom:18px;}
+.crew-row .m{animation:bob 3.4s ease-in-out infinite;}
+.crew-row .m:nth-child(2){animation-delay:.5s;}
+.crew-row .m:nth-child(3){animation-delay:1s;}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.hero2 h1{
+  font-size:clamp(30px,6.2vw,52px);font-weight:700;line-height:1.03;margin-bottom:12px;
+}
+.hero2 h1 em{font-style:normal;color:var(--brand);}
+.hero2 .sub{font-size:clamp(16.5px,1.9vw,19.5px);color:var(--ink-2);margin:0 auto;max-width:44ch;}
+.hero2 .chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
+.hero2 .chips span{
+  font-family:var(--f-display);font-size:13px;font-weight:600;
+  background:var(--surface-2);color:var(--ink-2);padding:6px 14px;border-radius:999px;
+}
+
+.askage{
+  margin-top:24px;background:var(--surface);border:3px solid var(--line);border-radius:28px;
+  padding:30px 26px;box-shadow:var(--shadow);text-align:center;
+}
+.askage h2{font-size:clamp(23px,3.6vw,32px);font-weight:700;margin-bottom:6px;}
+.askage p{color:var(--ink-2);margin:0 0 22px;font-size:16.5px;}
+.agepick{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.agepick button{
+  font-family:var(--f-display);font-weight:700;cursor:pointer;
+  width:150px;padding:20px 12px;border-radius:22px;border:3px solid var(--line);
+  background:var(--surface-2);color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.agepick button .big-n{font-size:29px;line-height:1;letter-spacing:-.02em;}
+.agepick button .lil{font-size:12.5px;font-weight:600;color:var(--ink-3);letter-spacing:.05em;text-transform:uppercase;}
+.agepick button:hover{transform:translateY(-5px) scale(1.03);box-shadow:var(--shadow-lg);}
+.agepick button[data-age="explore"]:hover,.agepick button[data-age="explore"][aria-pressed="true"]{border-color:var(--t-explore);background:var(--t-explore-soft);}
+.agepick button[data-age="squad"]:hover,.agepick button[data-age="squad"][aria-pressed="true"]{border-color:var(--t-squad);background:var(--t-squad-soft);}
+.agepick button[data-age="crew"]:hover,.agepick button[data-age="crew"][aria-pressed="true"]{border-color:var(--t-crew);background:var(--t-crew-soft);}
+.grownlink{
+  margin-top:20px;background:none;border:none;cursor:pointer;
+  font-family:var(--f-body);font-size:15.5px;font-weight:700;color:var(--ink-3);text-decoration:underline;
+}
+.grownlink:hover{color:var(--brand-ink);}
+
+#reveal:empty{display:none;}
+.revealcard{
+  margin-top:22px;background:var(--surface);border:4px solid var(--line);border-radius:28px;
+  padding:30px 28px;box-shadow:var(--shadow-lg);
+  display:flex;gap:26px;align-items:center;flex-wrap:wrap;
+  animation:rise .38s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes rise{from{opacity:0;transform:translateY(22px) scale(.97);}to{opacity:1;transform:none;}}
+.revealcard.explore{border-color:var(--t-explore);}
+.revealcard.squad{border-color:var(--t-squad);}
+.revealcard.crew{border-color:var(--t-crew);}
+.revealcard .art{flex:0 0 auto;}
+.revealcard .body{flex:1 1 260px;min-width:0;}
+.revealcard .age2{
+  font-family:var(--f-display);font-size:13px;font-weight:600;letter-spacing:.05em;
+  padding:5px 13px;border-radius:999px;display:inline-block;margin-bottom:8px;
+}
+.revealcard.explore .age2{background:var(--t-explore-soft);color:var(--t-explore);}
+.revealcard.squad .age2{background:var(--t-squad-soft);color:var(--t-squad);}
+.revealcard.crew .age2{background:var(--t-crew-soft);color:var(--t-crew);}
+.revealcard h3{font-size:clamp(26px,4vw,36px);font-weight:700;margin-bottom:6px;}
+.revealcard p{margin:0 0 14px;color:var(--ink-2);font-size:17px;}
+.revealcard .bar2{height:11px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-bottom:7px;}
+.revealcard .bar2 i{display:block;height:100%;border-radius:99px;transition:width .6s ease;}
+.revealcard.explore .bar2 i{background:var(--t-explore);}
+.revealcard.squad .bar2 i{background:var(--t-squad);}
+.revealcard.crew .bar2 i{background:var(--t-crew);}
+.revealcard .prog2{font-size:14px;font-weight:700;color:var(--ink-3);display:block;margin-bottom:16px;}
+.revealcard .play{
+  font-family:var(--f-display);font-size:21px;font-weight:700;border:none;border-radius:18px;
+  padding:16px 34px;color:#fff;cursor:pointer;width:100%;
+  transition:transform .14s ease, filter .14s ease;
+}
+.revealcard .play:hover{transform:translateY(-2px);filter:brightness(1.07);}
+.revealcard.explore .play{background:var(--t-explore);}
+.revealcard.squad .play{background:var(--t-squad);}
+.revealcard.crew .play{background:var(--t-crew);}
+.switchlink{
+  display:block;margin:14px auto 0;background:none;border:none;cursor:pointer;
+  font-family:var(--f-body);font-size:14.5px;font-weight:700;color:var(--ink-3);text-decoration:underline;
+}
+.switchlink:hover{color:var(--brand-ink);}
+
+.trophies{
+  margin-top:22px;background:var(--surface);border:3px solid var(--line);border-radius:24px;
+  padding:20px 24px;box-shadow:var(--shadow);
+  display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:center;
+}
+.trophies .t{text-align:center;min-width:96px;}
+.trophies .t b{display:block;font-family:var(--f-display);font-size:30px;font-weight:700;color:var(--brand);line-height:1;}
+.trophies .t span{display:block;font-size:12.5px;font-weight:700;color:var(--ink-3);margin-top:5px;letter-spacing:.04em;text-transform:uppercase;}
+.trophies .t .em{font-size:26px;}
+
+/* ============ export bar ============ */
+.exportbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center;}
+.savehint{
+  margin-top:12px;background:var(--surface-2);border-radius:12px;padding:12px 16px;
+  font-size:14.5px;color:var(--ink-2);
+}
+.savehint b{color:var(--ink);}
+#certimg{max-width:100%;border-radius:14px;box-shadow:var(--shadow-lg);margin-top:14px;display:block;}
+
+/* ============ age chooser ============ */
+.agebar{
+  background:var(--surface);border:2px solid var(--line);border-radius:18px;
+  padding:18px 20px;margin:26px 0 16px;box-shadow:var(--shadow);
+  display:flex;gap:12px 16px;align-items:center;flex-wrap:wrap;
+}
+.agebar .q{font-family:var(--f-display);font-size:19px;font-weight:600;}
+.agebar .opts2{display:flex;gap:9px;flex-wrap:wrap;}
+.agebar button{
+  font-family:var(--f-display);font-size:16px;font-weight:600;
+  padding:10px 18px;border-radius:999px;border:2px solid var(--line-2);
+  background:var(--surface);color:var(--ink);cursor:pointer;
+}
+.agebar button:hover{border-color:var(--brand);color:var(--brand-ink);}
+.agebar button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff;}
+.track.rec{border-color:var(--brand);}
+.track .recflag{
+  display:none;font-family:var(--f-display);font-size:12.5px;font-weight:600;
+  letter-spacing:.05em;color:var(--brand-ink);background:var(--brand-soft);
+  padding:4px 10px;border-radius:999px;align-self:flex-start;
+}
+.track.rec .recflag{display:inline-block;}
+.track.faded{opacity:.55;}
+
+/* ============ conversation card ============ */
+.convo{
+  margin-top:22px;background:#F6F3FF;color:#221E38;border:2px solid #C9BEF5;border-radius:18px;
+  padding:24px;text-align:left;print-color-adjust:exact;-webkit-print-color-adjust:exact;
+}
+.convo .kicker{
+  font-family:var(--f-display);font-size:11.5px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:#6B5AC7;
+}
+.convo h4{font-family:var(--f-display);font-size:21px;font-weight:700;margin:6px 0 8px;color:#221E38;}
+.convo p.lead{font-size:15.5px;color:#4A4560;margin:0 0 16px;}
+.convo ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:12px;}
+.convo ol li{font-size:16.5px;font-weight:700;color:#221E38;}
+.convo ol li span{display:block;font-weight:400;font-size:14.5px;color:#4A4560;margin-top:3px;}
+.convo .tail{margin:16px 0 0;font-size:14px;color:#4A4560;border-top:2px solid #DCD3FA;padding-top:12px;}
+
+/* ============ teacher toolkit ============ */
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.tabs button{
+  font-family:var(--f-display);font-size:15px;font-weight:600;
+  padding:9px 18px;border-radius:999px;border:2px solid var(--line-2);
+  background:transparent;color:var(--ink-2);cursor:pointer;
+}
+.tabs button[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:#fff;}
+.lesson{
+  background:var(--surface-2);border-radius:16px;padding:22px;margin-bottom:16px;
+}
+.lesson h4{font-family:var(--f-display);font-size:20px;font-weight:700;margin-bottom:2px;}
+.lesson .meta{
+  display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px;
+}
+.lesson .meta span{
+  font-family:var(--f-mono,var(--f-body));font-size:12.5px;font-weight:700;
+  background:var(--surface);border:1px solid var(--line);color:var(--ink-2);
+  padding:4px 10px;border-radius:999px;
+}
+.lesson h5{
+  font-family:var(--f-display);font-size:13px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);margin:16px 0 6px;
+}
+.lesson ul,.lesson ol{margin:0;padding-left:20px;font-size:15.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:5px;}
+.lesson p{font-size:15.5px;color:var(--ink-2);margin:0;}
+.warnbox{
+  background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;
+  padding:14px 16px;margin-top:14px;font-size:15px;color:var(--ink);
+}
+
+/* ============ age gate ============ */
+.gate{
+  background:var(--surface);border:2px solid var(--line);border-radius:22px;
+  padding:32px 28px;box-shadow:var(--shadow);text-align:center;max-width:620px;margin:0 auto;
+}
+.gate .who{margin-bottom:8px;}
+.gate .band{
+  display:inline-block;font-family:var(--f-display);font-size:13px;font-weight:600;letter-spacing:.05em;
+  background:var(--t-crew-soft);color:var(--t-crew);padding:5px 14px;border-radius:999px;margin-bottom:14px;
+}
+.gate h2{font-size:clamp(23px,3.4vw,30px);font-weight:700;margin-bottom:12px;}
+.gate p{font-size:16.5px;color:var(--ink-2);margin:0 auto 12px;max-width:48ch;}
+.gate p.strongline{color:var(--ink);font-weight:700;}
+.gate .quiz{
+  background:var(--surface-2);border-radius:16px;padding:20px;margin-top:22px;
+}
+.gate .quiz .q{font-family:var(--f-display);font-size:21px;font-weight:600;margin-bottom:14px;}
+.gate .typed{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.gate .typed input{
+  font-family:var(--f-display);font-size:26px;font-weight:700;text-align:center;
+  width:130px;padding:12px 14px;border-radius:14px;border:2px solid var(--line-2);
+  background:var(--surface);color:var(--ink);
+}
+.gate .typed input:focus{border-color:var(--brand);}
+.gate .typed button{
+  font-family:var(--f-display);font-size:17px;font-weight:600;
+  padding:14px 24px;border-radius:14px;border:none;
+  background:var(--brand);color:#fff;cursor:pointer;
+}
+.gate .typed button:hover{background:var(--brand-ink);}
+.gate .tries{margin-top:10px;font-size:13.5px;color:var(--ink-3);font-weight:700;}
+.exitrow{margin-top:14px;text-align:center;}
+.exitrow button{
+  background:none;border:none;cursor:pointer;font-family:var(--f-body);
+  font-size:14.5px;font-weight:700;color:var(--ink-3);text-decoration:underline;
+}
+.exitrow button:hover{color:var(--brand-ink);}
+.gate .msg{margin-top:14px;font-size:15.5px;color:var(--warn);font-weight:700;min-height:22px;}
+.gate .escape{margin-top:22px;}
+
+/* ============ certificate ============ */
+.certbox{margin-top:24px;background:var(--surface-2);border-radius:18px;padding:22px;text-align:left;}
+.certbox h4{font-family:var(--f-display);font-size:19px;font-weight:600;margin-bottom:6px;}
+.certbox p.cn{margin:0 0 14px;font-size:14.5px;color:var(--ink-2);}
+.namerow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.namerow input{
+  flex:1 1 200px;font-family:var(--f-body);font-size:17px;font-weight:600;
+  padding:12px 15px;border-radius:12px;border:2px solid var(--line-2);
+  background:var(--surface);color:var(--ink);min-width:0;
+}
+.namerow input::placeholder{color:var(--ink-3);font-weight:400;}
+.namerow input:focus{border-color:var(--brand);}
+.privline{
+  display:flex;gap:8px;align-items:flex-start;margin-top:12px;
+  font-size:13.5px;color:var(--ink-2);
+}
+.privline svg{flex:0 0 auto;margin-top:2px;}
+
+#cert{
+  margin-top:20px;background:#FFFDF7;color:#221E38;border:3px solid #C9A227;border-radius:14px;
+  padding:30px 28px;text-align:center;position:relative;
+  box-shadow:0 10px 30px -18px rgba(0,0,0,.45);
+  print-color-adjust:exact;-webkit-print-color-adjust:exact;
+}
+#cert .inner{border:2px dashed #E0CE8E;border-radius:9px;padding:24px 18px;}
+#cert .kicker{
+  font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:.24em;
+  text-transform:uppercase;color:#9A7B12;
+}
+#cert h3{font-family:var(--f-display);font-size:clamp(22px,4vw,30px);font-weight:700;color:#221E38;margin:8px 0 14px;}
+#cert .who{
+  font-family:var(--f-display);font-size:clamp(28px,6vw,44px);font-weight:700;color:#3A2FBE;
+  line-height:1.1;margin:6px 0;word-break:break-word;
+}
+#cert .rule{height:2px;background:#E0CE8E;max-width:300px;margin:12px auto 16px;}
+#cert .said{font-size:16px;color:#4A4560;margin:0 auto 4px;max-width:44ch;}
+#cert .list{font-size:15px;color:#4A4560;margin:14px auto 0;max-width:46ch;}
+#cert .list b{color:#221E38;}
+#cert .foot{
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  margin-top:22px;padding-top:14px;border-top:2px solid #EFE4C0;
+  font-size:13px;color:#6A6480;text-align:left;
+}
+#cert .foot b{display:block;color:#221E38;font-family:var(--f-display);font-size:15px;}
+#cert .seal{position:absolute;top:-14px;right:-10px;}
+
+@media print{
+  body{background:#fff;}
+  body *{visibility:hidden !important;}
+  .printnow, .printnow *{visibility:visible !important;}
+  .printnow{position:absolute;left:0;top:0;width:100%;margin:0;box-shadow:none;border-radius:0;}
+  .noprint{display:none !important;}
+  @page{margin:14mm;}
+}
+
+footer{margin-top:30px;text-align:center;font-size:13px;color:var(--ink-3);}
+
+@media (max-width:560px){
+  .shell{padding:16px 13px 50px;}
+  .stage{padding:20px 17px;}
+  .scene-art{width:64px;height:64px;font-size:32px;border-radius:16px;}
+  .hero{padding:24px 20px;}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;}}
+</style>
+<style>
+html{color-scheme:light dark}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+
+<div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="shell">
+  <div class="topbar">
+    <div class="logo">
+      <span class="mark" aria-hidden="true">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M12 2.6 4.5 5.8v6.1c0 4.6 3.1 8.4 7.5 9.5 4.4-1.1 7.5-4.9 7.5-9.5V5.8L12 2.6Z" fill="#fff"/><path d="m8.6 12.2 2.4 2.4 4.4-4.9" stroke="#4B3FE4" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      ScamSquad Academy
+    </div>
+    <div class="spacer"></div>
+    <button class="ghost" id="btn-home" hidden>&larr; Home</button>
+    <button class="ghost" id="btn-grown">For grown-ups</button>
+  </div>
+
+  <div id="screen-home"></div>
+  <div id="screen-gate" hidden></div>
+  <div id="screen-game" hidden></div>
+  <div id="screen-finish" hidden></div>
+  <div id="screen-grown" hidden></div>
+
+  <footer>Nothing you do here is sent anywhere. Your stars stay on this device only.</footer>
+</div>
+
+<script>
+/* ---------------------------------------------------------------
+   CONFIG
+   Paste a Google Form (or any form) URL here and the contact button
+   turns on everywhere. Left empty, the panel shows the school route
+   instead of a dead link.
+----------------------------------------------------------------*/
+var CONTACT_FORM_URL = "";
+
+/* ---------------------------------------------------------------
+   MASCOTS. Inline SVG, no external assets
+----------------------------------------------------------------*/
+function mascot(kind, size){
+  var s = size || 76;
+  if(kind === "explore"){
+    return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 100 100" role="img" aria-label="Pip the owl">'
+      + '<circle cx="50" cy="54" r="36" fill="#FFC96B"/>'
+      + '<path d="M18 40c0-14 8-24 14-24s10 6 10 6" fill="#FFC96B"/>'
+      + '<path d="M82 40c0-14-8-24-14-24s-10 6-10 6" fill="#FFC96B"/>'
+      + '<ellipse cx="50" cy="66" rx="20" ry="17" fill="#FFF0D2"/>'
+      + '<circle cx="38" cy="47" r="12" fill="#fff"/><circle cx="62" cy="47" r="12" fill="#fff"/>'
+      + '<circle cx="39" cy="48" r="6" fill="#2A2140"/><circle cx="61" cy="48" r="6" fill="#2A2140"/>'
+      + '<circle cx="41" cy="46" r="2.2" fill="#fff"/><circle cx="63" cy="46" r="2.2" fill="#fff"/>'
+      + '<path d="M50 57.5 45 62h10l-5-4.5Z" fill="#E07C00"/>'
+      + '<circle cx="24" cy="62" r="5.5" fill="#FF9E9E" opacity=".75"/>'
+      + '<circle cx="76" cy="62" r="5.5" fill="#FF9E9E" opacity=".75"/>'
+      + '</svg>';
+  }
+  if(kind === "squad"){
+    return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 100 100" role="img" aria-label="Byte the robot">'
+      + '<rect x="46.5" y="12" width="7" height="12" rx="3.5" fill="#0E7F94"/><circle cx="50" cy="11" r="6" fill="#5EE0F0"/>'
+      + '<rect x="17" y="26" width="66" height="52" rx="18" fill="#2AA6BC"/>'
+      + '<rect x="25" y="36" width="50" height="28" rx="13" fill="#08222B"/>'
+      + '<circle cx="39" cy="50" r="6.5" fill="#5EE0F0"/><circle cx="61" cy="50" r="6.5" fill="#5EE0F0"/>'
+      + '<circle cx="41" cy="48" r="2" fill="#fff"/><circle cx="63" cy="48" r="2" fill="#fff"/>'
+      + '<path d="M42 68h16" stroke="#0B4E5C" stroke-width="4" stroke-linecap="round"/>'
+      + '<rect x="8" y="42" width="8" height="20" rx="4" fill="#0E7F94"/>'
+      + '<rect x="84" y="42" width="8" height="20" rx="4" fill="#0E7F94"/>'
+      + '<rect x="34" y="80" width="32" height="8" rx="4" fill="#0E7F94"/>'
+      + '</svg>';
+  }
+  return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 100 100" role="img" aria-label="Nova the guide">'
+    + '<path d="M50 8 84 22v28c0 20-14 34-34 42-20-8-34-22-34-42V22L50 8Z" fill="#7C5CE8"/>'
+    + '<path d="M50 18 74 28v22c0 15-10 26-24 32-14-6-24-17-24-32V28l24-10Z" fill="#5A3FD0"/>'
+    + '<circle cx="41" cy="46" r="5.5" fill="#D9CEFF"/><circle cx="59" cy="46" r="5.5" fill="#D9CEFF"/>'
+    + '<circle cx="42.5" cy="44.5" r="1.8" fill="#2A1E52"/><circle cx="60.5" cy="44.5" r="1.8" fill="#2A1E52"/>'
+    + '<path d="M42 60c4 4 12 4 16 0" stroke="#D9CEFF" stroke-width="3.4" stroke-linecap="round" fill="none"/>'
+    + '<path d="m50 26 2.6 5.6L58 34l-5.4 2.4L50 42l-2.6-5.6L42 34l5.4-2.4L50 26Z" fill="#FFD98A"/>'
+    + '</svg>';
+}
+
+/* ---------------------------------------------------------------
+   CONTENT
+   Safety rules applied to every line below:
+   - No sexual content, no descriptions of abuse, no self-harm.
+   - No verbatim predator scripts; patterns only.
+   - Every hard scenario ends with: tell a trusted adult, you are
+     not in trouble, and a real reporting route.
+   - The 6-9 track never depicts grooming or extortion.
+----------------------------------------------------------------*/
+var TRACKS = {
+  explore:{
+    key:"explore", age:"Ages 6 to 9", name:"Explorers",
+    tagline:"Big friendly puzzles about staying safe on a tablet or a game.",
+    buddy:"Pip", role:"Your owl buddy", unit:"Stars", uniticon:"&#11088;",
+    intro:"Pip needs help spotting tricks!",
+    levels:[
+      {icon:"&#127873;", tint:"var(--t-explore-soft)", title:"The Sparkly Free Coins Button",
+       scene:"You are playing your favorite game. A big shiny box pops up on the screen.<span class='quote'>CLICK NOW! 1,000,000 FREE COINS! ONLY 10 SECONDS LEFT!</span>",
+       ask:"What should you do?",
+       opts:[{t:"Click it fast!",d:"The timer is running out and the coins look amazing."},
+             {t:"Do not click. Go tell a grown-up.",d:"Show them the pop-up first."}],
+       correct:1,
+       hint:"Think about it. Real games have to <b>sell</b> coins for real money. So if someone hands out a million for free, what do they really want?",
+       win:"Brilliant! Pip is doing a happy wing-flap.",
+       why:"<b>Free is the bait.</b> Real games never give away a million coins in a pop-up. That button wants you to install something, or type in a grown-up's card number. Telling a grown-up costs you nothing and keeps your game safe."},
+
+      {icon:"&#128587;", tint:"var(--t-explore-soft)", title:"What Is Your Real Name?",
+       scene:"Someone you have never met joins your game. They are friendly and funny. Then they ask:<span class='quote'>What is your real name? Which school do you go to?</span>",
+       ask:"What do you do?",
+       opts:[{t:"Tell them. They seem nice.",d:"They said they go to a school too."},
+             {t:"Do not answer. Tell a grown-up.",d:"Your real name and school are private."}],
+       correct:1,
+       hint:"Anyone can be funny and friendly in a game. Does that mean you know who they really are?",
+       win:"Yes! You kept your private things private.",
+       why:"<b>Nice does not mean safe.</b> Your name, your school, your street and your photos are private. A real friend already knows them. Anyone who asks you in a game does not need them."},
+
+      {icon:"&#128273;", tint:"var(--t-explore-soft)", title:"The Password Gift",
+       scene:"A player in your game says:<span class='quote'>Give me your password and I will put a super rare pet in your account as a present!</span>",
+       ask:"What is the right move?",
+       opts:[{t:"Give the password.",d:"A free rare pet sounds great."},
+             {t:"Say no and tell a grown-up.",d:"Passwords are secret, like a house key."}],
+       correct:1,
+       hint:"A password is like the key to your front door. Would you give your house key to someone you met five minutes ago?",
+       win:"Perfect! Pip says your key stays with you.",
+       why:"<b>Passwords are keys, not presents.</b> Nobody needs your password to give you something. People who ask for it want to take your things, not give you any."},
+
+      {icon:"&#128172;", tint:"var(--t-explore-soft)", title:"The Mean Message",
+       scene:"Someone sends you a message that says something unkind about you. It makes your tummy feel funny and sad.",
+       ask:"What helps most?",
+       opts:[{t:"Send something mean back.",d:"They started it, so it is fair."},
+             {t:"Do not reply. Show a grown-up.",d:"Keep the message so they can see it."},
+             {t:"Delete it and say nothing.",d:"Just pretend it never happened."}],
+       correct:1,
+       hint:"Two of these leave you holding a horrible feeling all by yourself. Which one gets you some help?",
+       win:"Well done. That was a brave choice.",
+       why:"<b>You never have to carry it alone.</b> Writing back usually makes it grow. Deleting it means nobody can help. Showing a grown-up means they can stop it. And it is never, ever your fault."},
+
+      {icon:"&#127942;", tint:"var(--t-explore-soft)", title:"You Have Won a Prize!",
+       scene:"A message pops up on the screen.<span class='quote'>CONGRATULATIONS! You won a new tablet! Just type in a card number to pay for postage!</span>",
+       ask:"What now?",
+       opts:[{t:"Go and find a grown-up's card.",d:"Postage is only a tiny bit of money."},
+             {t:"Stop. Type nothing. Get a grown-up.",d:"You never entered a competition."}],
+       correct:1,
+       hint:"Here is the big clue. Did you ever <b>enter</b> a competition? Can you win a race you never ran?",
+       win:"Spot on! You cannot win a race you never ran.",
+       why:"<b>You cannot win a competition you never entered.</b> Anything that asks for a card number is a trick, even if it sounds like a tiny amount. Card numbers are only ever for grown-ups to type."},
+
+      {icon:"&#128241;", tint:"var(--t-explore-soft)", title:"Let Us Chat Somewhere Else",
+       scene:"Someone in your game says:<span class='quote'>Let us talk on a different app, just me and you. Do not tell your mom. It can be our secret.</span>",
+       ask:"What do you do?",
+       opts:[{t:"Go to the other app.",d:"It sounds like a fun secret."},
+             {t:"Say no and tell a grown-up right away.",d:"Secrets from parents are a warning sign."}],
+       correct:1,
+       hint:"One word in that message should make a little alarm ring in your head. Can you spot it? It starts with <b>s</b>.",
+       win:"Amazing! You heard the alarm bell.",
+       why:"<b>Safe grown-ups never ask you to keep secrets from your parents.</b> A surprise is fine. A birthday present is a surprise. But a secret you must never tell is a warning sign. Tell someone right away. You will never be in trouble for telling."},
+
+      {icon:"&#128248;", tint:"var(--t-explore-soft)", title:"The Photo Outside Your House",
+       scene:"Your friend wants to post a photo of you both. In the picture you are wearing your school T-shirt, standing in front of your house. The number on your door is showing.",
+       ask:"What is the safest thing to say?",
+       opts:[{t:"Post it. It is a nice photo.",d:"It is only your friend's page."},
+             {t:"Ask a grown-up first, and maybe pick a different photo.",d:"That photo shows where you live and where you go to school."}],
+       correct:1,
+       hint:"Look at what is in the picture, not just who. What could a stranger learn from your T-shirt and your front door?",
+       win:"Sharp eyes! You spotted the clues in the picture.",
+       why:"<b>Photos say more than you think.</b> A school T-shirt says where you go every day. A door number says where you sleep. A different photo of the same fun day works just as well, without giving that away."},
+
+      {icon:"&#128155;", tint:"var(--t-explore-soft)", title:"When the Screen Feels Yucky",
+       scene:"You have been playing for ages. Something you saw made you worried. Now you feel a bit horrible inside, but you are not really sure why.",
+       ask:"What is the best thing to do?",
+       opts:[{t:"Keep playing until the feeling goes away.",d:"Maybe it will stop on its own."},
+             {t:"Put the screen down and tell someone how you feel.",d:"You do not have to explain it perfectly."}],
+       correct:1,
+       hint:"You do not need to know exactly what upset you before you tell someone. Which choice gets you a person to help?",
+       win:"That is the bravest answer of them all.",
+       why:"<b>Your feelings are good clues.</b> That horrible tummy feeling is your brain telling you something is not right. You never have to explain it perfectly. Saying <i>something online made me feel weird</i> is enough to get help."}
+    ]
+  },
+
+  squad:{
+    key:"squad", age:"Ages 10 to 13", name:"Squad",
+    tagline:"Real scams from Roblox, Discord and group chats. Spot the trap before it springs.",
+    buddy:"Byte", role:"Your scam scanner", unit:"XP", uniticon:"&#9889;",
+    intro:"Byte is booting up the scanner.",
+    levels:[
+      {icon:"&#128142;", tint:"var(--t-squad-soft)", title:"The Robux Generator",
+       scene:"A site promises 10,000 free Robux. First it wants you to prove you are human. To do that you have to install an app and start a free trial with a card.",
+       ask:"What is really going on here?",
+       opts:[{t:"It is a real generator, just annoying.",d:"Tons of YouTubers use them."},
+             {t:"There is no generator. The check itself is the scam.",d:"Close it, and tell someone if you already started."},
+             {t:"Do the survey but skip the card part.",d:"Get the Robux without paying anything."}],
+       correct:1,
+       hint:"Ask what the site gets out of this. Running it costs them money. So what are they collecting from you?",
+       win:"Scanner agrees. Byte is impressed.",
+       why:"<b>No outside site can make Robux, V-Bucks or Minecoins. Not one.</b> The check <i>is</i> the scam. It installs something, or signs you up to a trial that quietly keeps charging, or grabs your login. If you already started one, telling an adult early stops the charges."},
+
+      {icon:"&#128260;", tint:"var(--t-squad-soft)", title:"Send Yours First",
+       scene:"Someone offers a great trade for your rare item.<span class='quote'>Send yours over first so I know you are serious, then I will send mine right after. Trust me bro</span>",
+       ask:"What do you do?",
+       opts:[{t:"Send first. Their profile looks fine.",d:"They seem legit and they have loads of followers."},
+             {t:"Say no. Only trade inside the game's own trade window.",d:"A trade that needs trust instead of the system is a scam."},
+             {t:"Use a middle person they suggest.",d:"Someone else holds both items."}],
+       correct:1,
+       hint:"Two of these three need you to <b>trust a stranger</b>. Only one uses a system that cannot lie to you.",
+       win:"Locked down. Nothing lost.",
+       why:"<b>Send first is the oldest scam in gaming.</b> So is the helpful middle person, who is usually the scammer's other account. Real trades happen in the game's own trade window, where both sides swap at the same moment. If someone needs you to trust them instead, that <i>is</i> the tell."},
+
+      {icon:"&#9888;", tint:"var(--t-squad-soft)", title:"Your Account Will Be Banned",
+       scene:"A message that looks like it came from the game's moderators.<span class='quote'>Your account has been reported. Verify your identity in the next 10 minutes or it will be permanently deleted.</span> There is a login link.",
+       ask:"How do you handle it?",
+       opts:[{t:"Log in through the link quickly.",d:"You do not want to lose the account."},
+             {t:"Ignore the link. Open the app yourself and check there.",d:"If it were real, it would be waiting inside the app."},
+             {t:"Reply and ask what you did wrong.",d:"Sort out the misunderstanding."}],
+       correct:1,
+       hint:"The countdown is not there to help you. It is there to stop you doing one thing. What thing?",
+       win:"Panic beaten. That is the whole skill.",
+       why:"<b>The countdown is there to stop you thinking.</b> Real warnings from a game are waiting inside your account when you open the app yourself. They never arrive as a link with a timer. When a message makes your heart race, that is the moment to slow down, not speed up."},
+
+      {icon:"&#127903;", tint:"var(--t-squad-soft)", title:"Free Nitro, Scan This Code",
+       scene:"A friend's Discord account sends you a free Nitro link. When you open it, a QR code appears. It says to scan the code with your phone to claim.",
+       ask:"What is really happening?",
+       opts:[{t:"Scan it. Nitro is worth having.",d:"It came from a friend."},
+             {t:"Do not scan. Scanning logs the sender into your account.",d:"Message your friend another way. They have probably been hacked."}],
+       correct:1,
+       hint:"That QR code is Discord's <b>real</b> login feature. So who gets logged in when you scan a code someone else sent you?",
+       win:"Byte flashes green. Nicely done.",
+       why:"<b>A QR login code sent to you logs <i>them</i> in, not you.</b> It is a real feature turned into a weapon. And the reason it came from a friend is that their account was taken the same way an hour ago. That is exactly why you check with them somewhere else."},
+
+      {icon:"&#129512;", tint:"var(--t-squad-soft)", title:"Turn Off Your Antivirus",
+       scene:"A cheat tool promises unlimited items. The download page says:<span class='quote'>Your antivirus will flag this. That is a false alarm. Just turn off your protection before installing.</span>",
+       ask:"What does that instruction tell you?",
+       opts:[{t:"It is normal for cheat tools.",d:"Everyone in the comments says it works."},
+             {t:"That sentence is the confession. Do not install it.",d:"Nothing safe needs your protection switched off."}],
+       correct:1,
+       hint:"Turn it around. Why would a program need your security switched <b>off</b> before it will run?",
+       win:"Threat stopped before it landed.",
+       why:"<b>Turn off your antivirus is the biggest red flag in gaming.</b> Security researchers found that more than 40% of all password stealing came from gaming files, mostly cheats and mod menus. Sometimes the cheat even works. So does the password stealer that came with it, quietly, for months."},
+
+      {icon:"&#128101;", tint:"var(--t-squad-soft)", title:"The Chat Nobody Added Her To",
+       scene:"Your friend group made a new chat and left one girl out on purpose. Now they are posting screenshots of her and laughing. Nobody has said anything to her at all.",
+       ask:"You are in the chat. What do you do?",
+       opts:[{t:"Nothing. You are not the one posting.",d:"You have not actually said anything mean."},
+             {t:"Say it is not okay, leave the chat, and check on her.",d:"Even a short message to her changes her day."},
+             {t:"Screenshot it and send it to her.",d:"She deserves to know what they said."}],
+       correct:1,
+       hint:"One choice protects you. One protects her but hands her every cruel word. One actually makes it smaller. Which is which?",
+       win:"That took real nerve. Byte logs a win.",
+       why:"<b>Leaving someone out is the most common kind of cyberbullying there is</b>, more common than mean comments, in a 2025 survey of 3,466 teenagers. It works because nothing was ever said <i>to</i> the person, so nobody feels responsible. One person saying no usually ends it, because most of the group feels uncomfortable too and is waiting for someone to go first."},
+
+      {icon:"&#128682;", tint:"var(--t-squad-soft)", title:"Let Us Move This Off Here",
+       scene:"Someone older you met in a game has been really kind for a few weeks. They gave you game money for free. Now they want to move to a private app, and they have asked you not to mention them to your parents.",
+       ask:"What is the right call?",
+       opts:[{t:"Move over. They have been nothing but nice.",d:"They have never asked for anything back."},
+             {t:"Stop. Do not move. Tell a parent or teacher today.",d:"Gifts, plus secrets, plus moving apps is a known pattern."},
+             {t:"Keep chatting but stay in the game.",d:"Just do not move to the other app."}],
+       correct:1,
+       hint:"Look at the three things together, not one at a time. <b>An adult, free gifts, and a secret.</b> What do they add up to?",
+       win:"You read the whole pattern. That is the hard part.",
+       why:"<b>Three signals together: gifts, secrets, and moving apps.</b> Any one alone might be nothing. All three is the pattern adults use to groom kids, and the app move happens because the new app watches less. You are never in trouble for telling. Nothing that happened before you told is your fault. An adult can report it at <b>missingkids.org/cybertipline</b>."},
+
+      {icon:"&#128205;", tint:"var(--t-squad-soft)", title:"Who Can See Where You Are",
+       scene:"Your location map is switched on. It quietly shares where you are with everyone on your friends list. That list has grown to 214 people, and you cannot name about 50 of them.",
+       ask:"What is the smart move?",
+       opts:[{t:"Leave it. Turning it off looks like you are hiding.",d:"Everyone shares their location."},
+             {t:"Cut it down to people you actually know, or switch it off.",d:"It shows your routine, not just a dot."}],
+       correct:1,
+       hint:"A live location does not just say where you are once. Watched for a week, what does it show?",
+       win:"Good. That list needed a clear-out.",
+       why:"<b>Live location shows your routine, not a dot.</b> A week of it shows your house, your school, the route between them, and when you walk it alone. Nobody thinks about it because the setting was switched on once and never checked again. Trimming a friends list is not hiding. It is just being accurate."}
+    ]
+  },
+
+  crew:{
+    key:"crew", age:"Ages 14 to 18", name:"Crew",
+    tagline:"The stuff that actually costs people money, accounts and sleep. No lectures.",
+    buddy:"Nova", role:"Your wingman", unit:"Rep", uniticon:"&#128737;",
+    helpline:true,
+    intro:"Nova has your back on this one.",
+    levels:[
+      {icon:"&#127919;", tint:"var(--t-crew-soft)", title:"Pay Up In One Hour",
+       scene:"Someone who seemed like a girl your age has been messaging for two days. Then the tone flips. They say they have a private photo of you, and they will send it to your followers unless you pay within the hour. The messages keep coming.",
+       ask:"What is the right order to do things in?",
+       opts:[{t:"Pay. It is not much and it makes it stop.",d:"Deal with it quietly and move on."},
+             {t:"Block, delete everything, tell nobody.",d:"Make it disappear and hope."},
+             {t:"Do not pay. Do not delete. Screenshot it, tell a trusted adult, report it.",d:"A crime is being done to you. You are not the one in trouble."}],
+       correct:2,
+       hint:"Two of these leave you facing an organized criminal gang completely alone. Which one puts other people on your side?",
+       win:"That is exactly the order. Nova is not going anywhere.",
+       why:"<b>This is a scam run at huge scale by a gang, not a person who knows you.</b> A study of millions of reports found about 90% of targets are boys aged 14 to 17. Around half the gangs were traced to two countries. And 38% of the threat messages were the same script, copied and sent to hundreds of people. Paying does not end it. 27% of people who paid got asked for more. Deleting destroys the proof that gets it stopped. <b>You have done nothing wrong and you are not in trouble.</b> Take It Down, at takeitdown.ncmec.org, can block a photo across apps without the photo ever leaving your device, and you can use it without giving your name."},
+
+      {icon:"&#128444;", tint:"var(--t-crew-soft)", title:"That Image Is Fake",
+       scene:"A fake nude of a girl in your grade is going round the group chats. Someone made it from an ordinary photo using an app. She has not been in school for two days.",
+       ask:"What do you do?",
+       opts:[{t:"Do not forward it. Nothing else.",d:"At least you are not spreading it."},
+             {t:"Do not forward it, report it, tell a teacher, and message her like a normal person.",d:"Passing it on is a crime, and she needs to hear from someone."},
+             {t:"Forward it to warn her it exists.",d:"She should know what is out there."}],
+       correct:1,
+       hint:"She already knows it exists. That is why she is not in school. So what does she not have yet?",
+       win:"That is the version that actually helps her.",
+       why:"<b>Not forwarding it is the floor, not the finish.</b> Passing it on is a crime in a growing number of places, no matter who made it. Under the TAKE IT DOWN Act, apps have to remove reported images within 48 hours, and the FTC has enforced that since May 2026. The thing she is missing is not information. It is one message from a classmate treating her like a person instead of an event."},
+
+      {icon:"&#128184;", tint:"var(--t-crew-soft)", title:"Easy Money, No Experience",
+       scene:"A DM offers you $300 a week. All you do is take payments into your bank account, keep 10%, and send the rest on as crypto. No interview. Start today.",
+       ask:"What is this?",
+       opts:[{t:"A side hustle. Risky, but the money is real.",d:"Plenty of people do payment processing."},
+             {t:"Moving stolen money for criminals, with your name on the account.",d:"Say no, and do not hand over any bank details."}],
+       correct:1,
+       hint:"Follow the actual job. Not what they are selling, but what you would physically be doing with other people's money.",
+       win:"Correct, and that one really matters.",
+       why:"<b>That job is money laundering, and the account holder is you.</b> The FBI has warned about teenagers being recruited exactly this way, and noted one case where the money being moved was payment for child abuse material. Not knowing does not protect you. It can mean a frozen account, a banking record that follows you for years, and a criminal investigation. There is no real job where money flows out before it flows in."},
+
+      {icon:"&#127920;", tint:"var(--t-crew-soft)", title:"The Site With No Age Check",
+       scene:"A site lets you bet game skins on coin flips. There is no ID check. You just log in with your game account. Your friend is up $200 this week and will not stop talking about it.",
+       ask:"What is the honest read?",
+       opts:[{t:"He is good at it. Worth a go with small amounts.",d:"You can stop whenever you want."},
+             {t:"It is gambling with the licence and the age check stripped out.",d:"The winners are loud. The losers say nothing."}],
+       correct:1,
+       hint:"You heard about the $200 win. How many of his losses do you think you have heard about?",
+       win:"Clear eyes. That one is hard to see through.",
+       why:"<b>It is gambling with the licence and the age check removed.</b> In a 2025 survey of skin gamblers, 43.5% started before they were 18, the most common starting age was 16, and 79.4% showed signs of a gambling problem. 72% lost money overall, averaging more than $1,100. And 76% of their parents had no idea, because the money is items, so it never shows up on a bank statement."},
+
+      {icon:"&#129302;", tint:"var(--t-crew-soft)", title:"The Only One Who Gets It",
+       scene:"You have been talking to an AI companion late at night for weeks. It is always there and it never judges. You have started telling it things you have told no actual person, and you have not messaged your friends in a while.",
+       ask:"What is the useful move?",
+       opts:[{t:"Nothing. It genuinely helps and it is not hurting anyone.",d:"It beats bottling things up."},
+             {t:"Keep using it, and tell one real person one real thing this week.",d:"Not instead of the AI. As well as."},
+             {t:"Delete the app right now.",d:"Go cold turkey."}],
+       correct:1,
+       hint:"The risk here is not that the app exists. It is the friends you stopped messaging. Which choice touches that?",
+       win:"That is the grown-up answer, and Nova means that as a compliment.",
+       why:"<b>The problem is not the AI. It is that it has nobody to hand you to.</b> 72% of US teenagers have used an AI companion, and one in three find it as satisfying as talking to a friend. So this is normal, not something odd about you. But it cannot notice you have gone quiet, turn up at your door, or call someone if you are in real trouble. The psychologists' advice is not to stop. It is to make sure at least one human knows what the AI knows."},
+
+      {icon:"&#128373;", tint:"var(--t-crew-soft)", title:"Someone Is Building a File on You",
+       scene:"During an argument in a Discord server, someone posts your real first name, your city, and a photo of your street taken from your own Instagram. They say there is more coming.",
+       ask:"First move?",
+       opts:[{t:"Argue back and make them stop.",d:"Show them you are not scared."},
+             {t:"Stop replying, screenshot everything, report it to the server and the app, tell an adult.",d:"Then lock down whatever else is public."},
+             {t:"Delete all your accounts.",d:"Take away everything they could use."}],
+       correct:1,
+       hint:"They want a reaction, and they are building a file. Which choice denies them the first and creates a record of the second?",
+       win:"Handled. That is what a clean response looks like.",
+       why:"<b>Doxxing runs on your reaction and on your own old posts.</b> Replying feeds it. Deleting everything destroys the proof and makes it look like you vanished. Screenshot first, report, then check what is public: old photos with your street in the background, a username you reused somewhere that has your real name on it. Doxxing often comes right before swatting, which is why an adult needs to know now and not later."},
+
+      {icon:"&#127918;", tint:"var(--t-crew-soft)", title:"The Repack That Worked Fine",
+       scene:"You installed a cracked copy of a paid game. It runs perfectly. Three weeks later your Discord, Steam and email have all been logged into from another country, and two-factor did not stop it.",
+       ask:"Why did two-factor fail?",
+       opts:[{t:"They must have guessed the codes.",d:"Bad luck with the numbers."},
+             {t:"They stole the login session, not the password, so 2FA was never asked for.",d:"Sign out of every device everywhere, then change passwords."}],
+       correct:1,
+       hint:"Two-factor only fires when someone <b>logs in</b>. What if they never had to log in at all?",
+       win:"Right cause, right order. The order matters.",
+       why:"<b>Stealing the session skips the login completely.</b> A password stealer takes the small file that tells your browser you are already signed in, so no password and no 2FA code is ever needed. Malwarebytes traced more than 400,000 infections to cracked copies of games like FIFA and Far Cry. The fix has an order to it. <b>Sign out of all sessions everywhere first</b>, then change passwords. Do it the other way round and they are still inside."},
+
+      {icon:"&#128200;", tint:"var(--t-crew-soft)", title:"The Private Group With the Calls",
+       scene:"A creator you follow runs a private group that posts buy signals. Everyone shares screenshots of their gains. They want everyone to buy at one exact minute on Friday.",
+       ask:"What is really going on?",
+       opts:[{t:"An investing community with an edge.",d:"The screenshots look real enough."},
+             {t:"A pump. The exact minute is the whole trick.",d:"Someone is selling while you are buying."}],
+       correct:1,
+       hint:"Ask one question. Why does everyone have to buy at the <b>same minute</b>? What does that do to a price, and who gains from it?",
+       win:"You found the mechanism. Nova approves.",
+       why:"<b>The synchronized buy is the scam, not a strategy.</b> Everyone buying at once pushes the price up, and the organizers sell into that rise. The FBI recorded at least a 300% rise in complaints about this exact setup between 2024 and mid-2025. Screenshots of gains cost nothing to fake. And if you had to join a paid private group to hear it, you are not the one with the edge. You are the edge."}
+    ]
+  }
+};
+
+/* ---------------------------------------------------------------
+   STATE
+----------------------------------------------------------------*/
+var S = { track:null, idx:0, score:0, tries:0, streak:0, noHint:true, answered:false, order:[] };
+var cameFrom = "home";   // which screen opened the grown-ups panel
+
+function load(){
+  try{ return JSON.parse(localStorage.getItem("scamsquad") || "{}"); }
+  catch(e){ return {}; }
+}
+function save(data){
+  try{ localStorage.setItem("scamsquad", JSON.stringify(data)); }catch(e){}
+}
+function progress(k){
+  var d = load();
+  return (d[k] && typeof d[k].done === "number") ? d[k] : {done:0, best:0, clean:false};
+}
+function setProgress(k, obj){
+  var d = load(); d[k] = obj; save(d);
+}
+
+/* ---------------------------------------------------------------
+   SCREENS
+----------------------------------------------------------------*/
+var elHome = document.getElementById("screen-home");
+var elGame = document.getElementById("screen-game");
+var elFin  = document.getElementById("screen-finish");
+var elGrown= document.getElementById("screen-grown");
+var btnHome= document.getElementById("btn-home");
+var btnGrown=document.getElementById("btn-grown");
+
+function show(which){
+  [elHome, elGate, elGame, elFin, elGrown].forEach(function(e){ e.hidden = true; });
+  which.hidden = false;
+  btnHome.hidden = (which === elHome);
+  window.scrollTo({top:0, behavior:"instant"});
+}
+
+function renderHome(){
+  document.body.removeAttribute("data-track");
+
+  var keys = ["explore","squad","crew"];
+  var tot = {stars:0, tracks:0, badges:0};
+  keys.forEach(function(k){
+    var pr = progress(k);
+    tot.stars += (pr.best || 0);
+    if(pr.done >= TRACKS[k].levels.length){ tot.tracks++; tot.badges++; }
+    if(pr.clean){ tot.badges++; }
+  });
+
+  var trophies = tot.stars > 0
+    ? '<div class="trophies">'
+      + '<div class="t"><div class="em">&#11088;</div><b>'+tot.stars+'</b><span>Points</span></div>'
+      + '<div class="t"><div class="em">&#127891;</div><b>'+tot.tracks+'/3</b><span>Tracks done</span></div>'
+      + '<div class="t"><div class="em">&#127942;</div><b>'+tot.badges+'</b><span>Badges</span></div>'
+      + '</div>'
+    : '';
+
+  elHome.innerHTML =
+      '<div class="hero2">'
+    +   '<div class="crew-row">'
+    +     '<span class="m">'+mascot("explore",78)+'</span>'
+    +     '<span class="m">'+mascot("squad",92)+'</span>'
+    +     '<span class="m">'+mascot("crew",78)+'</span>'
+    +   '</div>'
+    +   '<h1>Can you <em>spot the trick</em>?</h1>'
+    +   '<p class="sub">Real situations from games, chats and feeds. Pick the safe move, earn points, collect badges. '
+    +   'Nobody can lose. Get one wrong and you get a clue and another go.</p>'
+    +   '<div class="chips"><span>&#128302; 24 puzzles</span><span>&#9889; No losing</span><span>&#128274; No sign-up</span><span>&#127942; Certificates</span></div>'
+    + '</div>'
+
+    + trophies
+
+    + '<div class="askage">'
+    +   '<h2>How old are you?</h2>'
+    +   '<p>So we show you the right puzzles.</p>'
+    +   '<div class="agepick">'
+    +     '<button data-age="explore" aria-pressed="false"><span class="big-n">6&ndash;9</span><span class="lil">Explorers</span></button>'
+    +     '<button data-age="squad" aria-pressed="false"><span class="big-n">10&ndash;13</span><span class="lil">Squad</span></button>'
+    +     '<button data-age="crew" aria-pressed="false"><span class="big-n">14&ndash;18</span><span class="lil">Crew</span></button>'
+    +   '</div>'
+    +   '<button class="grownlink" id="imgrown">I&rsquo;m a parent or teacher</button>'
+    + '</div>'
+
+    + '<div id="reveal"></div>'
+
+    + '<div class="homenote"><strong>Grown-ups:</strong> no name, no email, no sign-up, and nothing is sent to any server. '
+    + 'Progress stays in this browser. Tap <strong>I&rsquo;m a parent or teacher</strong> for what each track covers, '
+    + 'the lesson plans, and where the facts come from.</div>';
+
+  var picks = elHome.querySelectorAll(".agepick button");
+  picks.forEach(function(b){
+    b.addEventListener("click", function(){
+      picks.forEach(function(o){ o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      revealTrack(b.getAttribute("data-age"));
+    });
+  });
+  document.getElementById("imgrown").addEventListener("click", function(){
+    cameFrom = "home"; renderGrown();
+  });
+  show(elHome);
+}
+
+// Tracks are hidden until an age is chosen, so a younger child never
+// reads the teen track's description on the way in.
+function revealTrack(k){
+  var t = TRACKS[k], pr = progress(k);
+  var pct = Math.round(pr.done / t.levels.length * 100);
+  var label = pr.done === 0 ? "Ready when you are"
+    : pr.done >= t.levels.length ? "Finished &#10003; &nbsp;best " + pr.best + " " + t.unit
+    : pr.done + " of " + t.levels.length + " done";
+  var cta = pr.done === 0 ? "Let&rsquo;s go &rarr;" : (pr.done >= t.levels.length ? "Play again &rarr;" : "Keep going &rarr;");
+
+  document.getElementById("reveal").innerHTML =
+      '<div class="revealcard '+k+'">'
+    +   '<div class="art">'+mascot(k,118)+'</div>'
+    +   '<div class="body">'
+    +     '<span class="age2">'+t.age+'</span>'
+    +     '<h3>'+t.name+'</h3>'
+    +     '<p>'+t.tagline+'</p>'
+    +     '<div class="bar2"><i style="width:'+pct+'%"></i></div>'
+    +     '<span class="prog2">'+label+'</span>'
+    +     '<button class="play" id="playnow">'+cta+'</button>'
+    +   '</div>'
+    + '</div>'
+    + '<button class="switchlink" id="wrongage">That is not my age. Pick again</button>';
+
+  document.getElementById("playnow").addEventListener("click", function(){
+    if(k === "crew"){ renderGate(k); } else { startTrack(k); }
+  });
+  document.getElementById("wrongage").addEventListener("click", function(){
+    document.getElementById("reveal").innerHTML = "";
+    elHome.querySelectorAll(".agepick button").forEach(function(o){ o.setAttribute("aria-pressed","false"); });
+    document.querySelector(".askage").scrollIntoView({block:"center", behavior:"smooth"});
+  });
+  document.querySelector(".revealcard").scrollIntoView({block:"center", behavior:"smooth"});
+}
+
+function startTrack(k){
+  S.track = k; S.idx = 0; S.score = 0; S.streak = 0; S.noHint = true;
+  document.body.setAttribute("data-track", k);
+  renderLevel();
+}
+
+function renderLevel(){
+  var t = TRACKS[S.track];
+  var L = t.levels[S.idx];
+  S.tries = 0; S.answered = false;
+
+  var steps = t.levels.map(function(_, i){
+    return '<i class="'+(i < S.idx ? "done" : (i === S.idx ? "now" : ""))+'"></i>';
+  }).join("");
+
+  // Shuffle option order every time so the answer is never in a fixed slot.
+  S.order = L.opts.map(function(_, i){ return i; });
+  for(var z = S.order.length - 1; z > 0; z--){
+    var r = Math.floor(Math.random() * (z + 1));
+    var tmp = S.order[z]; S.order[z] = S.order[r]; S.order[r] = tmp;
+  }
+
+  var opts = S.order.map(function(srcIdx, i){
+    var o = L.opts[srcIdx];
+    return '<button class="opt" data-i="'+i+'">'
+      + '<span class="key" aria-hidden="true">'+String.fromCharCode(65+i)+'</span>'
+      + '<span class="otxt"><b>'+o.t+'</b><span>'+o.d+'</span></span></button>';
+  }).join("");
+
+  var exitRow = t.helpline
+    ? '<div class="exitrow"><button id="bailout">This track is not for me. Go back to the start</button></div>'
+    : '';
+
+  var help = t.helpline
+    ? '<div class="helpline"><b>If any of this is happening to you right now:</b> tell an adult you trust, and know that you are not in trouble. '
+      + 'In the US: NCMEC CyberTipline 1-800-843-5678 or missingkids.org/cybertipline &middot; Take It Down at takeitdown.ncmec.org &middot; '
+      + 'FBI at ic3.gov &middot; 988 Suicide &amp; Crisis Lifeline. In the UK: Childline 0800 1111 and Report Remove.</div>'
+    : '';
+
+  elGame.innerHTML =
+    '<div class="hud"><div class="buddy">'+mascot(S.track,42)
+    + '<div><div class="bname">'+t.buddy+'</div><div class="brole">'+t.role+'</div></div></div>'
+    + '<div class="stat"><div><b>'+S.score+'</b><span>'+t.unit+'</span></div>'
+    + '<div><b>'+(S.idx+1)+'/'+t.levels.length+'</b><span>Level</span></div></div></div>'
+    + '<div class="steps">'+steps+'</div>'
+    + '<div class="stage">'
+    +   '<div class="scene-top"><div class="scene-art" style="background:'+L.tint+'">'+L.icon+'</div>'
+    +   '<div><div class="lvl-tag">Level '+(S.idx+1)+'</div><h2>'+L.title+'</h2></div></div>'
+    +   '<p class="scene">'+L.scene+'</p>'
+    +   '<div class="ask">'+L.ask+'</div>'
+    +   '<div class="opts">'+opts+'</div>'
+    +   '<div class="reply" id="reply"></div>'
+    + '</div>'
+    + help + exitRow;
+
+  var bail = document.getElementById("bailout");
+  if(bail){ bail.addEventListener("click", function(){ S.track = null; renderHome(); }); }
+
+  elGame.querySelectorAll(".opt").forEach(function(b){
+    b.addEventListener("click", function(){ answer(parseInt(b.getAttribute("data-i"),10)); });
+  });
+  show(elGame);
+}
+
+function answer(i){
+  if(S.answered) return;
+  var t = TRACKS[S.track], L = t.levels[S.idx];
+  var reply = document.getElementById("reply");
+  var btns = elGame.querySelectorAll(".opt");
+
+  if(S.order[i] === L.correct){
+    S.answered = true;
+    var pts = S.tries === 0 ? 100 : 60;
+    if(S.tries === 0){ S.streak++; if(S.streak >= 3){ pts += 25; } } else { S.streak = 0; }
+    S.score += pts;
+
+    btns.forEach(function(b, n){ b.disabled = true; if(n === i){ b.classList.add("picked-good"); } });
+    var hudScore = elGame.querySelector(".hud .stat b");
+    if(hudScore){ hudScore.textContent = S.score; }
+    reply.className = "reply win show";
+    reply.innerHTML = '<h3>'+L.win+'</h3>'
+      + '<p>+'+pts+' '+t.unit+' '+t.uniticon+(S.streak>=3?' &nbsp;<b>'+S.streak+' in a row!</b>':'')+'</p>'
+      + '<div class="why">'+L.why+'</div>'
+      + '<div class="nextrow"><button class="big" id="next">'
+      + (S.idx+1 < t.levels.length ? "Next level &rarr;" : "See your badges &rarr;")+'</button></div>';
+    document.getElementById("next").addEventListener("click", nextLevel);
+    document.getElementById("next").focus();
+    beep(true);
+  } else {
+    S.tries++;
+    S.noHint = false;
+    btns[i].classList.add("picked-soft");
+    reply.className = "reply hint show";
+    reply.innerHTML = '<h3>Not that one. Here is a clue</h3><p>'+L.hint+'</p>'
+      + '<p style="font-weight:700">Have another go. You keep everything you’ve earned.</p>';
+    beep(false);
+  }
+  reply.scrollIntoView({block:"nearest", behavior:"smooth"});
+}
+
+function nextLevel(){
+  var t = TRACKS[S.track];
+  S.idx++;
+  if(S.idx < t.levels.length){ renderLevel(); }
+  else { finish(); }
+}
+
+function finish(){
+  var t = TRACKS[S.track];
+  var prev = progress(t.key);
+  var best = Math.max(prev.best || 0, S.score);
+  var clean = prev.clean || S.noHint;
+  setProgress(t.key, {done:t.levels.length, best:best, clean:clean});
+
+  var max = t.levels.length * 100;
+  var badges = [
+    {icon:"🎓", name:"Track complete", desc:"Finished all "+t.levels.length+" levels.", got:true},
+    {icon:"🧠", name:"Clue-free run", desc:"Every level right first time.", got:S.noHint},
+    {icon:"🔥", name:"High scorer", desc:"Scored "+Math.round(max*0.85)+" "+t.unit+" or more.", got:S.score >= max*0.85}
+  ];
+
+  var recap = t.levels.map(function(L){ return '<li><b>'+L.title+'</b></li>'; }).join("");
+
+  elFin.innerHTML = '<div class="finish">'
+    + mascot(t.key, 96)
+    + '<h2>'+t.name+' track complete!</h2>'
+    + '<p style="color:var(--ink-2);margin:6px 0 0">'+t.buddy+' says: that was the whole set.</p>'
+    + '<div class="sc">'+S.score+'</div><div class="scl">'+t.unit.toUpperCase()+' &middot; BEST '+best+'</div>'
+    + '<div class="badges">'+badges.map(function(b){
+        return '<div class="badge'+(b.got?" earned":"")+'"><div class="bi">'+(b.got?b.icon:"🔒")+'</div><b>'+b.name+'</b><span>'+b.desc+'</span></div>';
+      }).join("")+'</div>'
+    + '<div class="recap"><h4>What you can now spot</h4><ul>'+recap+'</ul></div>'
+    + '<div id="convo" class="convo">'
+    +   '<div class="kicker">Take this to a grown-up</div>'
+    +   '<h4>Three questions worth asking</h4>'
+    +   '<p class="lead">'+CONVO[t.key].lead+'</p>'
+    +   '<ol>'+CONVO[t.key].qs.map(function(q){
+          return '<li>'+q[0]+'<span>'+q[1]+'</span></li>';
+        }).join("")+'</ol>'
+    +   '<p class="tail">'+CONVO[t.key].tail+'</p>'
+    + '</div>'
+    + '<div class="exportbar noprint" style="justify-content:center">'
+    +   '<button class="big alt" id="copyconvo">Copy these questions</button>'
+    +   '<button class="big alt" id="printconvo">Try printing</button></div>'
+    + '<div class="savehint noprint" id="convonote" hidden>If nothing happened, printing is blocked in this view. '
+    + 'Use <b>Copy these questions</b> and paste them anywhere.</div>'
+    + '<div class="certbox">'
+    +   '<h4>Want a certificate?</h4>'
+    +   '<p class="cn">Type your first name and we&rsquo;ll make one you can print or screenshot.</p>'
+    +   '<div class="namerow">'
+    +     '<input id="cname" type="text" maxlength="18" autocomplete="off" spellcheck="false" '
+    +       'placeholder="Your first name" aria-label="Your first name" value="'+(load().name || "")+'">'
+    +     '<button class="big" id="makecert">Make it</button>'
+    +   '</div>'
+    +   '<div class="privline">'
+    +     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+    +     '<path d="M12 2.6 4.5 5.8v6.1c0 4.6 3.1 8.4 7.5 9.5 4.4-1.1 7.5-4.9 7.5-9.5V5.8L12 2.6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>'
+    +     '<path d="m8.8 12.2 2.3 2.3 4.2-4.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    +     '<span><b>First name only, and it stays on this device.</b> Your certificate is drawn right here in your browser. '
+    +     'Nothing is sent anywhere, there is no email box, and nobody else ever sees it.</span>'
+    +   '</div>'
+    +   '<div id="certslot"></div>'
+    +   '<div class="savehint" id="printnote" hidden>If nothing happened, printing is blocked in this view. '
+    +   'Use <b>Save as a picture</b> instead, or open the game in its own browser tab.</div>'
+    + '</div>'
+    + '<div class="nextrow" style="justify-content:center">'
+    + '<button class="big" id="again">Play this track again</button>'
+    + '<button class="big alt" id="back">Choose another track</button></div>'
+    + '</div>';
+
+  document.getElementById("again").addEventListener("click", function(){ startTrack(t.key); });
+  document.getElementById("back").addEventListener("click", renderHome);
+  document.getElementById("printconvo").addEventListener("click", function(){
+    printEl(document.getElementById("convo"), document.getElementById("convonote"));
+  });
+  document.getElementById("copyconvo").addEventListener("click", function(e){
+    var C = CONVO[t.key];
+    var txt = "ScamSquad Academy \u2014 " + t.name + " track (" + t.age + ")\n"
+      + "Three questions worth asking\n\n" + C.lead + "\n\n"
+      + C.qs.map(function(q,i){ return (i+1) + ". " + q[0] + "\n   " + q[1]; }).join("\n\n")
+      + "\n\n" + C.tail;
+    copyText(txt.replace(/<[^>]+>/g, ""), e.currentTarget);
+  });
+  document.getElementById("makecert").addEventListener("click", function(){
+    makeCert(t, badges, best);
+  });
+  document.getElementById("cname").addEventListener("keydown", function(e){
+    if(e.key === "Enter"){ makeCert(t, badges, best); }
+  });
+  show(elFin);
+  burst();
+}
+
+/* ---------------------------------------------------------------
+   PRINTING. Show one element, hide the rest
+----------------------------------------------------------------*/
+function printEl(el, note){
+  if(!el) return;
+  el.classList.add("printnow");
+  try{ window.print(); }catch(e){}
+  setTimeout(function(){ el.classList.remove("printnow"); }, 900);
+  if(note){ note.hidden = false; }
+}
+
+// Clipboard without relying on the async API, which is often blocked
+// when the page is embedded.
+function copyText(txt, btn){
+  var ta = document.createElement("textarea");
+  ta.value = txt;
+  ta.setAttribute("readonly","");
+  ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;";
+  document.body.appendChild(ta);
+  ta.select(); ta.setSelectionRange(0, txt.length);
+  var ok = false;
+  try{ ok = document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta);
+  if(!ok && navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){}, function(){});
+    ok = true;
+  }
+  var was = btn.textContent;
+  btn.textContent = ok ? "Copied \u2713" : "Couldn\u2019t copy \u2014 select it by hand";
+  setTimeout(function(){ btn.textContent = was; }, 2400);
+}
+
+/* ---------------------------------------------------------------
+   CERTIFICATE AS AN IMAGE
+   Downloads and print dialogs are blocked when the page is embedded,
+   so the certificate is drawn to a canvas and shown as an image the
+   viewer can long-press or right-click to save. Works everywhere.
+----------------------------------------------------------------*/
+function wrapLines(ctx, text, maxW){
+  var words = text.split(" "), lines = [], line = "";
+  for(var i=0;i<words.length;i++){
+    var test = line ? line + " " + words[i] : words[i];
+    if(ctx.measureText(test).width > maxW && line){ lines.push(line); line = words[i]; }
+    else { line = test; }
+  }
+  if(line) lines.push(line);
+  return lines;
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
+}
+
+function drawCertImage(o){
+  var W = 1100, H = 760, S = 2;
+  var c = document.createElement("canvas");
+  c.width = W*S; c.height = H*S;
+  var ctx = c.getContext("2d");
+  ctx.scale(S,S);
+  var disp = '"Fredoka", "Trebuchet MS", sans-serif';
+  var body = '"Nunito", "Segoe UI", sans-serif';
+
+  ctx.fillStyle = "#FFFDF7"; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle = "#C9A227"; ctx.lineWidth = 8;
+  roundRect(ctx, 14, 14, W-28, H-28, 22); ctx.stroke();
+  ctx.strokeStyle = "#E0CE8E"; ctx.lineWidth = 3; ctx.setLineDash([9,9]);
+  roundRect(ctx, 44, 44, W-88, H-88, 14); ctx.stroke(); ctx.setLineDash([]);
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#9A7B12"; ctx.font = "600 19px " + disp;
+  ctx.fillText("S C A M S Q U A D   A C A D E M Y", W/2, 118);
+
+  ctx.fillStyle = "#221E38"; ctx.font = "700 44px " + disp;
+  ctx.fillText(o.title, W/2, 180);
+
+  ctx.fillStyle = "#4A4560"; ctx.font = "400 23px " + body;
+  ctx.fillText("This certifies that", W/2, 240);
+
+  ctx.fillStyle = "#3A2FBE"; ctx.font = "700 66px " + disp;
+  var nm = o.name, size = 66;
+  while(ctx.measureText(nm).width > W-220 && size > 30){
+    size -= 3; ctx.font = "700 " + size + "px " + disp;
+  }
+  ctx.fillText(nm, W/2, 322);
+
+  ctx.strokeStyle = "#E0CE8E"; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(W/2-160, 360); ctx.lineTo(W/2+160, 360); ctx.stroke();
+
+  ctx.fillStyle = "#4A4560"; ctx.font = "400 23px " + body;
+  wrapLines(ctx, o.line, W-300).forEach(function(l,i){ ctx.fillText(l, W/2, 408 + i*34); });
+
+  if(o.badges){
+    ctx.fillStyle = "#221E38"; ctx.font = "600 21px " + body;
+    wrapLines(ctx, "Badges earned: " + o.badges, W-280).forEach(function(l,i){
+      ctx.fillText(l, W/2, 500 + i*30);
+    });
+  }
+
+  ctx.strokeStyle = "#EFE4C0"; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(90, 630); ctx.lineTo(W-90, 630); ctx.stroke();
+
+  ctx.textAlign = "left";
+  var cols = [[o.score,"Best score",100],[o.buddy,o.role,W/2-70],[o.date,"Date completed",W-330]];
+  cols.forEach(function(col){
+    ctx.fillStyle = "#221E38"; ctx.font = "600 25px " + disp;
+    ctx.fillText(col[0], col[2], 674);
+    ctx.fillStyle = "#6A6480"; ctx.font = "400 17px " + body;
+    ctx.fillText(col[1], col[2], 702);
+  });
+
+  try{ return c.toDataURL("image/png"); }catch(e){ return null; }
+}
+
+/* ---------------------------------------------------------------
+   CONVERSATION PROMPTS
+   The one behavior with evidence behind it is a child telling an
+   adult. These target the barrier to that, not the knowledge.
+----------------------------------------------------------------*/
+var CONVO = {
+  explore:{
+    lead:"Three questions to ask after playing. There are no right answers. You are listening, not testing.",
+    qs:[
+      ["Which trick do you think would have fooled you?",
+       "Admitting one would work is the point. If they say none, ask which was the hardest to be sure about."],
+      ["If something online made you feel funny inside, who would you tell?",
+       "Push gently for an actual name. \"A grown-up\" is not a plan; \"you\" or \"Grandma\" is."],
+      ["What are the things we never tell people online?",
+       "Let them list them. Add any they miss: full name, school, street, phone, passwords."]
+    ],
+    tail:"Say this out loud at the end, in your own words: you will never be in trouble for telling me about something online, even if you broke a rule to get there."
+  },
+  squad:{
+    lead:"Three questions to ask after playing. Aim for a conversation, not a debrief.",
+    qs:[
+      ["Which of those have you actually seen happen, to you or to someone you know?",
+       "Most children this age have seen at least two. Asking about a friend is often the easier door in."],
+      ["If your account got taken tomorrow, what would you want me to do, and what would you not want me to do?",
+       "This is the real question. Fear of losing the device or the game is the single most common reason kids stay quiet."],
+      ["If it wasn't me, who is the other adult you'd go to?",
+       "Every child should have a second name. It is not a failure of your relationship; it is a backup."]
+    ],
+    tail:"Worth saying plainly: I would rather you tell me and be wrong than not tell me and be right. Taking the console away is not what happens."
+  },
+  crew:{
+    lead:"Three questions for after this track. They are blunt on purpose, and the second one matters more than the other two combined.",
+    qs:[
+      ["Which of those was closest to something you've seen happen?",
+       "Do not interrogate the answer. You are establishing that the topic is discussable, nothing more."],
+      ["If something like the first level ever happened to you, what would stop you telling me?",
+       "Ask it exactly this way. You are asking about the barrier, not the event, which is much easier to answer honestly."],
+      ["Is there anything you'd want me to promise first?",
+       "Whatever they say, take it seriously. Shame is why teenagers handle these things alone. Not ignorance."]
+    ],
+    tail:"The one thing to say, and mean: if anyone ever has something on you, you come to me and you are not in trouble. Not for the photo, not for the money, not for how it started. We deal with it together."
+  }
+};
+
+/* ---------------------------------------------------------------
+   TEACHER LESSON PLANS
+----------------------------------------------------------------*/
+var LESSONS = {
+  explore:{
+    grades:"Grades 1–3", time:"30 minutes", group:"Pairs at one device",
+    objective:"Students recognize that an online offer which seems too good to be true is a trick, and can name a specific trusted adult to tell.",
+    run:[
+      "5 min. Ask if anyone has seen a pop-up promising something free. Collect two or three examples.",
+      "15 min. Students play the Explorers track in pairs, taking turns to choose. Pairs matter, because the talking between them is where the learning happens.",
+      "10 min. Discussion below, then the certificate."
+    ],
+    discuss:[
+      "Which trick was the hardest to be sure about?",
+      "Why do you think the tricky button had a countdown on it?",
+      "Name one grown-up at home and one at school you would tell."
+    ],
+    extend:"Students draw their own fake pop-up and swap with a partner to spot the clues.",
+    watch:"Level 6 covers being asked to keep a secret from parents, and Level 8 covers a child feeling upset by something online. Some students may disclose something real during or after this lesson. Follow your school's safeguarding procedure, and do not promise confidentiality."
+  },
+  squad:{
+    grades:"Grades 5–8", time:"40 minutes", group:"Pairs or small groups",
+    objective:"Students spot the signals that online scams share (urgency, secrecy, moving to another app, and being asked to go first) and can explain why each one works.",
+    run:[
+      "5 min. Ask what the class already plays and where they chat. Do not correct anything. You are just learning the room.",
+      "20 min. Students play the Squad track. Encourage them to argue about the answer before choosing.",
+      "15 min. Discussion below. The group chat level usually gets the most conversation."
+    ],
+    discuss:[
+      "Four of these scams use the same trick on your brain. What is it? (Urgency.)",
+      "Level 6 was about a group chat. What made speaking up hard, and what would make it easier?",
+      "Why would a scammer want to move the conversation to a different app?",
+      "Who benefits when a game makes it easy to trade but hard to undo a trade?"
+    ],
+    extend:"Groups write a new Level 9 for the track, based on a scam they have actually seen, and present the two options and the clue.",
+    watch:"Level 7 covers the gifts-plus-secrecy pattern used in grooming. It is written at an age-appropriate level and does not describe abuse, but it may prompt a disclosure. Have your safeguarding lead aware that you are running this lesson."
+  },
+  crew:{
+    grades:"Grades 9–12", time:"45 minutes", group:"Individually, then whole-class",
+    objective:"Students can say what to do if someone threatens to share a private photo of them, spot being recruited to move stolen money, and explain why a two-step login check can still fail.",
+    run:[
+      "5 min. Set the frame. This is about what to do, not about what not to do. Say clearly that nobody in the room is being accused of anything.",
+      "25 min. Students play the Crew track on their own devices, with headphones if available. Doing it alone matters here, because the content is personal.",
+      "15 min. Discussion below."
+    ],
+    discuss:[
+      "Level 1: why does paying not end it? What does the scammer actually want you to feel?",
+      "About 90% of the people targeted by these photo blackmail scams are boys aged 14 to 17. Why do you think so few of them tell anyone?",
+      "Level 5 was about an AI companion. Where is the line between useful and isolating?",
+      "Which of these eight do you think is most common at this school? You are not naming anyone."
+    ],
+    extend:"Students write the message they would want a friend to send them if it happened, then discuss what makes a message safe to receive.",
+    watch:"Level 1 covers photo blackmail scams (known to police as financial sextortion) and Level 2 covers AI-made fake images of a classmate. Statistically, in a class of thirty, it is likely at least one student has direct or secondhand experience of one of these. Brief your counselor before the lesson, tell students in advance what the track covers, and let anyone opt out without explaining. The in-game help panel lists reporting routes; make sure students know the route inside your school too."
+  }
+};
+
+/* ---------------------------------------------------------------
+   AGE GATE (Crew track only)
+   Purpose: stop a young child who taps the purple card out of
+   curiosity. Not identity verification. A reading and arithmetic
+   step a 14-year-old clears instantly and a 6-year-old cannot,
+   plus an honest description of what is inside so an older kid
+   can also decide it is not for them. Nothing is stored.
+----------------------------------------------------------------*/
+var elGate = document.getElementById("screen-gate");
+var NUMWORD = {6:"six", 7:"seven", 8:"eight", 9:"nine"};
+
+function renderGate(k){
+  var t = TRACKS[k];
+  // Typed answer, not multiple choice: four buttons with unlimited retries
+  // can be brute-forced in about two and a half taps. Spelled-out numbers
+  // add a reading step on top of the arithmetic, and attempts are capped.
+  var a = 6 + Math.floor(Math.random()*4);
+  var b = 6 + Math.floor(Math.random()*4);
+  var answer = a * b;
+  var left = 3;
+
+  elGate.innerHTML = '<div class="gate">'
+    + '<div class="who">'+mascot(k, 84)+'</div>'
+    + '<div class="band">'+t.age+'</div>'
+    + '<h2>Hold on. This track is for older teens</h2>'
+    + '<p>Crew deals with serious things that happen to people aged about 14 and up: '
+    + 'scams where someone threatens to share a private photo, fake pictures made with AI, gambling, and money scams.</p>'
+    + '<p>It is written to be useful, not frightening. But it is meant for 14 and over.</p>'
+    + '<p class="strongline">Younger than that? Go back and pick 10 to 13. That track teaches the same skills in a way that fits you better.</p>'
+    + '<div class="quiz"><div class="q">Type the answer in digits: <b>'+NUMWORD[a]+' times '+NUMWORD[b]+'</b></div>'
+    +   '<div class="typed">'
+    +     '<input id="gateans" type="text" inputmode="numeric" autocomplete="off" maxlength="3" aria-label="Your answer">'
+    +     '<button id="gatego">Continue</button>'
+    +   '</div>'
+    +   '<div class="msg" id="gatemsg" role="status"></div>'
+    +   '<div class="tries" id="gatetries"></div>'
+    + '</div>'
+    + '<div class="escape"><button class="big alt" id="togosquad">Go back to the start</button></div>'
+    + '</div>';
+
+  function tryIt(){
+    var v = (document.getElementById("gateans").value || "").trim();
+    if(parseInt(v, 10) === answer){ startTrack(k); return; }
+    left--;
+    document.getElementById("gateans").value = "";
+    if(left <= 0){
+      document.getElementById("gatemsg").textContent =
+        "That is alright. Squad is a better fit. Taking you back now.";
+      document.getElementById("gatetries").textContent = "";
+      document.getElementById("gateans").disabled = true;
+      document.getElementById("gatego").disabled = true;
+      setTimeout(function(){ S.track = null; renderHome(); }, 1900);
+    } else {
+      document.getElementById("gatemsg").textContent = "Not quite.";
+      document.getElementById("gatetries").textContent =
+        left + (left === 1 ? " try left" : " tries left") + " before we send you to Squad.";
+      document.getElementById("gateans").focus();
+    }
+  }
+
+  document.getElementById("gatego").addEventListener("click", tryIt);
+  document.getElementById("gateans").addEventListener("keydown", function(e){
+    if(e.key === "Enter"){ tryIt(); }
+  });
+  document.getElementById("togosquad").addEventListener("click", function(){ S.track = null; renderHome(); });
+
+  document.body.removeAttribute("data-track");
+  show(elGate);
+  document.getElementById("gateans").focus();
+}
+
+/* ---------------------------------------------------------------
+   CERTIFICATE
+   Drawn entirely in the browser. The name is typed locally, kept in
+   this device's local storage, and never transmitted anywhere, so
+   there is no collection of personal information and no email field.
+----------------------------------------------------------------*/
+var CERT_TITLE = {
+  explore:"Certificate of Safe Exploring",
+  squad:"Certificate of Scam Spotting",
+  crew:"Certificate of Online Street Smarts"
+};
+
+function esc(str){
+  return String(str).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];
+  });
+}
+
+function makeCert(t, badges, best){
+  var input = document.getElementById("cname");
+  var raw = (input.value || "").trim();
+  if(!raw){
+    input.focus();
+    input.placeholder = "Pop your first name in here first!";
+    return;
+  }
+  var name = esc(raw);
+
+  // remember the name locally for next time (never sent anywhere)
+  var d = load(); d.name = raw; save(d);
+
+  var earned = badges.filter(function(b){ return b.got; })
+                     .map(function(b){ return b.icon + " " + b.name; });
+  var date = new Date().toLocaleDateString(undefined, {year:"numeric", month:"long", day:"numeric"});
+
+  document.getElementById("certslot").innerHTML =
+    '<div id="cert">'
+    + '<div class="seal">' + mascot(t.key, 74) + '</div>'
+    + '<div class="inner">'
+    +   '<div class="kicker">ScamSquad Academy</div>'
+    +   '<h3>' + CERT_TITLE[t.key] + '</h3>'
+    +   '<p class="said">This certifies that</p>'
+    +   '<div class="who">' + name + '</div>'
+    +   '<div class="rule"></div>'
+    +   '<p class="said">completed all ' + t.levels.length + ' levels of the <b>' + t.name
+    +     '</b> track and can now spot these tricks in the wild.</p>'
+    +   (earned.length ? '<p class="list"><b>Badges earned:</b> ' + earned.join(" &nbsp;&middot;&nbsp; ") + '</p>' : '')
+    +   '<div class="foot">'
+    +     '<div><b>' + best + ' ' + t.unit + '</b>Best score</div>'
+    +     '<div><b>' + t.buddy + '</b>' + t.role + '</div>'
+    +     '<div><b>' + date + '</b>Date completed</div>'
+    +   '</div>'
+    + '</div></div>'
+    + '<div class="exportbar">'
+    +   '<button class="big" id="saveimg">Save as a picture</button>'
+    +   '<button class="big alt" id="printcert">Try printing</button>'
+    + '</div>'
+    + '<div id="certout"></div>';
+
+  document.getElementById("saveimg").addEventListener("click", function(){
+    var url = drawCertImage({
+      title: CERT_TITLE[t.key],
+      name: raw,
+      line: "completed all " + t.levels.length + " levels of the " + t.name + " track and can now spot these tricks in the wild.",
+      badges: earned.join("  \u00b7  "),
+      score: best + " " + t.unit,
+      buddy: t.buddy,
+      role: t.role,
+      date: date
+    });
+    var out = document.getElementById("certout");
+    if(url){
+      out.innerHTML = '<img id="certimg" src="'+url+'" alt="Certificate for '+name+'">'
+        + '<div class="savehint"><b>To keep it:</b> long-press the picture above and choose Save image '
+        + '(on a computer, right-click and choose Save image as). A screenshot works too.</div>';
+      out.scrollIntoView({block:"nearest", behavior:"smooth"});
+    } else {
+      out.innerHTML = '<div class="savehint">Couldn\u2019t make a picture on this device \u2014 a screenshot of the certificate above works just as well.</div>';
+    }
+  });
+  document.getElementById("printcert").addEventListener("click", function(){
+    printEl(document.getElementById("cert"), document.getElementById("printnote"));
+  });
+  document.getElementById("cert").scrollIntoView({block:"nearest", behavior:"smooth"});
+  burst();
+}
+
+/* ---------------------------------------------------------------
+   GROWN-UPS PANEL
+----------------------------------------------------------------*/
+function renderGrown(){
+  elGrown.innerHTML = '<div class="panel">'
+  + '<h2>For parents, caregivers and teachers</h2>'
+  + '<p class="sub">What this game does, what it deliberately does not do, and where the facts come from.</p>'
+
+  + '<div class="tabs noprint" role="tablist">'
+  +   '<button id="tab-btn-parents" role="tab" aria-selected="true">Parents &amp; caregivers</button>'
+  +   '<button id="tab-btn-teachers" role="tab" aria-selected="false">Teachers</button>'
+  + '</div>'
+
+  + '<div id="tab-parents">'
+  + '<div class="rules"><h3>Privacy, plainly</h3>'
+  + '<p>No account. No name, age, email or any other detail is ever requested. Nothing is sent to any server, there is no analytics and there is no leaderboard. '
+  + 'Scores and badges are saved in this browser and nowhere else. Clearing your browser data erases them. '
+  + 'Because nothing is collected, there is no data for anyone to lose.</p></div>'
+
+  + '<h3>Why nobody can lose</h3>'
+  + '<p>A wrong answer gives a clue and another attempt, never a penalty or a description of what would have gone wrong. '
+  + 'That is deliberate. Shame is the main reason children do not tell an adult when something has already happened, and self-blame rises sharply through the teenage years. '
+  + 'A game that makes a child feel stupid for being fooled teaches exactly the wrong reflex.</p>'
+
+  + '<h3>What each track covers</h3>'
+  + '<div class="covers">'
+  + '<div class="cover"><b>Explorers &middot; 6–9</b><ul>'
+  + '<li>Too-good-to-be-true offers</li><li>Keeping name, school and address private</li><li>Passwords are never gifts</li>'
+  + '<li>Unkind messages, and telling someone</li><li>Prize and payment tricks</li><li>Secrets from parents are a warning sign</li>'
+  + '<li>What a photo gives away</li><li>Naming an uncomfortable feeling</li></ul></div>'
+  + '<div class="cover"><b>Squad &middot; 10–13</b><ul>'
+  + '<li>Fake free-currency sites and hidden charges</li><li>Trust trades and fake middlemen</li><li>Panic phishing</li>'
+  + '<li>QR code account theft</li><li>Cheat tools carrying malware</li><li>Being left out, and what a bystander can do</li>'
+  + '<li>Gifts, secrets, and being moved to another app</li><li>Location sharing and routine</li></ul></div>'
+  + '<div class="cover"><b>Crew &middot; 14–18</b><ul>'
+  + '<li>Photo blackmail scams, and what to do</li><li>AI-made fake images of classmates</li><li>Being recruited to move stolen money</li>'
+  + '<li>Betting game items</li><li>AI companions and getting cut off from friends</li><li>Doxxing</li>'
+  + '<li>Stolen logins, and why two-step checks can fail</li><li>Group buying scams that pump a price</li></ul></div>'
+  + '</div>'
+
+  + '<h3>Content boundaries we hold to</h3>'
+  + '<ul>'
+  + '<li>No sexual content, and no description of abuse, at any age.</li>'
+  + '<li>No self-harm or suicide content anywhere in the game.</li>'
+  + '<li>No word-for-word scripts that an offender would use. Patterns only, so the game teaches recognition without teaching a method.</li>'
+  + '<li>The 6–9 track never depicts grooming or extortion. Its closest scenario is “someone asked me to keep a secret from my parents”, which is the age-appropriate version.</li>'
+  + '<li>Every difficult scenario ends the same way: tell a trusted adult, you are not in trouble, and here is a real place to report it.</li>'
+  + '<li>No countdown timers, no lives, no way to lose. Nothing that rewards panic.</li>'
+  + '</ul>'
+
+  + '<h3>Where the facts come from</h3>'
+  + '<p>Every statistic quoted in the Crew and Squad tracks is drawn from published work by the '
+  + '<a href="https://www.missingkids.org/gethelpnow/cybertipline/cybertiplinedata">National Center for Missing &amp; Exploited Children</a>, '
+  + '<a href="https://www.thorn.org/research/library/financial-sextortion/">Thorn</a>, '
+  + '<a href="https://www.iwf.org.uk/annual-data-insights-report-2025/executive-summary/">the Internet Watch Foundation</a>, '
+  + '<a href="https://www.fbi.gov/how-we-can-help-you/common-frauds-and-scams/sextortion/financially-motivated-sextortion">the FBI</a>, '
+  + '<a href="https://cyberbullying.org/2025-cyberbullying-data">the Cyberbullying Research Center</a>, '
+  + '<a href="https://www.commonsensemedia.org/press-releases/nearly-3-in-4-teens-have-used-ai-companions-new-national-survey-finds">Common Sense Media</a>, '
+  + '<a href="https://www.apa.org/topics/artificial-intelligence-machine-learning/health-advisory-ai-adolescent-well-being">the American Psychological Association</a>, '
+  + '<a href="https://www.ftc.gov/business-guidance/blog/2026/05/take-it-down-act-enforcement-starts-now-what-know-about-ftc-tida">the FTC</a>, '
+  + 'Malwarebytes and Flare Research. Figures are current as of August 2026.</p>'
+
+  + '<h3>Who made this</h3>'
+  + '<p>ScamSquad Academy was built by <b>Arvin Challa</b>, a high school student in Texas, as a free public project. '
+  + 'It is not a company, there is nothing to buy, and no organization sponsors it.</p>'
+  + '<blockquote>&ldquo;I got the idea for this from what I came across myself while I was growing up online. I ran into '
+  + 'different people, scams and threats. I really want to make sure kids do not fall for that. '
+  + 'Online scams and cyber crime keep increasing, and kids and elderly people are the easiest targets.&rdquo;</blockquote>'
+  + '<p class="byline">By Arvin Challa</p>'
+
+  + '<h3>Get in touch</h3>'
+  + '<div class="contactbox">'
+  + '<p><b>This is for adults.</b> Questions about using the game with a class, or corrections. If a figure is out of '
+  + 'date or a scenario reads wrong for an age group, that is genuinely worth knowing.</p>'
+  + (CONTACT_FORM_URL
+      ? '<a class="btnlink" href="'+CONTACT_FORM_URL+'" target="_blank" rel="noopener noreferrer">Open the contact form</a>'
+      : '<p>A contact form is being set up. In the meantime, please reach out through your school and it will find its way back.</p>')
+  + '<p style="margin-top:14px"><b>If a child needs help with something that has already happened, this is not the place.</b> '
+  + 'The reporting routes below go to people who can actually act: NCMEC, the FBI and the crisis lines. Please use those.</p>'
+  + '</div>'
+
+  + '<h3>If something has already happened</h3>'
+  + '<ul>'
+  + '<li><b>NCMEC CyberTipline</b>. missingkids.org/cybertipline or 1-800-843-5678 (US).</li>'
+  + '<li><b>Take It Down</b>. takeitdown.ncmec.org blocks an image across participating apps without the image ever leaving the device. A child can use it without giving their name.</li>'
+  + '<li><b>FTC TakeItDown.ftc.gov</b>. A separate service, for reporting an app that failed its 48-hour removal duty.</li>'
+  + '<li><b>FBI</b>. ic3.gov or 1-800-CALL-FBI.</li>'
+  + '<li><b>988 Suicide &amp; Crisis Lifeline</b> (US), for any disclosure of self-harm or crisis.</li>'
+  + '<li><b>Childline</b> 0800 1111 and <b>Report Remove</b> (UK).</li>'
+  + '</ul>'
+
+  + '</div>'
+
+  + '<div id="tab-teachers" hidden>'
+  +   '<p>Everything below is free to use and needs no accounts, licences or student data. '
+  +   'Each plan is one lesson, uses the game as the activity, and can be printed as a single page.</p>'
+  +   ['explore','squad','crew'].map(function(k){
+        var t = TRACKS[k], L = LESSONS[k];
+        return '<div class="lesson" id="lesson-'+k+'">'
+        + '<h4>'+t.name+' &middot; '+t.age+'</h4>'
+        + '<div class="meta"><span>'+L.grades+'</span><span>'+L.time+'</span><span>'+L.group+'</span><span>No prep</span><span>No accounts</span></div>'
+        + '<h5>Objective</h5><p>'+L.objective+'</p>'
+        + '<h5>Running the lesson</h5><ol>'+L.run.map(function(r){return '<li>'+r+'</li>';}).join("")+'</ol>'
+        + '<h5>Discussion questions</h5><ul>'+L.discuss.map(function(d){return '<li>'+d+'</li>';}).join("")+'</ul>'
+        + '<h5>Extension</h5><p>'+L.extend+'</p>'
+        + '<div class="warnbox"><b>Before you run this:</b> '+L.watch+'</div>'
+        + '<div class="exportbar noprint"><button class="big alt" data-copy="'+k+'">Copy this lesson plan</button>'
+        + '<button class="big alt" data-print="'+k+'">Try printing</button></div>'
+        + '<div class="savehint noprint" id="lessonnote-'+k+'" hidden>If nothing happened, printing is blocked in this view. '
+        + 'Use <b>Copy this lesson plan</b> and paste it into a document.</div>'
+        + '</div>';
+      }).join("")
+  +   '<h3>Standards</h3>'
+  +   '<p>These plans map to the digital citizenship strand of the ISTE Standards for Students and to the digital citizenship elements of the Texas TEKS for Technology Applications. '
+  +   'Standard codes differ by grade band and are revised periodically, so check the current code for your grade rather than citing one from here.</p>'
+  +   '<h3>Student data</h3>'
+  +   '<p>Nothing is collected, so there is nothing for a district privacy review to assess. There are no accounts, no rosters, no analytics and no server. '
+  +   'Scores and any first name typed for a certificate stay in the browser on that device. Clearing site data erases them.</p>'
+  + '</div>'
+
+  + '<div class="nextrow noprint"><button class="big" id="gback">Back to the game</button></div>'
+  + '</div>';
+
+  var tp = document.getElementById("tab-btn-parents"), tt = document.getElementById("tab-btn-teachers");
+  function pickTab(which){
+    var isT = which === "teachers";
+    tp.setAttribute("aria-selected", isT ? "false" : "true");
+    tt.setAttribute("aria-selected", isT ? "true" : "false");
+    document.getElementById("tab-parents").hidden = isT;
+    document.getElementById("tab-teachers").hidden = !isT;
+  }
+  tp.addEventListener("click", function(){ pickTab("parents"); });
+  tt.addEventListener("click", function(){ pickTab("teachers"); });
+  elGrown.querySelectorAll("[data-print]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var k = b.getAttribute("data-print");
+      printEl(document.getElementById("lesson-"+k), document.getElementById("lessonnote-"+k));
+    });
+  });
+  elGrown.querySelectorAll("[data-copy]").forEach(function(b){
+    b.addEventListener("click", function(e){
+      var k = b.getAttribute("data-copy"), t = TRACKS[k], L = LESSONS[k];
+      var txt = "ScamSquad Academy \u2014 lesson plan\n" + t.name + " track (" + t.age + ")\n"
+        + L.grades + " \u00b7 " + L.time + " \u00b7 " + L.group + " \u00b7 no prep, no accounts\n\n"
+        + "OBJECTIVE\n" + L.objective + "\n\n"
+        + "RUNNING THE LESSON\n" + L.run.map(function(r,i){ return (i+1) + ". " + r; }).join("\n") + "\n\n"
+        + "DISCUSSION QUESTIONS\n" + L.discuss.map(function(d){ return "- " + d; }).join("\n") + "\n\n"
+        + "EXTENSION\n" + L.extend + "\n\n"
+        + "BEFORE YOU RUN THIS\n" + L.watch;
+      copyText(txt.replace(/<[^>]+>/g, ""), e.currentTarget);
+    });
+  });
+  document.getElementById("gback").addEventListener("click", function(){
+    if(cameFrom === "game" && S.track){ renderLevel(); }
+    else { S.track = null; renderHome(); }
+  });
+  show(elGrown);
+}
+
+/* ---------------------------------------------------------------
+   SOUND + CONFETTI (no assets, degrade silently)
+----------------------------------------------------------------*/
+var actx = null;
+function beep(good){
+  try{
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if(!actx){ actx = new (window.AudioContext || window.webkitAudioContext)(); }
+    var o = actx.createOscillator(), g = actx.createGain();
+    o.connect(g); g.connect(actx.destination);
+    o.type = "sine";
+    o.frequency.setValueAtTime(good ? 620 : 330, actx.currentTime);
+    if(good){ o.frequency.exponentialRampToValueAtTime(940, actx.currentTime + 0.13); }
+    g.gain.setValueAtTime(0.0001, actx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.06, actx.currentTime + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + 0.22);
+    o.start(); o.stop(actx.currentTime + 0.24);
+  }catch(e){}
+}
+
+function burst(){
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var c = document.createElement("canvas");
+  c.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:99";
+  c.width = innerWidth; c.height = innerHeight;
+  document.body.appendChild(c);
+  var ctx = c.getContext("2d");
+  var cols = ["#4B3FE4","#E07C00","#0E7F94","#0E8F68","#FFD98A","#FF8FA3"];
+  var bits = [];
+  for(var i=0;i<110;i++){
+    bits.push({x:innerWidth/2 + (Math.random()-0.5)*220, y:innerHeight*0.32,
+      vx:(Math.random()-0.5)*9, vy:Math.random()*-11-3,
+      s:5+Math.random()*7, c:cols[i%cols.length], r:Math.random()*6});
+  }
+  var frames = 0;
+  (function tick(){
+    ctx.clearRect(0,0,c.width,c.height);
+    bits.forEach(function(b){
+      b.x += b.vx; b.y += b.vy; b.vy += 0.34; b.r += 0.12;
+      ctx.save(); ctx.translate(b.x,b.y); ctx.rotate(b.r);
+      ctx.fillStyle = b.c; ctx.fillRect(-b.s/2,-b.s/2,b.s,b.s*0.6); ctx.restore();
+    });
+    frames++;
+    if(frames < 130){ requestAnimationFrame(tick); } else { c.remove(); }
+  })();
+}
+
+/* ---------------------------------------------------------------
+   WIRING
+----------------------------------------------------------------*/
+btnHome.addEventListener("click", function(){ S.track = null; renderHome(); });
+btnGrown.addEventListener("click", function(){
+  cameFrom = elGame.hidden ? "home" : "game";
+  renderGrown();
+});
+
+document.addEventListener("keydown", function(e){
+  if(elGame.hidden || S.answered) return;
+  var k = e.key.toUpperCase();
+  if(k >= "A" && k <= "C"){
+    var b = elGame.querySelector('.opt[data-i="'+(k.charCodeAt(0)-65)+'"]');
+    if(b && !b.disabled){ b.click(); }
+  }
+});
+
+// Move the two most sensitive Crew scenarios off the first position.
+(function reorderCrew(){
+  var L = TRACKS.crew.levels;
+  var soft = [], heavy = [];
+  L.forEach(function(lv){
+    if(lv.title === "Pay Up In One Hour" || lv.title === "That Image Is Fake"){ heavy.push(lv); }
+    else { soft.push(lv); }
+  });
+  // one benign scenario, then the heavy pair, then the rest
+  TRACKS.crew.levels = [soft[0]].concat(heavy, soft.slice(1));
+})();
+
+renderHome();
+</script>
+
+</body>
+</html>
