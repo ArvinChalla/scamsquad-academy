@@ -1,79 +1,63 @@
 # ScamSquad Academy
 
-A free browser game that teaches children aged 6 to 18 to recognize online scams,
-manipulation and malware.
+A free game that teaches kids and teens to spot online scams before they fall for them.
 
 **Play it:** https://arvinchalla.github.io/scamsquad-academy/
 
-## What it is
+## Why it exists
 
-Fifty-five real situations taken from things that actually happen online, across
-three age tracks. Each track has two levels. Level 1 is scams inside chats and
-games. Level 2 moves out to websites, shops, email, texts, WhatsApp, TikTok and
-Twitch. Finishing Level 1 earns a certificate and unlocks Level 2. Each question inside a
-level is a mission.
+> "I got the idea for this from what I came across myself while I was growing up online. I ran into different people, scams and threats. I really want to make sure kids do not fall for that."
+> Arvin Challa
 
-| Track | Ages | Covers |
+The game lets you practice on fake chats and websites that look like the real thing, so you can recognize a scam when one shows up for real.
+
+## What's inside
+
+55 missions for three age groups. Each group has Level 1 (chats and games) and Level 2 (websites, shops, email, texts and apps).
+
+| Group | Ages | Examples |
 |---|---|---|
-| Explorers | 6 to 9 | Level 1: free-stuff tricks, keeping private things private, passwords, unkind messages, secrets from parents. Level 2: asking before buying, being a kind teammate, the Allow button, fake virus pop-ups, free Minecoins, strangers on voice chat, secret codes, what to do after tapping a trick, spotting fakes |
-| Squad | 10 to 13 | Level 1: fake currency sites, trust trades, panic phishing, QR account theft, cheat malware, being left out, location sharing. Level 2: fake "I reported you" messages, WhatsApp code theft, Minecraft mods with malware, free-followers sites, fake stream giveaways, anonymous message apps, fake school emails, screen sharing with fake staff, what to do after a fake login, spotting fakes |
-| Crew | 14 to 18 | Level 1: photo blackmail scams, AI-made fake images, moving stolen money, betting game items, AI companions, doxxing, stolen logins, pump scams. Level 2: "test my game" malware, fake payments when selling, buying a Fortnite account, harassment in games, AI-cloned voices, fake copyright emails, fake shops, one-time and authenticator codes, fake tech support and remote access, recovering after a fake login, spotting fakes |
+| Explorers | 6 to 9 | Free coin pop-ups, keeping your password safe, mean messages |
+| Squad | 10 to 13 | Free Robux sites, fake Discord staff, QR code tricks, being left out of a group chat |
+| Crew | 14 to 18 | Photo blackmail, AI-cloned voices, money mule job offers, fake shops, stolen logins, sharing your screen with "tech support" |
 
-## How it plays
+## How it works
 
-- **Ages 6 to 9:** drag and tap mini-games plus kid-sized fake game screens. Drag a
-  fake pop-up into the bin, sort what only your family should know, spot what costs
-  real money in a game shop. Only words a young child knows, with a star counter and
-  a trail of missions.
-- **Ages 10 to 18:** each level shows a realistic fake chat, website or app screen.
-  The player finds the giveaways, like a look-alike web address or a fake countdown,
-  then chooses what to do next. That second step matters most, because it is often
-  about getting an adult involved.
-- Sound and zoom controls on every screen. Works on a phone, tablet or Chromebook,
-  with keyboard support and light and dark themes.
+1. You get a fake chat, website, email or app screen.
+2. Tap the clues that give the scam away, like a fake web address, a countdown, or someone asking for a code.
+3. Choose what to do next.
 
-## Design choices
+Wrong answer? You get a hint and try again. Nobody loses. Finish a level and you get a certificate.
 
-- **Nobody can lose.** A wrong answer gives a clue and another go. There are no
-  penalties and no timers. Shame is the main reason children do not tell an adult
-  when something has gone wrong, so the game never makes a player feel foolish.
-- **Nothing is collected.** No accounts, no email, no analytics, no server.
-  Scores and any first name typed for a certificate stay in the browser.
-- **The teen track is gated.** An honest description of the content plus a reading
-  and arithmetic check, so a young child cannot wander into it.
-- **Built for the adult too.** Printable conversation prompts for a parent and a
-  one-lesson plan per track for a teacher.
+## Privacy
 
-## Why these topics
+- No account, no sign-up, no ads, no tracking.
+- Your score and your name stay on your device.
+- The game sends one anonymous +1 the first time it opens on a device. That powers the "played on" counter at the bottom. Nothing about you is sent with it.
+- The contact form is for adults, and only sends what they type.
 
-Research into what existing safety programs cover found that four current threats
-had no child-facing educational material anywhere: AI companion chatbots, betting
-game items, being recruited to move stolen money, and malware delivered through
-game cheats. Those are all in here.
+## For coders
 
-The full project record, including sources and the evidence on whether safety
-education works at all, is in `findings.html`.
+Plain HTML, CSS and JavaScript. No frameworks, no build step. Every file has comments in plain English.
 
-## Files
+| File | What it does |
+|---|---|
+| `index.html` | The page |
+| `styles.css` | How everything looks |
+| `missions.js` | Every mission, written as data. Start here to add your own. |
+| `game.js` | The game logic |
+| `cloudflare/contact-worker.js` | A small Cloudflare program for the counter and the contact form |
+| `findings.html` | How the game was planned, and every source |
+| `threat-register.html` | 56 online threats to under-18s, with sources |
 
-- `index.html` is the game
-- `findings.html` is the project record
-- `threat-register.html` is the underlying catalogue of 56 threats to under-18s
+Want to add a mission? Open `missions.js`. The comment at the top explains every field.
 
-Each file is self-contained. No build step, no dependencies, no server.
+## If something is happening to you
 
-## Sources
+Tell a parent, or another adult you trust. You are not in trouble. In the US you can also call or text 988, or report at missingkids.org/cybertipline.
 
-Figures come from NCMEC, the FBI, the Internet Watch Foundation, Thorn, the FTC,
-the Cyberbullying Research Center, Common Sense Media, the American
-Psychological Association, ADL, Steam Support, WhatsApp, Kaspersky and Epic Games. Every one is listed and linked
-inside the pages. Checked between August and October 2026.
+## Who made it
 
-## Not affiliated
+Arvin Challa, a high school student in Texas. Version 1: July 2026. Free, with nothing to buy.
 
-ScamSquad Academy is not connected to or endorsed by Mojang, Microsoft, Roblox, Epic Games, Discord, Valve, TikTok, Twitch, Meta or WhatsApp. Their names appear only to show where these tricks happen. No real logos are used.
-
-## Author
-
-Built by Arvin Challa, a high school student in Texas. Not a company, nothing to
-buy, no sponsor.
+*Not connected to Minecraft, Roblox, Fortnite, Discord, TikTok, Twitch, WhatsApp or any other company. Their names only show where these scams happen.*
