@@ -1,0 +1,95 @@
+<!doctype html>
+<!--
+  ScamSquad Academy, version 2
+  Made by Arvin Challa, built with AI help.
+
+  This is the only page. Every screen (home, topics, lessons, quizzes)
+  is drawn inside <main id="app"> by the JavaScript in js/main.js.
+  The top bar and the footer belong to this page, not to one screen.
+  Lessons and quizzes hide them (see lessonMode in js/ui.js).
+
+  Files:
+    styles/   how everything looks
+    js/       what everything does
+    data/     all the words: ages, categories, lessons and questions
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- The security policy: which places the page may load things from.
+       It is the same as in _headers, for hosts that ignore _headers. It
+       leaves out frame-ancestors (that only works as a header) and
+       upgrade-insecure-requests (that would break testing on
+       http://localhost). challenges.cloudflare.com is the robot check
+       on the contact form. The workers.dev address is the device counter
+       and the contact form. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://scamsquad.cdr0314.workers.dev; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ScamSquad Academy</title>
+  <meta name="description" content="A free game that teaches kids aged 6 to 18 to spot scams, tricks and online dangers. No sign-up. Nothing personal collected.">
+  <!-- The real web address, and what shows when someone shares a link -->
+  <link rel="canonical" href="https://scamsquad.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://scamsquad.app/">
+  <meta property="og:title" content="ScamSquad Academy: can you spot the trick?">
+  <meta property="og:description" content="A free game that teaches kids aged 6 to 18 to spot scams, tricks and online dangers. No sign-up. Nothing personal collected.">
+  <meta property="og:image" content="https://scamsquad.app/images/share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ScamSquad Academy: a shield with a cape giving a thumbs up">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#4B3FE4">
+  <!-- The logo in the browser tab, on a phone home screen, and in link previews -->
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <!-- The order matters: when two rules are the same strength, the
+       later file wins. ages.css is last, so each age group's look goes
+       on top. -->
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/cards.css">
+  <link rel="stylesheet" href="styles/quiz.css">
+  <link rel="stylesheet" href="styles/app.css">
+  <link rel="stylesheet" href="styles/screens.css">
+  <link rel="stylesheet" href="styles/certificate.css">
+  <link rel="stylesheet" href="styles/ages.css">
+  <!-- A module script waits until the page has loaded, then main.js
+       loads every other file it needs. -->
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <noscript><p class="loading">ScamSquad Academy needs JavaScript to run. Ask a parent, or another adult you trust, to turn it on, or try another browser.</p></noscript>
+  <header class="topbar">
+    <a class="logo" href="#/" aria-label="ScamSquad Academy home">
+      <img class="logo-img" src="images/logo-shield.png" alt="" width="62" height="44">
+      <span class="logo-name">ScamSquad <b>Academy</b></span>
+    </a>
+    <nav class="top-buttons">
+      <!-- Help is always one tap away, but small, so it does not feel like
+           something bad is expected to happen. -->
+      <a class="help-button" href="#/help">💜 Help</a>
+      <a class="home-button" href="#/" aria-label="Home">🏠</a>
+    </nav>
+  </header>
+
+  <main id="app" tabindex="-1">
+    <p class="loading">Loading...</p>
+    <!-- The game replaces everything in <main> as soon as it starts, so this
+         note is only ever seen if the game cannot start. That happens when
+         index.html is opened straight from a folder: browsers will not load
+         the game's code files that way. It appears after a few seconds. -->
+    <p class="loading-help">Still loading? This page was probably opened as a file. The game has to be
+      opened through a small web server: see "How to run it on your computer" in README.md.</p>
+  </main>
+
+  <footer class="footer">
+    <p>No sign-up. Your progress and name stay on this device.</p>
+    <p><a href="#/grown-ups">For parents and teachers</a></p>
+    <!-- Filled in by js/counter.js, only on the real web address. -->
+    <p id="device-counter" hidden></p>
+    <!-- Sound on or off, and the size buttons. Filled in by js/main.js. -->
+    <div id="footer-settings"></div>
+  </footer>
+</body>
+</html>

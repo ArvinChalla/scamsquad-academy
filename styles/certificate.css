@@ -1,0 +1,158 @@
+/* ========================================================================
+   certificate.css
+   The certificate on the Me screen, with the same design as version 1:
+   the bright box where you type your name, the "making it" steps, the
+   certificate itself with its gold medal, the "show a grown-up" note,
+   and printing.
+
+   The certificate box always uses light colors, even in dark mode,
+   because it is meant to look like paper.
+
+   1. Names from version 1
+   2. The name box
+   3. "Making your certificate..."
+   4. The certificate
+   5. The gold medal
+   6. "Show this to your grown-up"
+   7. Saving and printing
+   ======================================================================== */
+
+/* ---------- 1. Names from version 1 ----------
+   Version 1 used these color names. They point at version 2's colors. */
+:root{--surface-2:var(--card-2);--shadow-lg:var(--shadow);}
+
+/* ---------- 2. The name box ----------
+   A warm gradient box with a bobbing trophy, a box to type a first name,
+   and the button that makes the certificate. Its own light colors are set
+   here, so it looks the same in dark mode. */
+.certificate-box{
+  --ink:#1d1630;--ink-2:#4a3f5c;--brand:#4B3FE4;--brand-ink:#3A2FBE;--brand-soft:#E4E1FF;
+  --surface-2:#F4F5FC;--line:#DCE1F5;--line-2:#C3CAEA;
+  margin:22px 0;padding:22px;border-radius:24px;text-align:left;color:var(--ink);
+  background:linear-gradient(135deg,#FFF3C9 0%,#FFE3EE 55%,#E6E2FF 100%);border:3px solid #F2C14E;
+  box-shadow:0 6px 0 #E2A92B,0 18px 40px -18px rgba(120,70,0,.45);
+}
+/* The top of the box measures its own width, for the @container rule below */
+.certificate-box-top{display:flex;align-items:center;gap:14px;margin-bottom:14px;container-type:inline-size;}
+.certificate-box-top > div{min-width:0;}
+.certificate-trophy{font-size:48px;line-height:1;flex:0 0 auto;animation:trophyBob 2.4s ease-in-out infinite;}
+@keyframes trophyBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-6px) rotate(4deg)}}
+.certificate-box h4{margin:0 0 4px;font-family:var(--f-display);font-size:26px;font-weight:600;color:#7A2E8C;}
+/* A very narrow box (230px or less, like a small phone zoomed right in):
+   a smaller heading so the long word "certificate" still fits */
+@container (max-width:230px){
+  .certificate-box h4{font-size:20px;}
+  .certificate-trophy{font-size:34px;}
+}
+.certificate-box-text{margin:0 0 14px;font-size:14.5px;color:var(--ink-2);}
+
+.name-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.name-row input{
+  flex:1 1 200px;font-family:var(--f-body);font-size:20px;font-weight:700;
+  padding:12px 15px;border-radius:12px;border:3px solid #F2C14E;
+  background:#fff;color:#1d1630;min-width:0;
+}
+.name-row input::placeholder{color:#9a8fb0;font-weight:600;}
+#make-certificate{background:linear-gradient(90deg,#FF8A3D,#E64C9C);border:none;color:#fff;box-shadow:0 4px 0 #b8336f;}
+#make-certificate:hover{filter:brightness(1.05);}
+#make-certificate:disabled,#first-name:disabled{opacity:.6;cursor:default;}
+/* "Just your first name. It stays here." */
+.privacy-line{display:flex;gap:8px;align-items:flex-start;margin-top:12px;font-size:13.5px;color:var(--ink-2);}
+/* Once the certificate is made, the name box hides. A link brings it back. */
+.certificate-box.ready .name-row,.certificate-box.ready .privacy-line{display:none;}
+.text-button{all:unset;cursor:pointer;display:inline-flex;align-items:center;min-height:44px;font-family:var(--f-display);font-weight:700;font-size:15px;color:#7A2E8C;text-decoration:underline;text-underline-offset:3px;}
+.text-button:focus-visible{outline:3px solid #E64C9C;outline-offset:2px;border-radius:4px;}
+#change-name{margin-top:8px;}
+
+/* ---------- 3. "Making your certificate..." ----------
+   A dashed box with a filling bar and steps that fade in one by one. */
+.certificate-making{margin-top:16px;padding:18px;border-radius:18px;background:#fff;border:3px dashed #F2C14E;color:#1d1630;}
+.making-title{font-family:var(--f-display);font-weight:700;font-size:20px;margin-bottom:10px;color:#7A2E8C;}
+.making-bar{height:16px;border-radius:99px;background:#F4EDDA;overflow:hidden;margin-bottom:12px;}
+.making-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#F2C14E,#FF8A3D,#E64C9C);transition:width .55s ease;}
+.making-steps{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:16px;line-height:1.4;color:#4a3f5c;}
+.making-steps li{animation:fadeUp .35s ease both;}
+.making-steps li b{color:#1d1630;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- 4. The certificate ----------
+   Cream paper with a gold border and a dashed line inside it. The colors
+   print exactly as they look on screen. */
+#certificate{
+  margin-top:20px;background:#FFFDF7;color:#221E38;border:3px solid #C9A227;border-radius:14px;
+  padding:30px 28px;text-align:center;position:relative;
+  box-shadow:0 10px 30px -18px rgba(0,0,0,.45);
+  print-color-adjust:exact;-webkit-print-color-adjust:exact;
+}
+.certificate-inner{border:2px dashed #E0CE8E;border-radius:9px;padding:24px 18px;}
+.certificate-label{
+  font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:.24em;
+  text-transform:uppercase;color:#9A7B12;
+}
+#certificate h3{font-family:var(--f-display);font-size:clamp(22px,4vw,30px);font-weight:700;color:#221E38;margin:8px 0 14px;}
+.certificate-name{
+  font-family:var(--f-display);font-size:clamp(28px,6vw,44px);font-weight:700;color:#3A2FBE;
+  line-height:1.1;margin:6px 0;word-break:break-word;
+}
+.certificate-line{height:2px;background:#E0CE8E;max-width:300px;margin:12px auto 16px;}
+.certificate-text{font-size:16px;color:#4A4560;margin:0 auto 4px;max-width:44ch;}
+/* The badges earned. Each badge stays whole on one line. */
+.certificate-awards{font-size:15px;color:#4A4560;margin:14px auto 0;max-width:46ch;}
+.certificate-awards b{color:#221E38;}
+.certificate-awards .award{display:inline-block;white-space:nowrap;margin:2px 6px;}
+/* The bottom row: the buddy's name on the left, the medal in the middle, the date on the right */
+.certificate-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;
+  margin-top:22px;padding-top:14px;border-top:2px solid #EFE4C0;
+  font-size:13px;color:#6A6480;text-align:left;
+}
+.certificate-bottom b{display:block;color:#221E38;font-family:var(--f-display);font-size:15px;}
+.certificate-date{text-align:right;}
+/* The buddy's picture sits over the top right corner */
+.certificate-buddy{position:absolute;top:-14px;right:-10px;}
+/* Phones (560px wide or less): the bottom row stacks in the middle */
+@media (max-width:560px){
+  .certificate-bottom{flex-direction:column;align-items:center;text-align:center;gap:10px;}
+  .certificate-date{text-align:center;}
+}
+
+/* ---------- 5. The gold medal ----------
+   A round medal with ridges, two red ribbons behind it, and the number
+   of stars in the middle. */
+.medal{position:relative;isolation:isolate;flex:0 0 auto;width:86px;height:86px;border-radius:50%;display:grid;place-items:center;margin:0 auto 22px;
+  background:repeating-conic-gradient(#C9962A 0deg 6deg,#E2B23C 6deg 12deg);box-shadow:0 3px 7px rgba(0,0,0,.25);}
+.medal::before,.medal::after{content:"";position:absolute;z-index:-1;bottom:-24px;width:20px;height:36px;background:#A6252B;
+  clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);}
+.medal::before{left:20px;transform:rotate(14deg);}
+.medal::after{right:20px;transform:rotate(-14deg);}
+.medal-middle{width:66px;height:66px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#6B4A0C;
+  background:radial-gradient(circle at 35% 30%,#FFF3B8,#E2B23C 45%,#B5841F 85%);
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.8),inset 0 -3px 5px rgba(90,60,0,.45);text-shadow:0 1px 0 rgba(255,255,255,.6);}
+.medal-middle span{font-size:14px;line-height:1;}
+.medal-middle b{display:block;font-family:var(--f-display);font-size:16px;line-height:1.15;color:#6B4A0C;}
+.medal-middle i{font-style:normal;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+
+/* ---------- 6. "Show this to your grown-up" ---------- */
+.show-a-grown-up{display:flex;align-items:center;gap:14px;margin:16px 0 4px;padding:16px 18px;border-radius:18px;background:#FFEDD2;border:3px solid #E07C00;text-align:left;}
+.show-a-grown-up .show-icon{font-size:40px;line-height:1;flex:0 0 auto;}
+.show-a-grown-up b{display:block;font-family:var(--f-display);font-size:21px;color:#1d1630;}
+.show-a-grown-up span{display:block;font-size:17px;color:#4a3f5c;line-height:1.45;margin-top:2px;}
+
+/* ---------- 7. Saving and printing ---------- */
+.save-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center;}
+/* The saved picture of the certificate */
+#certificate-picture{max-width:100%;border-radius:14px;box-shadow:var(--shadow-lg);margin-top:14px;display:block;}
+/* A small grey note, like "If nothing happened, printing is blocked here".
+   The page for parents uses it too. */
+.note-box{
+  margin:12px 0;padding:12px 16px;background:var(--surface-2);border:2px solid var(--line-2);border-radius:12px;
+  font-size:14.5px;color:var(--ink-2);
+}
+/* On paper only the certificate prints, on one page. While printing,
+   certificate.js puts a copy of it in #print-root and hides the rest. */
+@media print{
+  @page{size:letter landscape;margin:10mm;}
+  body{background:#fff !important;}
+  body.printing > :not(#print-root){display:none !important;}
+  #print-root #certificate{margin:0;box-shadow:none;break-inside:avoid;page-break-inside:avoid;}
+}

@@ -1,0 +1,504 @@
+/* ========================================================================
+   screens.css
+   The fake screens inside lessons (websites, chats, emails, pop-ups and
+   more, drawn by js/pictures.js), and the look of the other app screens:
+   Spot Check, Me, the age check, tips and the page for parents.
+
+   The fake screens copy the look of real apps on purpose (rounded
+   bubbles, browser windows, phone headers), so children practice on what
+   they really see. They keep the real app's light or dark look, whatever
+   our own theme is, so their colors are written out here, not taken from
+   the color names in base.css.
+
+   Fake screens, one kind at a time:
+    1. What every fake screen shares
+   1b. The phone or iPad around a fake screen
+    2. A website in a browser window
+    3. Chats and texts on a phone
+    4. An email
+    5. A pop-up over a game
+    6. A Windows warning
+    7. The game's own screen
+    8. A phone call or voicemail
+    9. A social post or a video
+   10. A payment app
+   11. Notifications on a lock screen
+   12. A forum or comment thread
+   Then:
+   13. Red flags on learn cards
+   14. Fake screens in a question: every part is a button
+   15. Fake screens for ages 6 to 9
+   16. Fake screens on tablets and computers
+   The other screens:
+   17. Spot Check
+   18. Me
+   19. The age check
+   20. Tips
+   21. For parents and teachers
+   22. Long words
+   ======================================================================== */
+
+/* ---------- 1. What every fake screen shares ----------
+   Each fake screen is a box with class "screen" plus its kind ("site",
+   "phone chat", "email"...). Inside, each piece the player can look at is
+   a "part" with a role, like "role-line" or "role-button". */
+.screen{margin:16px auto 0;color:#1C1C1E;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;overflow:hidden;text-align:left;}
+.part{display:block;}
+/* A round picture with the sender's first letter, like real apps show */
+.avatar{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#6E6E73;color:#fff;font-weight:700;font-size:17px;}
+
+/* ---------- 1b. The phone or iPad around a fake screen ----------
+   Each fake screen sits on the device it is really seen on (see
+   deviceHtml in js/pictures.js): a black phone with the camera notch, or
+   an iPad with an even edge. At the top: the time, signal and battery.
+   At the bottom: the bar you swipe. Inside, the screen loses its own
+   border and shadow, because the device is the frame now. */
+.device{display:flex;margin:16px auto 0;padding:9px;border-radius:46px;background:#1A1A1C;box-shadow:0 0 0 2px #3A3A3C inset,0 14px 34px rgba(15,23,42,.22);}
+/* Real proportions: a phone is about twice as tall as it is wide, an iPad
+   held upright about 4 by 3. Longer content makes the device taller. */
+.device.phone{max-width:310px;aspect-ratio:1 / 2;}
+.device.tablet{max-width:440px;aspect-ratio:3 / 4;padding:12px;border-radius:30px;}
+.device-screen{flex:1;display:flex;flex-direction:column;border-radius:38px;overflow:hidden;background:#fff;color:#000;}
+.device.tablet .device-screen{border-radius:18px;}
+.device .screen{flex:1;margin:0;max-width:none;border:0;border-radius:0;box-shadow:none;}
+.status-bar{flex:none;display:flex;align-items:center;justify-content:space-between;height:40px;padding:0 24px 0 28px;font:600 15px/1 -apple-system,"SF Pro Text","Segoe UI",system-ui,sans-serif;}
+.device.tablet .status-bar{height:28px;padding:0 18px;font-size:13px;}
+.notch{width:90px;height:26px;border-radius:999px;background:#000;}
+.status-icons{display:flex;align-items:center;gap:5px;}
+.status-icons svg{display:block;}
+.home-bar{flex:none;display:grid;place-items:center;height:20px;}
+.home-bar::before{content:"";width:118px;height:5px;border-radius:999px;background:#111;opacity:.85;}
+.device.tablet .home-bar{height:16px;}
+.device.tablet .home-bar::before{width:150px;height:4px;}
+/* The top and bottom of the device match the app inside it */
+.device-site .device-screen{background:#F2F2F7;}
+.device-chat .device-screen,.device-text .device-screen{background:#F9F9F9;}
+.device.dark-top .device-screen{background:#1C1C1E;color:#fff;}
+.device.dark-top .home-bar::before{background:#fff;}
+.device-forum .device-screen{background:#1F2937;}
+/* The pop-up and the lock screen fill the whole screen, under the time */
+.device-popup .device-screen,.device-notification .device-screen{position:relative;}
+.device-popup .status-bar,.device-notification .status-bar{position:absolute;top:0;left:0;right:0;z-index:2;}
+.device-popup .home-bar,.device-notification .home-bar{position:absolute;bottom:0;left:0;right:0;z-index:2;}
+.device-popup .screen{min-height:360px;padding-top:84px;padding-bottom:40px;}
+.device-popup .popup-box{max-width:300px;}
+.device-notification .screen{padding-top:44px;padding-bottom:28px;}
+/* Websites on the iPad: a browser bar, without the three dots of a computer */
+.device .site .dots{display:none;}
+.device .site .browser-top{background:#F2F2F7;padding:4px 12px 8px;}
+.device .site .address-bar{justify-content:center;background:#E3E3E8;border-radius:10px;}
+/* The box at the bottom of a chat, where you would type */
+.message-box{margin:6px 10px 8px;padding:9px 14px;border-radius:999px;background:#F2F2F7;color:#6E6E73;font-size:15px;}
+.theme-dark .message-box{background:#383A40;color:#B5BAC1;}
+.theme-game .message-box{background:#2C2C2E;color:#AEAEB2;}
+.device .bubbles{flex:1;}
+.device .phone.chat,.device .phone.text{display:flex;flex-direction:column;}
+
+/* ---------- 2. A website in a browser window ----------
+   The bar at the top with three colored dots and the web address, then the
+   page with its big headline, lines of text, boxes to type in, a button
+   and a blue link. These parts look the same on other screens
+   too, unless that screen changes them. */
+.site{max-width:540px;border-radius:12px;border:1px solid #C9CDD4;background:#fff;box-shadow:0 8px 24px rgba(15,23,42,.12);}
+.browser-top{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#E8EAED;}
+.dots{display:flex;gap:6px;flex:none;}
+.dots i{width:11px;height:11px;border-radius:50%;background:#FF5F57;}
+.dots i:nth-child(2){background:#FEBC2E;}
+.dots i:nth-child(3){background:#28C840;}
+.address-bar{flex:1;display:flex;align-items:center;gap:6px;min-width:0;padding:6px 12px;border-radius:999px;background:#fff;color:#3C4043;font-size:15px;}
+/* A web address only wraps after a dot or a slash (pictures.js marks those
+   places), so the site's name is never cut in the middle */
+.address-bar .part{font-family:ui-monospace,Consolas,monospace;font-size:14.5px;word-break:normal;overflow-wrap:normal;}
+.lock{font-size:12px;flex:none;}
+.site .screen-page{padding:20px 18px 22px;text-align:center;background:#fff;}
+.role-big{font-weight:800;font-size:22px;line-height:1.2;margin:0 0 10px;color:#B42318;}
+.role-line{margin:6px 0;font-size:16px;line-height:1.4;color:#3C4043;}
+.role-field{margin:8px auto;max-width:360px;padding:10px 14px;border:1px solid #C9CDD4;border-radius:8px;background:#fff;color:#5F6368;font-size:15.5px;text-align:left;}
+.role-button{display:inline-block;margin-top:10px;padding:11px 26px;border-radius:999px;background:#C2410C;color:#fff;font-weight:800;font-size:16px;letter-spacing:.02em;}
+.role-link{color:#1A73E8;text-decoration:underline;}
+
+/* ---------- 3. Chats and texts on a phone ----------
+   A phone with a header (who it is), then message bubbles: theirs on the
+   left in grey, the player's own on the right in blue (green for a text). */
+.phone{max-width:360px;border-radius:26px;border:8px solid #1C1C1E;background:#fff;box-shadow:0 10px 28px rgba(15,23,42,.18);}
+.phone-head{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #E5E5EA;background:#F9F9F9;}
+.phone-head .who{display:flex;flex-direction:column;min-width:0;line-height:1.2;overflow-wrap:anywhere;}
+.phone-head .who b{font-size:16px;}
+.phone-head .who small{font-size:12.5px;color:#6E6E73;}
+/* A text message: the name sits in the middle, under the picture */
+.phone-head.center{flex-direction:column;gap:4px;text-align:center;}
+.chat-app{margin-left:auto;font-size:12px;font-weight:700;color:#6E6E73;}
+.bubbles{display:flex;flex-direction:column;gap:6px;padding:14px 12px 16px;}
+.msg-time{margin:0 0 6px;text-align:center;font-size:12px;color:#6E6E73;}
+.role-them,.role-me{max-width:80%;padding:9px 14px;border-radius:20px;font-size:16px;line-height:1.35;text-align:left;}
+.role-them{align-self:flex-start;background:#E9E9EB;color:#1C1C1E;border-bottom-left-radius:6px;}
+.role-me{align-self:flex-end;background:#0A6CD6;color:#fff;border-bottom-right-radius:6px;}
+.text .role-me{background:#1A7F3C;}
+/* Inside a bubble: who said it (in group chats) and when */
+.msg-name{display:block;font-size:12.5px;font-weight:800;opacity:.75;margin-bottom:2px;}
+.msg-stamp{display:block;font-size:11.5px;opacity:.75;text-align:right;margin-top:2px;}
+.role-me .msg-stamp{opacity:1;}
+/* Discord-style dark chat (pictures.js adds "theme-dark" when the app is Discord) */
+.theme-dark{background:#313338;border-color:#1E1F22;color:#DBDEE1;}
+.theme-dark .phone-head{background:#2B2D31;border-color:#1E1F22;}
+.theme-dark .phone-head .who small,.theme-dark .chat-app{color:#949BA4;}
+.theme-dark .avatar{background:#5865F2;}
+.theme-dark .role-them{background:#404249;color:#DBDEE1;}
+.theme-dark .role-me{background:#5865F2;}
+/* A game's chat window ("theme-game") */
+.theme-game{background:#1C1C1E;border-color:#0B0B0C;color:#F2F2F7;}
+.theme-game .phone-head{background:#2C2C2E;border-color:#1C1C1E;}
+.theme-game .phone-head .who small,.theme-game .chat-app{color:#AEAEB2;}
+.theme-game .avatar{background:#167A50;}
+.theme-game .role-them{background:#3A3A3C;color:#F2F2F7;}
+.theme-game .role-me{background:#167A50;}
+/* Instagram, TikTok and Snapchat style DMs ("theme-social"): a colorful avatar */
+.theme-social .avatar{background:linear-gradient(45deg,#F59E0B,#EC4899,#8B5CF6);}
+
+/* ---------- 4. An email ----------
+   Like a mail app: the subject, the sender with the address under the
+   name, then the message. */
+.email{max-width:560px;border-radius:12px;border:1px solid #DADCE0;background:#fff;box-shadow:0 8px 24px rgba(15,23,42,.10);}
+.email .screen-page{padding:16px 18px 18px;}
+.email-subject{font-size:20px;font-weight:600;line-height:1.3;color:#202124;margin-bottom:12px;}
+.email-from{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.email-from .avatar{background:#1A73E8;}
+.email-from .who{display:flex;flex-direction:column;min-width:0;font-size:14.5px;overflow-wrap:anywhere;}
+.email-from .who small{color:#5F6368;}
+.email-address{display:block;font-size:13.5px;color:#5F6368;font-weight:400;overflow-wrap:anywhere;}
+.email-body .role-line{color:#3C4043;margin:8px 0;}
+.email-body .role-button{background:#1A73E8;border-radius:6px;padding:10px 22px;font-weight:600;}
+
+/* ---------- 5. A pop-up over a game ----------
+   A box a trickster made, floating over a game that is darkened behind
+   it, with a small ✕ in the corner, a red title and a big green button. */
+.popup-scene{position:relative;max-width:540px;border-radius:12px;padding:26px 16px;background:#7FA8C9;overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
+.game-behind{position:absolute;inset:0;}
+.game-behind .sky{position:absolute;inset:0 0 36% 0;background:linear-gradient(#7FB2D9,#B9D8EE);}
+.game-behind .ground{position:absolute;left:0;right:0;bottom:0;height:36%;background:#5E9E4A;border-top:10px solid #7CC05F;}
+.game-behind .block{position:absolute;bottom:36%;width:40px;height:40px;background:#A0703C;border:3px solid #7A5229;}
+.game-behind .hud{position:absolute;top:36px;left:12px;right:12px;display:flex;justify-content:space-between;font-size:14px;font-weight:700;color:#fff;}
+.game-behind .hud span{padding:4px 10px;border-radius:999px;background:rgba(0,0,0,.35);}
+.game-behind::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.4);}
+.popup-box{position:relative;z-index:1;max-width:330px;margin:0 auto;background:#fff;border-radius:16px;padding:8px 16px 18px;text-align:center;box-shadow:0 18px 40px rgba(0,0,0,.45);}
+.popup-close-row{display:flex;justify-content:flex-end;}
+.role-close{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font-size:13px;color:#5F6368;background:#F1F3F4;}
+.role-title{font-weight:900;font-size:24px;line-height:1.15;margin:2px 0 8px;color:#C81E1E;}
+.popup-box .role-line{font-weight:600;}
+.popup-box .role-button{font-size:18px;padding:13px 28px;background:#15803D;border-radius:12px;}
+
+/* ---------- 6. A Windows warning ----------
+   A real SmartScreen warning: a dark blue panel with the title, the
+   message, a "More info" link and a grey "Don't run" button. */
+.system{max-width:540px;background:#0A4D97;color:#fff;font-family:"Segoe UI",system-ui,sans-serif;border:1px solid #083D78;box-shadow:0 8px 24px rgba(15,23,42,.18);}
+.system-panel{padding:22px 22px 18px;}
+.system .role-title{color:#fff;font-weight:300;font-size:26px;line-height:1.2;margin:0 0 14px;font-family:"Segoe UI Light","Segoe UI",system-ui,sans-serif;}
+.system .role-line{color:#fff;font-size:15.5px;margin:0 0 10px;}
+.system .role-link{color:#fff;text-decoration:underline;font-size:15.5px;margin:4px 0 0;}
+.system-buttons{display:flex;justify-content:flex-end;margin-top:22px;}
+.system .role-button{display:inline-block;margin:0;padding:8px 26px;background:#E1E1E1;color:#000;border:1px solid #ADADAD;border-radius:0;font-weight:400;font-size:15px;letter-spacing:0;}
+/* When its parts are buttons (in a question): white words, black on the button */
+.system button.part{color:#fff;}
+.system button.role-button{color:#000;}
+
+/* ---------- 7. The game's own screen ----------
+   Part of the game itself (its shop, a prize), with the game's name in a
+   bar and a real Close button, so children can tell it from a pop-up. */
+.game-screen{max-width:540px;border-radius:14px;border:3px solid #3B2F8F;background:#FAFAFA;box-shadow:0 8px 24px rgba(15,23,42,.14);}
+.game-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:#3B2F8F;color:#fff;}
+.game-name{font-weight:800;font-size:16px;}
+.game-bar .role-close{width:auto;height:auto;min-height:34px;padding:4px 14px;border-radius:999px;background:#fff;color:#3B2F8F;font-weight:800;font-size:14px;}
+.game-body{padding:18px 16px 20px;text-align:center;}
+.game-body .role-title{color:#3B2F8F;font-size:23px;}
+.role-price{display:inline-block;margin:6px 4px;padding:6px 14px;border-radius:999px;background:#FDE68A;color:#713F12;font-weight:800;font-size:16px;}
+.game-body .role-button{background:#5B21B6;border-radius:12px;}
+/* When its parts are buttons (in a question) */
+.screen.game-screen button.role-close{background:#fff;color:#3B2F8F;border-radius:999px;}
+.game-screen button.role-button{background:#5B21B6;color:#fff;}
+
+/* ---------- 8. A phone call or voicemail ----------
+   A dark phone screen: who is calling, then what they say in quotes, and
+   red and green buttons for a call that is still ringing. */
+.call{background:#1C1C1E;color:#fff;}
+.call-top{display:flex;flex-direction:column;align-items:center;gap:4px;padding:22px 16px 18px;background:linear-gradient(#3A3A3C,#1C1C1E);text-align:center;}
+.call-top .avatar{width:64px;height:64px;font-size:28px;background:#636366;}
+.call-top .avatar svg{width:36px;height:36px;}
+.call-name{font-size:21px;font-weight:600;}
+.call-number{font-size:14px;color:#AEAEB2;}
+.call-label{font-size:13px;color:#AEAEB2;}
+.call-transcript{margin:0 12px 14px;padding:12px;border-radius:14px;background:#2C2C2E;}
+.call-transcript-title{margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#AEAEB2;}
+.call .role-line{color:#F2F2F7;margin:6px 0;font-size:16px;}
+/* Curly quote marks around each thing the caller says */
+.call .role-line::before{content:"\201C";}
+.call .role-line::after{content:"\201D";}
+.call .role-me{align-self:auto;max-width:none;margin:8px 0 0;background:#0A6CD6;color:#fff;}
+.call-buttons{display:flex;justify-content:space-around;padding:4px 30px 18px;}
+.call-buttons span{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;font-size:22px;font-weight:800;}
+.call-decline{background:#FF3B30;}
+.call-accept{background:#34C759;}
+/* When its parts are buttons (in a question) */
+.screen.call button.role-line{color:#F2F2F7;}
+
+/* ---------- 9. A social post or a video ----------
+   Who posted it, the picture or video (a dark box), the words under it,
+   comments and a blue button. A video has a ▶ in the corner. */
+.post{max-width:420px;border-radius:12px;border:1px solid #DBDBDB;background:#fff;box-shadow:0 8px 24px rgba(15,23,42,.10);}
+.post-head{display:flex;align-items:center;gap:10px;padding:10px 12px;}
+.post-head .avatar{background:linear-gradient(45deg,#F59E0B,#EC4899,#8B5CF6);}
+.post-head .who{display:flex;flex-direction:column;min-width:0;line-height:1.2;}
+.post-head .who small{color:#737373;font-size:12.5px;}
+.post-body{padding:0 0 12px;}
+.role-media{display:grid;place-items:center;min-height:170px;padding:16px;background:linear-gradient(135deg,#1F2937,#111827);color:#F9FAFB;font-size:16px;font-weight:600;text-align:center;position:relative;}
+.post.video .role-media{min-height:210px;}
+.post.video .role-media::after{content:"\25B6";position:absolute;right:12px;bottom:10px;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.85);color:#111;font-size:14px;}
+.post .role-caption{margin:10px 12px 4px;font-size:15.5px;}
+.post .role-link{margin:4px 12px;font-size:15px;}
+.post .role-comment{margin:6px 12px 0;padding:8px 10px;border-radius:10px;background:#F3F4F6;font-size:14.5px;}
+.post .role-button{display:block;margin:10px 12px 0;padding:10px;border-radius:8px;background:#0068C9;color:#fff;font-weight:700;font-size:15px;text-align:center;letter-spacing:0;}
+/* When its parts are buttons (in a question) */
+.screen.post button.role-media{background:linear-gradient(135deg,#1F2937,#111827);color:#F9FAFB;width:100%;}
+.screen.post button.role-button{background:#0068C9;color:#fff;border-radius:8px;width:calc(100% - 24px);}
+.screen.post button.role-caption,.screen.post button.role-link,.screen.post button.role-comment{width:calc(100% - 24px);}
+
+/* ---------- 10. A payment app ----------
+   A white header, then the amount in big green numbers, who it is from,
+   the note in quotes and round buttons. */
+.payment{background:#fff;}
+.pay-head{display:flex;align-items:baseline;justify-content:space-between;padding:12px 16px;background:#fff;color:#111;border-bottom:1px solid #E5E5EA;}
+.pay-head small{color:#0068C9;}
+.pay-body{padding:18px 16px 20px;text-align:center;}
+.role-amount{font-size:34px;font-weight:800;color:#15803D;margin:4px 0;}
+.payment .role-from{font-size:16px;font-weight:600;margin:2px 0 8px;}
+.payment .role-note{margin:6px 0;color:#4B5563;font-style:italic;}
+.payment .role-note::before{content:"\201C";}
+.payment .role-note::after{content:"\201D";}
+.payment .role-button{display:inline-block;margin:10px 4px 0;padding:9px 22px;border-radius:999px;background:#0068C9;color:#fff;font-weight:700;font-size:15px;letter-spacing:0;}
+/* When its parts are buttons (in a question) */
+.screen.payment button.role-button{background:#0068C9;color:#fff;border-radius:999px;}
+
+/* ---------- 11. Notifications on a lock screen ----------
+   The time in big thin numbers over a dark grey background, then one white
+   banner per notification. */
+.lock-screen{padding:16px 12px 20px;background:linear-gradient(170deg,#4B5B73,#1F2937);color:#fff;}
+.lock-time{margin:6px 0 14px;text-align:center;font-size:52px;font-weight:300;line-height:1;}
+.banner{margin:0 0 10px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.88);color:#111;}
+.banner .role-app{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#6B7280;}
+.banner .role-title{color:#111;font-size:16px;font-weight:700;margin:2px 0;}
+.banner .role-line{color:#1F2937;font-size:15px;margin:0;}
+/* When its parts are buttons (in a question): dark words on the white banners */
+.screen.lock-screen button.part{color:#111;}
+
+/* ---------- 12. A forum or comment thread ----------
+   A dark header with the site and thread, then one post per part, each
+   with a name, a time and a small grey avatar. */
+.forum{max-width:560px;border-radius:10px;border:1px solid #D1D5DB;background:#fff;}
+.forum-head{display:flex;flex-direction:column;gap:2px;padding:10px 14px;background:#1F2937;color:#fff;}
+.forum-head span{font-size:14px;color:#D1D5DB;}
+.forum-post{display:flex;gap:10px;padding:12px 14px;border-top:1px solid #E5E7EB;}
+.forum-post .avatar{width:34px;height:34px;font-size:15px;background:#6B7280;}
+.forum-text{flex:1;min-width:0;}
+.forum-meta{display:flex;gap:8px;align-items:baseline;font-size:14px;}
+.forum-meta small{color:#6B7280;}
+.forum .role-post{font-size:15.5px;line-height:1.4;margin-top:2px;}
+/* When its parts are buttons (in a question) */
+.screen.forum button.role-post{width:100%;}
+
+/* ---------- 13. Red flags on learn cards ----------
+   A red ring and a number on each red flag, like a teacher's marking.
+   Chat bubbles and buttons keep their own round shape inside the ring. */
+.part.flagged{position:relative;outline:3px solid #E11D48;outline-offset:3px;}
+.part.flagged:not(.role-them):not(.role-me):not(.role-button):not(.role-close){border-radius:8px;}
+.flag-badge{display:inline-grid;place-items:center;width:22px;height:22px;margin-right:6px;border-radius:50%;
+  background:#E11D48;color:#fff;font-family:"Segoe UI",system-ui,sans-serif;font-size:12.5px;font-weight:800;line-height:1;vertical-align:1px;}
+/* The reasons under the picture, numbered like the circles */
+.flag-reasons{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px;}
+.flag-reasons li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--bad-soft);font-size:17px;line-height:1.4;}
+.flag-reasons .flag-badge{flex:none;margin:1px 0 0;}
+/* The player's own lines that are worth noticing: amber, not red,
+   because the player did nothing wrong */
+.flag-reasons li.mine{background:var(--warn-soft);}
+.part.flagged.mine{outline-color:#D97706;}
+.flag-badge.mine{background:#D97706;}
+
+/* ---------- 14. Fake screens in a question: every part is a button ----------
+   Each part keeps its real-app look. :where() gives this reset no weight,
+   so each part's own style above wins over it. */
+:where(button.part){font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit;border-radius:8px;}
+button.part{transition:box-shadow .12s ease;}
+.screen button.role-big,.screen button.role-line,.screen button.role-title,.screen button.role-field{width:100%;}
+.site button.role-field{max-width:360px;}
+/* A purple glow when the mouse is over a part. After a tap: red for a red
+   flag found, grey for a normal part, green or red for the answer. */
+button.part:hover:not(:disabled){box-shadow:0 0 0 3px rgba(75,63,228,.45);}
+button.part.found{box-shadow:0 0 0 3px #E11D48;}
+button.part.normal{box-shadow:0 0 0 3px #9AA0A6;opacity:.5;}
+button.part.is-right{box-shadow:0 0 0 4px #16A34A;}
+button.part.is-wrong{box-shadow:0 0 0 4px #E11D48;}
+button.part:disabled{cursor:default;}
+/* The small word added after a tap ("Safe", "Your tap", "Fine"), so the
+   ring's color never has to be guessed. It sits at the end of the part. */
+.part-tag{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;vertical-align:2px;
+  font-family:"Segoe UI",system-ui,sans-serif;font-size:12px;font-weight:800;line-height:1.5;letter-spacing:0;text-transform:none;}
+.part-tag.right{background:#D7F5EA;color:#0B5E44;}
+.part-tag.wrong{background:#FDE2E1;color:#8E1B14;}
+.part-tag.fine{background:#E5E7EB;color:#374151;}
+/* Parts you tap are at least 44px tall. The small ✕ stays small, so it
+   still looks real, but gets a bigger invisible area around it. */
+.screen button.part{min-height:44px;}
+.screen button.role-close{position:relative;min-height:0;}
+.screen button.role-close::before{content:"";position:absolute;inset:-10px;}
+/* The parts you can still tap have a soft dashed edge */
+.screen button.part:not(:disabled){outline:2px dashed rgba(75,63,228,.35);outline-offset:2px;}
+.screen button.part.found,.screen button.part.normal,.screen button.part.hinted{outline:none;}
+
+/* ---------- 15. Fake screens for ages 6 to 9 ----------
+   Bigger fake screens and words, and no padlock (it reads as "safe"). */
+body[data-age="explore"] .screen{font-size:17px;}
+body[data-age="explore"] .role-line,body[data-age="explore"] .role-them,body[data-age="explore"] .role-me{font-size:18px;}
+body[data-age="explore"] .device.phone{max-width:330px;}
+body[data-age="explore"] .address-bar .lock{display:none;}
+
+/* ---------- 16. Fake screens on tablets and computers ----------
+   The Windows warning is the only screen without a device; it is a
+   computer window at its own size. A phone stays phone-sized and an iPad
+   iPad-sized on every screen (see 1b). */
+
+/* ---------- 17. Spot Check ---------- */
+/* The heading at the top of Spot Check, Me, News and Tips, with an optional line under it */
+.page-top{margin:6px 0 14px;}
+.page-top h1{margin:0;}
+.page-sub{margin:4px 0 0;color:var(--ink-2);font-size:17px;}
+/* The card in the middle, with "Ready now" or the day the next one is best */
+.practice-card{background:var(--card);border:var(--edge);box-shadow:var(--shadow);padding:22px;text-align:center;}
+.practice-card.left{text-align:left;}
+.practice-icon{display:block;font-size:60px;line-height:1;margin-bottom:8px;}
+.practice-card p{font-size:19px;}
+.due{display:inline-block;margin-bottom:10px;padding:4px 12px;font-weight:800;background:var(--card-2);border:var(--edge);}
+.due.on{background:var(--good-soft);border-color:var(--good);color:var(--good);}
+.practice-done{margin:12px 0 0;color:var(--ink-2);font-size:16px !important;}
+.practice-why{margin-top:14px;color:var(--ink-2);font-size:17px;text-align:center;}
+
+/* ---------- 18. Me ---------- */
+/* Three numbers in a row: lessons, badges, stars (two for ages 14 to 18) */
+.me-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
+.me-stats.two{grid-template-columns:repeat(2,1fr);}
+.me-stat{background:var(--card);border:var(--edge);padding:12px;text-align:center;}
+.me-stat b{display:block;font-family:var(--f-display);font-size:24px;}
+.me-stat span{font-size:14px;color:var(--ink-2);font-weight:700;}
+.me-certificate-title{margin-top:22px;}
+.me-stats + .me-certificate-title{margin-top:4px;}
+
+/* One tile per world. Grey and dashed until its badge is earned. Earned
+   badges keep their world icon, with a medal in the corner. */
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+.badge-tile{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 8px;text-align:center;background:var(--card-2);border:2px dashed var(--line-2);}
+.badge-tile .badge-icon{font-size:36px;filter:grayscale(1);opacity:.5;}
+.badge-tile.earned{background:var(--soft);border:2px solid var(--strong);}
+.badge-tile.earned .badge-icon{filter:none;opacity:1;}
+.badge-icon{position:relative;}
+.badge-medal{position:absolute;right:-16px;bottom:-6px;font-size:22px;font-style:normal;}
+.badge-name{font-weight:800;font-size:15px;line-height:1.2;}
+.badge-count{font-size:13px;color:var(--ink-2);font-weight:700;}
+
+/* The certificate before it unlocks: a quiet card with the progress so far.
+   The certificate itself is in certificate.css. */
+.certificate-locked{display:flex;gap:14px;align-items:center;padding:18px;background:var(--card);border:2px dashed var(--line-2);}
+.certificate-locked-icon{font-size:52px;line-height:1;flex:none;filter:grayscale(1);opacity:.5;}
+.certificate-locked-text{flex:1;display:grid;gap:8px;--strong:var(--brand);}
+.certificate-locked-text b{font-family:var(--f-display);font-size:19px;}
+.certificate-locked-text .world-progress{width:100%;}
+.certificate-locked-text span{font-size:15px;font-weight:700;color:var(--ink-2);}
+
+/* ---------- 19. The age check ----------
+   The sum to answer before ages 14 to 18. The red error line is also
+   used by the certificate's name box. */
+.gate h1{margin-top:4px;}
+.name-label{display:block;font-weight:800;margin-bottom:6px;}
+.name-input{width:100%;min-height:52px;padding:10px 12px;font:inherit;font-size:20px;border:2px solid var(--line-2);background:var(--card);color:var(--ink);}
+.name-input:focus{outline:4px solid var(--brand);outline-offset:0;}
+.name-error{min-height:1.2em;color:var(--bad);font-weight:800;margin:4px 0 10px;font-size:16px !important;}
+
+/* ---------- 20. Tips ---------- */
+/* The tip of the week, as a strip on the News page */
+.tip-strip{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--brand-soft);border:2px solid var(--brand);margin-bottom:18px;}
+.tip-icon{font-size:34px;line-height:1;flex:none;}
+.tip-strip small{display:block;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-ink);font-size:13px;}
+.tip-strip b{display:block;font-family:var(--f-display);font-size:20px;}
+.tip-strip span{display:block;font-size:17px;}
+/* The tip on its own page, big */
+.tip-big{background:var(--card);border:var(--edge);box-shadow:var(--shadow);padding:30px 22px;text-align:center;border-top:10px solid var(--brand);}
+.tip-big-icon{font-size:96px;line-height:1;margin-bottom:10px;}
+.tip-big h2{font-size:clamp(28px,6vw,38px);}
+.tip-big p{font-size:24px;margin:0;}
+/* The line at the bottom of the help and news pages */
+.help-more{margin-top:18px;font-size:19px;font-weight:700;text-align:center;}
+
+/* ---------- 21. For parents and teachers ---------- */
+.gu-intro{font-size:20px;max-width:40em;}
+/* Cards with an icon, a heading and a few lines */
+.gu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:18px;}
+.gu-card{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:var(--edge);padding:16px;}
+.gu-icon{font-size:32px;line-height:1;flex:none;}
+.gu-card h3{margin:0 0 4px;font-size:19px;}
+.gu-card p,.gu-card li{font-size:17px;margin:0;}
+.gu-card ul{margin:0;padding-left:20px;}
+.gu-list{list-style:none;padding:0;display:grid;gap:8px;margin:0 0 18px;}
+.gu-list li{background:var(--card);border:var(--edge);padding:10px 14px;font-size:17px;}
+/* The table of what each age group covers. It scrolls sideways on a phone. */
+.tbl{overflow-x:auto;margin-bottom:18px;}
+.tbl table{width:100%;border-collapse:collapse;background:var(--card);font-size:17px;}
+.tbl th,.tbl td{border:1px solid var(--line-2);padding:10px;text-align:left;vertical-align:top;}
+.tbl th{background:var(--card-2);}
+.gu-made{color:var(--ink-2);margin-top:20px;}
+/* About: who made it, with a quote */
+.gu-about blockquote{margin:12px 0;padding:12px 16px;border-left:5px solid var(--brand);background:var(--card);font-size:18px;line-height:1.5;}
+.careful-box{padding:12px 16px;margin:12px 0;background:var(--warn-soft);border:2px solid var(--warn);font-size:17px;}
+.careful-box p{margin:0;}
+.careful-box p + p{margin-top:8px;}
+/* The contact form */
+.contact-form{display:grid;gap:16px;max-width:620px;margin:16px 0 12px;}
+.contact-form label{display:grid;gap:6px;font-family:var(--f-display);font-weight:600;font-size:16px;color:var(--ink);}
+.contact-form input[type="email"],.contact-form textarea,.contact-form select{
+  width:100%;font-family:var(--f-body);font-size:17px;padding:12px 14px;border-radius:0;
+  border:2px solid var(--line-2);background:var(--card);color:var(--ink);
+}
+.contact-form textarea{resize:vertical;min-height:140px;}
+.contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{border-color:var(--brand);outline:none;}
+.contact-form .checkbox-row{display:flex;align-items:center;gap:10px;min-height:44px;font-family:var(--f-body);font-weight:700;}
+.contact-form .checkbox-row input{width:22px;height:22px;accent-color:var(--brand);}
+.contact-form .button-row{margin-top:0;}
+/* A box people never see. Robots fill it in, so a filled-in one is not sent. */
+.robot-trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+/* "Sent" in green, or the problem in red */
+.form-status{min-height:24px;margin:0;font-weight:700;}
+.form-status.sent{color:var(--good);}
+.form-status.problem{color:var(--bad);}
+.disclaimer{font-size:14px;color:var(--ink-2);line-height:1.5;}
+
+/* ---------- 22. Long words ----------
+   Long words with no spaces (like MangoTrumpetGlacierSock or a long web
+   address) wrap instead of pushing the page sideways on a phone. */
+.answer-text,.part,.sheet-why,.course-text b,.news-card h3{overflow-wrap:anywhere;min-width:0;}
+
+/* ---------- Check it with me (js/screens/check.js) ----------
+   One question at a time, with big Yes, No and Not sure buttons, then
+   the warning signs found and what to do. */
+.check-link::after{content:"\2192";margin-left:auto;font-size:22px;}
+.check-card{text-align:center;}
+.check-title{margin:0 0 6px;}
+.check-intro{margin:0 0 14px;color:var(--ink-2);font-size:17px;}
+.check-count{margin:6px 0 0;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-ink);}
+.check-icon{font-size:54px;line-height:1;margin:12px 0 8px;}
+.check-ask{margin:0 auto;max-width:26em;font-size:clamp(21px,4.6vw,26px);line-height:1.3;}
+.check-answers{max-width:420px;margin-left:auto;margin-right:auto;}
+.check-answers .answer{justify-content:center;font-size:20px;}
+.check-back{margin-top:12px;min-height:44px;padding:0 12px;border:0;background:none;color:var(--brand-ink);font:inherit;font-weight:800;cursor:pointer;}
+.check-private{margin:14px 0 0;font-size:14.5px;color:var(--ink-2);}
+.check-result.is-trick{border-color:var(--bad);}
+.check-signs{list-style:none;margin:14px auto 6px;padding:0;max-width:30em;display:grid;gap:8px;text-align:left;}
+.check-signs li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--bad-soft);font-size:17px;line-height:1.4;}
+.check-result h2{margin:16px 0 6px;font-size:20px;}
+.check-steps{margin:0 auto;max-width:30em;text-align:left;font-size:17px;line-height:1.5;}
+.check-steps li{margin:4px 0;}
+body[data-age="explore"] .check-ask{font-size:clamp(23px,5vw,28px);}

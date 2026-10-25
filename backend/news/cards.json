@@ -1,0 +1,295 @@
+{
+  "_about": "Human-written words for each scam type, for ages 10 to 13 (squad) and 14 to 18 (crew). The news collector matches an official news item to a type, then uses these words. No AI writes advice. Edit these by hand. No em dashes. titleOnly: true means the keywords must be in the official title, because they are common words. The words for 10 to 13 always say \"tell a parent, or another adult you trust\".",
+  "types": {
+    "toll": {
+      "category": "messages",
+      "icon": "🚗",
+      "keywords": [
+        "toll",
+        "e-zpass",
+        "ezpass",
+        "txtag",
+        "sunpass",
+        "unpaid toll"
+      ],
+      "squad": {
+        "title": "Fake \"unpaid toll\" texts",
+        "summary": "You might see these on a family phone. Texts say someone owes a road toll and must pay today. Most are fake.",
+        "doThis": "Don't tap the link. Tell a parent, or another adult you trust."
+      },
+      "crew": {
+        "title": "Fake unpaid toll texts are going around",
+        "summary": "A text says you owe a toll and will be fined unless you pay now. Toll texts with a pay-now link are usually scams.",
+        "doThis": "Don't tap. Check on the toll company's real site, typed in yourself."
+      }
+    },
+    "package": {
+      "category": "messages",
+      "icon": "📦",
+      "keywords": [
+        "package",
+        "delivery",
+        "usps",
+        "fedex",
+        "parcel",
+        "redelivery"
+      ],
+      "titleOnly": true,
+      "squad": {
+        "title": "Fake \"your package is stuck\" texts",
+        "summary": "You might see these on a family phone. Texts say a delivery failed and ask you to tap a link or pay a small fee.",
+        "doThis": "Don't tap the link. Tell a parent, or another adult you trust. They can check the real delivery app."
+      },
+      "crew": {
+        "title": "Fake delivery texts with a small fee",
+        "summary": "A text says your package is held and asks for a small fee. The fee page steals card details.",
+        "doThis": "Track packages only in the real app or site you open yourself."
+      }
+    },
+    "job": {
+      "category": "money",
+      "icon": "💼",
+      "keywords": [
+        "job scam",
+        "job offer",
+        "employment scam",
+        "work from home",
+        "task scam",
+        "money mule",
+        "reshipping"
+      ],
+      "squad": {
+        "title": "\"Easy money\" job offers",
+        "summary": "Seen in DMs and games too. Messages offer lots of money for easy online tasks. Many are scams.",
+        "doThis": "Never pay to get a job, and never move money for someone. Tell a parent, or another adult you trust."
+      },
+      "crew": {
+        "title": "Fake jobs and money mule offers",
+        "summary": "Offers of easy pay for simple tasks, or for moving money through your account, are scams and can get you in legal trouble.",
+        "doThis": "Never pay to work or move money for anyone. Tell a parent, or another adult you trust."
+      }
+    },
+    "giftcard": {
+      "category": "money",
+      "icon": "🎁",
+      "keywords": [
+        "gift card",
+        "gift cards"
+      ],
+      "squad": {
+        "title": "Anyone asking for gift cards",
+        "summary": "Seen in games too, from fake staff. Scammers ask people to buy gift cards and send the numbers. Real companies never ask for that.",
+        "doThis": "Never send gift card numbers. Tell a parent, or another adult you trust."
+      },
+      "crew": {
+        "title": "Gift card payment demands",
+        "summary": "Anyone who tells you to pay with gift cards is a scammer. The numbers work like cash and can't be taken back.",
+        "doThis": "Don't buy or send. Tell a parent, or another adult you trust."
+      }
+    },
+    "crypto": {
+      "category": "money",
+      "icon": "🪙",
+      "keywords": [
+        "crypto",
+        "bitcoin",
+        "cryptocurrency",
+        "investment scam",
+        "pig butchering"
+      ],
+      "squad": {
+        "title": "\"Get rich with crypto\" offers",
+        "summary": "Seen in DMs and videos. Offers promise fast money with crypto. Many are scams that take the money.",
+        "doThis": "Don't send money or crypto. Tell a parent, or another adult you trust."
+      },
+      "crew": {
+        "title": "Crypto and investment scams",
+        "summary": "Fake investment groups and \"friends\" promise big returns, then the money is gone. Crypto sent can't be taken back.",
+        "doThis": "Never send crypto to someone you met online. Check with someone you trust first."
+      }
+    },
+    "impersonation": {
+      "category": "messages",
+      "icon": "🎭",
+      "keywords": [
+        "impersonation",
+        "impersonating",
+        "impersonator",
+        "impersonate",
+        "posing as",
+        "pretend to be",
+        "pretending to be",
+        "government imposter",
+        "imposter",
+        "irs",
+        "social security",
+        "bank fraud"
+      ],
+      "titleOnly": true,
+      "squad": {
+        "title": "Scammers pretending to be someone official",
+        "summary": "In games, it can be fake staff or a fake moderator. Scammers pretend to be the government, a bank or a company to scare people into paying.",
+        "doThis": "Don't reply and don't pay. Tell a parent, or another adult you trust."
+      },
+      "crew": {
+        "title": "Fake calls from \"the bank\" or \"the government\"",
+        "summary": "Caller ID and emails can be faked. Scammers pretend to be officials to rush you into paying or sharing codes.",
+        "doThis": "Hang up. Call back on the number from the real website."
+      }
+    },
+    "techsupport": {
+      "category": "securing",
+      "icon": "💻",
+      "keywords": [
+        "tech support",
+        "remote access",
+        "computer virus",
+        "pop-up",
+        "popup"
+      ],
+      "titleOnly": true,
+      "squad": {
+        "title": "Fake \"your device has a virus\" warnings",
+        "summary": "These can pop up while you play or watch videos. Scary screens say a device has a virus and to call a number. It is a trick.",
+        "doThis": "Close the whole tab or app. Never call the number. Tell a parent, or another adult you trust."
+      },
+      "crew": {
+        "title": "Fake virus warnings and tech support",
+        "summary": "A warning says your device is infected and to call support or allow remote access. Real companies don't do this.",
+        "doThis": "Close it. Never let a stranger control your device."
+      }
+    },
+    "shopping": {
+      "category": "money",
+      "icon": "🛒",
+      "keywords": [
+        "online shopping",
+        "fake store",
+        "fake website",
+        "ticket scam",
+        "concert ticket",
+        "event ticket",
+        "ticket resale",
+        "marketplace",
+        "fake seller"
+      ],
+      "titleOnly": true,
+      "squad": {
+        "title": "Fake shops and too-good deals",
+        "summary": "Seen in ads for sneakers, skins and game codes. Fake shops sell popular things for very low prices, then send nothing.",
+        "doThis": "Tell a parent, or another adult you trust, before buying from a shop you don't know."
+      },
+      "crew": {
+        "title": "Fake shops and ticket sellers",
+        "summary": "Deals that are too good, sellers in DMs, and payment apps with no buyer protection are the warning signs.",
+        "doThis": "Pay with a protected method. Check the seller first."
+      }
+    },
+    "sextortion": {
+      "category": "people",
+      "icon": "💜",
+      "ages": [
+        "crew"
+      ],
+      "keywords": [
+        "sextortion",
+        "financial sextortion"
+      ],
+      "crew": {
+        "title": "Warnings about photo threats",
+        "summary": "Officials warn about people who threaten to share private photos unless they are paid. It is never your fault.",
+        "doThis": "Don't pay. Keep the messages. Tell a parent, or another adult you trust. Use Take It Down."
+      }
+    },
+    "takedown": {
+      "category": "people",
+      "icon": "🛡️",
+      "ages": [
+        "crew"
+      ],
+      "keywords": [
+        "take it down act",
+        "nudify",
+        "intimate image",
+        "intimate images"
+      ],
+      "crew": {
+        "title": "A law to take down private images fast",
+        "summary": "Under the Take It Down Act, apps must remove nude or sexual images, including AI fakes, within 48 hours of a request.",
+        "doThis": "Tell a parent, or another adult you trust. Under 18? Use Take It Down."
+      }
+    },
+    "ai": {
+      "category": "realfake",
+      "icon": "🤖",
+      "keywords": [
+        "artificial intelligence",
+        "deepfake",
+        "voice clone",
+        "voice cloning",
+        "ai-generated",
+        "generative ai"
+      ],
+      "squad": {
+        "title": "AI fakes that look and sound real",
+        "summary": "Seen in videos of famous creators. Scammers use AI to fake voices, faces and videos of real people.",
+        "doThis": "Check the creator's real channel. Not sure? Tell a parent, or another adult you trust."
+      },
+      "crew": {
+        "title": "AI voices and deepfakes in scams",
+        "summary": "AI can copy a voice or face. A call that sounds like family asking for money may be fake.",
+        "doThis": "Hang up and call them back. Ask for your family word."
+      }
+    },
+    "textscam": {
+      "category": "messages",
+      "icon": "📱",
+      "keywords": [
+        "text message",
+        "text messages",
+        "text scam",
+        "scam text",
+        "smishing",
+        "phishing",
+        "phishing email",
+        "fake email",
+        "dmv",
+        "traffic ticket"
+      ],
+      "titleOnly": true,
+      "squad": {
+        "title": "Scam texts and emails going around",
+        "summary": "You might see these on your phone or a family phone. Officials warn about fake texts and emails that try to get people to tap a link or pay.",
+        "doThis": "Don't tap links in surprise messages. Tell a parent, or another adult you trust."
+      },
+      "crew": {
+        "title": "Scam texts and emails going around",
+        "summary": "Fake messages copy real companies and agencies to get you to tap a link, log in or pay.",
+        "doThis": "Don't tap. Go to the real site or app yourself to check."
+      }
+    },
+    "gaming": {
+      "category": "gaming",
+      "icon": "🎮",
+      "keywords": [
+        "gaming",
+        "gamer",
+        "video game",
+        "roblox",
+        "fortnite",
+        "minecraft",
+        "in-game"
+      ],
+      "squad": {
+        "title": "Scams aimed at gamers",
+        "summary": "Seen in games. Fake free currency, fake trades and cheats with viruses are common tricks.",
+        "doThis": "Nothing free comes from outside the game. Clicked one? Tell a parent, or another adult you trust."
+      },
+      "crew": {
+        "title": "Scams aimed at gamers",
+        "summary": "Free currency sites, cheap accounts and cracked games are used to steal logins and money.",
+        "doThis": "Only download from official stores. Never log in through a link."
+      }
+    }
+  }
+}

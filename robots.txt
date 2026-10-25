@@ -1,0 +1,5 @@
+# Search engines may read the whole site.
+User-agent: *
+Allow: /
+
+Sitemap: https://scamsquad.app/sitemap.xml

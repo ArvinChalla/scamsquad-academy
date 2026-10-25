@@ -1,0 +1,112 @@
+/* ========================================================================
+   ages.css
+   A different feel for each age group. main.js puts data-age on <body>
+   ("explore", "squad" or "crew"), and the rules here change sizes and
+   colors for that group. This file loads last, so it wins over the others.
+
+   6 to 9    (explore)  bigger words, bigger pictures, bigger buttons
+   10 to 13  (squad)    the normal look, so nothing here
+   14 to 18  (crew)     smaller, cleaner, less cartoon
+
+   1. Ages 6 to 9
+   2. Ages 14 to 18: colors and fonts
+   3. Ages 14 to 18: sizes
+   4. Ages 14 to 18: the "pro" look
+   5. Ages 14 to 18: the numbered course list
+   6. Ages 14 to 18: the plain intro
+   ======================================================================== */
+
+/* ---------- 1. Ages 6 to 9 ---------- */
+body[data-age="explore"]{font-size:18.5px;}
+body[data-age="explore"] .learn-card .learn-title{font-size:clamp(25px,5vw,31px);}
+body[data-age="explore"] .learn-card .learn-text{font-size:20.5px;line-height:1.55;}
+body[data-age="explore"] .learn-icon{width:104px;height:104px;font-size:64px;}
+body[data-age="explore"] .quiz-question{font-size:clamp(23px,4.4vw,29px);}
+body[data-age="explore"] .answer{min-height:72px;font-size:20px;}
+body[data-age="explore"] .node{width:96px;height:96px;font-size:46px;}
+body[data-age="explore"] .node.next{width:112px;height:112px;font-size:54px;}
+/* The lock on a locked lesson stays smaller than a lesson's own picture */
+body[data-age="explore"] .node.locked{font-size:36px;}
+body[data-age="explore"] .sheet-why{font-size:18.5px;}
+
+/* ---------- 2. Ages 14 to 18: colors and fonts ----------
+   Neutral greys with one soft blue accent, and plain system fonts.
+   Like an app for young adults, not a kids' game. */
+body[data-age="crew"]{
+  font-size:16.5px;
+  /* Page, cards and lines */
+  --ground:#F3F4F6; --card:#FFFFFF; --card-2:#F8F9FB; --line:#E5E7EB; --line-2:#D1D5DB;
+  /* Text */
+  --ink:#111827; --ink-2:#4B5563;
+  /* The accent, a calm blue instead of purple */
+  --brand:#2F4A6D; --brand-ink:#2F4A6D; --brand-soft:#E3EAF3;
+  /* Fonts */
+  --f-display:"Segoe UI","SF Pro Display",system-ui,-apple-system,Roboto,sans-serif;
+  --f-body:"Segoe UI","SF Pro Text",system-ui,-apple-system,Roboto,sans-serif;
+  /* No flat card shadows */
+  --shadow:none;
+}
+/* The same, when the device is set to dark mode */
+@media (prefers-color-scheme: dark){
+  body[data-age="crew"]{
+    --ground:#0F1115; --card:#181B21; --card-2:#1F232B; --line:#2A2F38; --line-2:#3A404C;
+    --ink:#E8EAED; --ink-2:#A4ACB9; --brand:#8FB1D9; --brand-ink:#A9C3E3; --brand-soft:#1E2A3A; --on-brand:#0F1115;
+  }
+}
+
+/* ---------- 3. Ages 14 to 18: sizes ----------
+   Smaller headings, icons and buttons, and no bouncing. */
+body[data-age="crew"] h1{font-size:clamp(26px,5vw,34px);}
+body[data-age="crew"] .learn-icon{width:56px;height:56px;font-size:30px;}
+body[data-age="crew"] .learn-card .learn-text{font-size:17px;}
+body[data-age="crew"] .quiz-question{font-size:clamp(21px,4vw,25px);}
+body[data-age="crew"] .answer{min-height:56px;font-size:16.5px;font-family:var(--f-body);font-weight:600;}
+body[data-age="crew"] .world-icon{font-size:38px;}
+body[data-age="crew"] .node{width:72px;height:72px;font-size:32px;}
+body[data-age="crew"] .node.next{width:84px;height:84px;font-size:38px;animation:none;}
+body[data-age="crew"] .hello-face{font-size:84px;animation:none;}
+body[data-age="crew"] .result-stars{font-size:52px;}
+body[data-age="crew"] .help-what-icon,body[data-age="crew"] .hotline-icon{font-size:24px;}
+
+/* ---------- 4. Ages 14 to 18: the "pro" look ----------
+   Flat buttons and cards, small grey icons in the menu. */
+body[data-age="crew"] h1,body[data-age="crew"] h2,body[data-age="crew"] h3{font-weight:700;letter-spacing:-.01em;}
+body[data-age="crew"] .button{box-shadow:none;font-weight:600;font-size:18px;min-height:54px;}
+body[data-age="crew"] .button:active{transform:none;}
+body[data-age="crew"] .world-card{box-shadow:none;border-width:2px;aspect-ratio:auto;min-height:150px;}
+body[data-age="crew"] .world-card.current{box-shadow:none;border-color:var(--brand);}
+body[data-age="crew"] .world-name{color:var(--ink);font-size:17px;}
+body[data-age="crew"] .world-flag.go{background:var(--brand);border-color:var(--brand);}
+body[data-age="crew"] .keep-box .keep-text{font-family:var(--f-body);font-size:19px;}
+body[data-age="crew"] .stat,body[data-age="crew"] .age-chip{font-weight:600;}
+body[data-age="crew"] .bottom-nav a span{font-size:22px;filter:grayscale(.6);}
+body[data-age="crew"] .bottom-nav a.on span{filter:none;}
+body[data-age="crew"] .quiz-count{color:var(--ink-2);}
+
+/* ---------- 5. Ages 14 to 18: the numbered course list ----------
+   Teens see a world's lessons as a numbered list instead of a winding road. */
+.course-list{display:grid;gap:8px;margin-top:16px;}
+.course-row{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--card);border:1px solid var(--line-2);text-decoration:none;color:var(--ink);}
+a.course-row:hover{border-color:var(--brand);}
+/* Locked lessons are buttons, so tapping one says what to finish first */
+button.course-row{width:100%;font:inherit;text-align:left;cursor:pointer;}
+.course-num{flex:none;display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line-2);font-weight:700;}
+.course-row.done .course-num{background:var(--good-soft);border-color:var(--good);color:var(--good);}
+.course-row.next{border:2px solid var(--brand);}
+.course-row.next .course-num{background:var(--brand);color:var(--on-brand);border-color:var(--brand);}
+/* Locked and coming-soon rows look quieter, without fading the words */
+.course-row.locked,.course-row.soon{background:var(--card-2);border-style:dashed;}
+.course-row.locked .course-text b,.course-row.soon .course-text b{color:var(--ink-2);}
+.course-text{flex:1;display:flex;flex-direction:column;}
+.course-text b{font-size:18px;}
+.course-text small{color:var(--ink-2);font-size:14px;}
+/* On the right: the score, "Start" or "Soon" */
+.course-status{flex:none;font-weight:700;font-size:15px;color:var(--ink-2);}
+.course-status.done{color:var(--good);}
+.course-status.next{color:var(--on-brand);background:var(--brand);padding:6px 14px;}
+
+/* ---------- 6. Ages 14 to 18: the plain intro ----------
+   No buddy, just a heading and a few words. */
+.hello.plain{gap:10px;}
+.hello.plain h1{font-size:clamp(30px,6vw,42px);}
+.hello.plain p{font-size:20px;max-width:28em;color:var(--ink-2);}

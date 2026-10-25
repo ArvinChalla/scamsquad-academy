@@ -1,0 +1,127 @@
+/* ========================================================================
+   quiz.css
+   The question screen at the end of a lesson, and the results screen
+   that comes after it. The green or red sheet that slides up after an
+   answer is in app.css, with the rest of the bottom bar.
+
+   1. The question screen
+   2. The answer buttons
+   3. Real or fake questions
+   4. Put in order questions
+   5. Spot the red flags questions
+   6. The hint
+   7. Results
+   ======================================================================== */
+
+/* ---------- 1. The question screen ----------
+   No box around it: the question sits big on the page and the answers
+   are tiles that look like they can be pressed. */
+.quiz-card{background:none;border-radius:0;border:0;box-shadow:none;padding:4px 0 0;animation:slideIn .25s ease both;}
+/* The row with "Question 2 of 4" */
+.quiz-top{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;}
+.quiz-count{font-size:16px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--strong);margin-bottom:6px;}
+.quiz-question{font-family:var(--f-display);font-size:clamp(21px,3.6vw,27px);font-weight:700;line-height:1.25;margin:6px 0 4px;}
+
+/* ---------- 2. The answer buttons ----------
+   Big tiles, one per row. Each has a letter (A, B, C) in a small square.
+   They sink a little when pressed, like the big buttons. */
+.answers{display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px;}
+.answer{
+  display:flex;align-items:center;gap:14px;width:100%;min-width:0;min-height:72px;padding:14px 18px;text-align:left;cursor:pointer;
+  background:var(--card);border:2px solid var(--line-2);border-radius:0;box-shadow:0 5px 0 var(--line-2);color:var(--ink);
+  font-family:var(--f-display);font-size:18.5px;font-weight:600;line-height:1.3;
+  transition:transform .1s ease, box-shadow .1s ease, border-color .1s ease;
+}
+.answer:hover:not(:disabled){border-color:var(--strong, var(--brand));box-shadow:0 5px 0 var(--strong, var(--brand));transform:none;}
+.answer:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--line-2);}
+.answer:disabled{cursor:default;}
+.answer .letter{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:0;background:var(--soft, var(--brand-soft));border:2px solid var(--strong, var(--brand));color:var(--ink);font-weight:700;}
+/* The ✅ or ❌ at the end of a button after answering */
+.answer .mark{margin-left:auto;font-size:28px;line-height:1;}
+/* After answering: the right one turns green, a wrong pick turns red,
+   and the others fade */
+.answer.is-right{border-width:3px;border-color:var(--good);background:var(--good-soft);box-shadow:0 5px 0 var(--good);}
+.answer.is-wrong{border-width:3px;border-color:var(--bad);background:var(--bad-soft);box-shadow:0 5px 0 var(--bad);}
+.answer.faded{opacity:.5;box-shadow:none;}
+/* A hint took this answer away */
+.answer.removed{opacity:.25;text-decoration:line-through;}
+
+/* Phones (560px wide or less): slightly smaller answer tiles */
+@media (max-width:560px){
+  .answer{font-size:17.5px;min-height:62px;}
+}
+/* Tablets and computers (768px wide or more): slightly taller answer tiles */
+@media (min-width:768px){
+  .answers .answer{min-height:76px;}
+}
+
+/* ---------- 3. Real or fake questions ----------
+   Two big buttons side by side, icon and word on one line, no extra marks. */
+.answers.two{grid-template-columns:1fr 1fr;}
+.answers.two .answer{justify-content:center;text-align:center;font-size:22px;}
+.answers.two .answer-text{white-space:nowrap;overflow-wrap:normal;}
+/* Very small phones (360px wide or less): a little smaller so both fit */
+@media (max-width:360px){ .answers.two .answer{font-size:19px;padding:12px 8px;} }
+/* What the two words mean, under the buttons */
+.realfake-key{margin:12px 0 0;font-size:16px;color:var(--ink-2);text-align:center;}
+
+/* ---------- 4. Put in order questions ----------
+   The steps are answer buttons. The letter square shows "?" until the
+   step is placed, then its number. */
+.order-step{flex-wrap:wrap;}
+.order-step .letter:empty::before{content:"?";color:var(--ink-2);}
+.order-step .answer-text{flex:1;}
+
+/* ---------- 5. Spot the red flags questions ----------
+   "2 of 3 found", and a line that says what the last tap was. */
+.spot-count{margin:12px 0 0;font-weight:800;color:var(--strong, var(--brand));}
+.spot-note{min-height:1.5em;margin:12px 0 0;font-size:18px;}
+
+/* ---------- 6. The hint ----------
+   One row under the answers: "💡 Hint" and its price in coins. */
+.hint-row{display:flex;justify-content:flex-start;margin-top:16px;}
+.hint-chip{display:inline-flex;flex-direction:row;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:4px 12px;
+  background:var(--warn-soft);border:2px solid var(--warn);color:var(--ink);font:inherit;font-weight:800;font-size:16px;line-height:1.15;cursor:pointer;}
+.hint-chip small{font-weight:700;font-size:14px;color:var(--ink-2);}
+.hint-chip:disabled{opacity:.55;cursor:default;}
+/* "Look here": a yellow ring on a part of a fake screen or a step, which
+   stays until it is tapped. ".screen" makes the label win over the quote
+   marks that call lines and payment notes put in the same spot. */
+.part.hinted,.order-step.hinted{box-shadow:0 0 0 4px #F7C948 !important;position:relative;}
+.screen .part.hinted::after,.order-step.hinted::after{content:"Look here";position:absolute;top:-14px;right:6px;padding:1px 8px;
+  background:#F7C948;color:#3D2E00;font-family:"Segoe UI",system-ui,sans-serif;font-size:12px;font-weight:800;line-height:1.4;border-radius:999px;}
+
+/* ---------- 7. Results ----------
+   Stars, "3 of 4 right", the coins earned, any badge news, the rule to
+   keep, and the questions that were missed. */
+.results{text-align:center;padding-top:10px;}
+.results h1{font-size:34px;margin-bottom:4px;}
+/* The stars pop in one after another */
+.result-stars{font-size:72px;line-height:1;letter-spacing:8px;margin-bottom:12px;}
+.result-stars .star-on{display:inline-block;animation:starPop .45s ease both;}
+.result-stars .star-on:nth-child(2){animation-delay:.15s;}
+.result-stars .star-on:nth-child(3){animation-delay:.3s;}
+.result-stars .star-off{opacity:.18;filter:grayscale(1);}
+@keyframes starPop{0%{transform:scale(0)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+.cheer{font-size:20px;color:var(--ink-2);}
+/* A short note about what this round changed */
+.result-note{font-size:18px;font-weight:700;margin:0 0 10px;}
+/* "+30 coins" */
+.earned{display:inline-block;font-weight:800;font-size:20px;background:var(--card);border:var(--edge);padding:6px 14px;margin-bottom:6px;}
+/* The badge moment: green when a badge was just won, plain when it is still to come */
+.badge-news{margin:10px 0 0;padding:12px 14px;background:var(--good-soft);border:2px solid var(--good);font-weight:800;font-size:19px;}
+.badge-news.soft{background:var(--card);border-color:var(--line-2);font-weight:700;font-size:17px;}
+/* "Your certificate is ready" */
+.certificate-news{margin:16px 0 0;padding:12px 14px;background:var(--warn-soft);border:2px solid var(--warn);font-weight:800;font-size:18px;}
+.results .keep-box{text-align:left;}
+
+/* "See what I missed": a box that opens. Its ▾ turns over when it is open. */
+.missed{margin-top:14px;padding:6px 16px;border-radius:0;background:var(--card);border:var(--edge);text-align:left;font-size:18px;}
+.missed summary{cursor:pointer;min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:10px;list-style:none;font-weight:800;font-size:18px;}
+.missed summary::-webkit-details-marker{display:none;}
+.missed summary::after{content:"▾";font-size:22px;transition:transform .15s ease;}
+.missed[open] summary::after{transform:rotate(180deg);}
+.missed ul{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:8px;}
+.missed li{background:var(--bad-soft);padding:10px 12px;font-size:17px;}
+.missed b{display:block;font-family:var(--f-display);font-size:19px;}
+

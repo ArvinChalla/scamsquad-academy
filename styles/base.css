@@ -1,0 +1,195 @@
+/* ========================================================================
+   base.css
+   The basics every screen shares: the colors, the fonts, the page itself,
+   the top bar and footer, and the big buttons.
+
+   Every color has a name here, once. To change a color everywhere, change
+   it here. "ink" means a text color. "soft" means a light version of a
+   color, used for backgrounds.
+
+   1. Colors and fonts
+   2. Dark mode colors
+   3. The page
+   4. Top bar and footer
+   5. Buttons and the Back link
+   6. Calm mode (less movement)
+   ======================================================================== */
+
+/* ---------- 1. Colors and fonts ---------- */
+:root{
+  /* The page background, the cards on it, and their thin border lines */
+  --ground:#EEF2FF;
+  --card:#FFFFFF;
+  --card-2:#F4F6FE;
+  --line:#DCE1F5;
+  --line-2:#C3CAEA;
+
+  /* Text: the main color, and a lighter one for less important words */
+  --ink:#171A38;
+  --ink-2:#4A507A;
+
+  /* The main purple, for buttons and links */
+  --brand:#4B3FE4;
+  --brand-ink:#3A2FBE;
+  --brand-soft:#E4E1FF;
+  /* The text on a purple button */
+  --on-brand:#FFFFFF;
+
+  /* Right (green), wrong (red) and "careful" (amber) */
+  --good:#0B7354;
+  --good-soft:#D7F5EA;
+  --bad:#B3261E;
+  --bad-soft:#FBE3E0;
+  --warn:#8A5106;
+  --warn-soft:#FDEFD4;
+
+  /* One color per category (world). The plain name is for text and
+     borders, "soft" is for the card behind it. */
+  --gaming:#6B3FD4;    --gaming-soft:#ECE4FF;
+  --messages:#1F6FD1;  --messages-soft:#DDEBFC;
+  --money:#0B7A4B;     --money-soft:#D8F3E5;
+  --people:#B4306E;    --people-soft:#FBE1EE;
+  --securing:#0A6577;  --securing-soft:#D6F0F5;
+  --realfake:#B84A0E;  --realfake-soft:#FCE4D3;
+  --hooks:#8A5106;     --hooks-soft:#FDEFD4;
+
+  /* Fonts. Rounded, friendly fonts that are already on most devices,
+     so nothing has to load from another company's server. */
+  --f-display:"Fredoka","Baloo 2","SF Pro Rounded",ui-rounded,"Segoe UI Variable Display","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito","SF Pro Rounded",ui-rounded,"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;
+
+  /* Square corners and crisp edges on purpose: no soft blurry shadows.
+     Cards get a thin border and a small flat shadow in a soft color. */
+  --radius:0;
+  --edge:2px solid var(--line-2);
+  --shadow:4px 4px 0 var(--line);
+}
+
+/* ---------- 2. Dark mode colors ----------
+   The same names as above, with darker backgrounds and lighter text,
+   used when the device is set to dark mode. */
+@media (prefers-color-scheme: dark){
+  :root{
+    /* Page, cards and lines */
+    --ground:#0E1024; --card:#181B36; --card-2:#20244A; --line:#2A2F58; --line-2:#3A4070;
+    /* Text */
+    --ink:#EAEDFB; --ink-2:#AEB5DC;
+    /* The main purple */
+    --brand:#8E86FF; --brand-ink:#B0AAFF; --brand-soft:#282465;
+    /* The purple is light in the dark, so the words on it are dark */
+    --on-brand:#0E1024;
+    /* Right, wrong and careful */
+    --good:#4FD3A6; --good-soft:#123A2F; --bad:#FF8A7A; --bad-soft:#3E1C18; --warn:#F0B65C; --warn-soft:#3A2C12;
+    /* One color per category */
+    --gaming:#B9A0FF; --gaming-soft:#2C2160;
+    --messages:#8DBDF5; --messages-soft:#14294A;
+    --money:#6FD9A6; --money-soft:#123A28;
+    --people:#F49AC4; --people-soft:#3E1830;
+    --securing:#4FCBE0; --securing-soft:#0F3540;
+    --realfake:#F7A877; --realfake-soft:#3E2414;
+    --hooks:#F0B65C; --hooks-soft:#3A2C12;
+    /* The flat card shadow is plain black in the dark */
+    --shadow:4px 4px 0 #000;
+  }
+}
+
+/* ---------- 3. The page ---------- */
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;min-height:100vh;background:var(--ground);color:var(--ink);
+  font-family:var(--f-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;margin:0 0 10px;}
+h1{font-size:clamp(28px,5.2vw,40px);font-weight:700;}
+h2{font-size:clamp(22px,3.6vw,30px);font-weight:700;}
+h3{font-size:20px;font-weight:700;}
+p{margin:0 0 12px;}
+a{color:var(--brand-ink);}
+:focus-visible{outline:4px solid var(--brand);outline-offset:3px;border-radius:0;}
+/* Headings get focus by script (for screen readers), not by the player, so no outline */
+[tabindex="-1"]:focus{outline:none;}
+[hidden]{display:none !important;}
+
+/* Only for screen readers: words that are read out but not shown */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+
+/* The box every screen is drawn into, and the "Loading..." line */
+#app{max-width:860px;margin:0 auto;padding:12px 16px 40px;outline:none;}
+.loading{text-align:center;color:var(--ink-2);padding:60px 0;}
+/* The note under "Loading..." waits 3 seconds before it shows, so a normal
+   start (which replaces it at once) never shows it. See index.html. */
+.loading-help{max-width:34em;margin:0 auto;text-align:center;color:var(--ink-2);animation:showLate 3s step-end both;}
+@keyframes showLate{from{visibility:hidden}to{visibility:visible}}
+
+/* ---------- 4. Top bar and footer ----------
+   The logo, the 🏠 button and Help along the top, and the small print at
+   the bottom. They show on screens without the bottom menu, like the home
+   page (see app.css, section 1). */
+.topbar{
+  max-width:860px;margin:0 auto;padding:14px 16px 4px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);}
+/* The shield logo (images/logo-shield.png), drawn the same everywhere */
+.logo-img{display:block;flex:none;width:auto;height:44px;}
+.logo-name{font-family:var(--f-display);font-size:24px;font-weight:600;white-space:nowrap;}
+.logo-name b{color:var(--brand-ink);font-weight:700;}
+/* Phones (480px wide or less): a smaller logo and just "ScamSquad", so the
+   name stays on one line next to Help and the home button */
+@media (max-width:480px){
+  .logo{gap:8px;}
+  .logo .logo-img{height:38px;}
+  .logo-name{font-size:22px;}
+  .logo-name b{display:none;}
+}
+.home-button{
+  display:grid;place-items:center;width:48px;height:48px;border:var(--edge);
+  background:var(--card);box-shadow:var(--shadow);text-decoration:none;font-size:24px;
+}
+/* On the home page the 🏠 button would go nowhere, so it is hidden there */
+body.on-home .home-button{display:none;}
+.top-buttons{display:flex;align-items:center;gap:10px;}
+.help-button{
+  display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 14px;border-radius:0;
+  background:var(--card);border:var(--edge);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);font-weight:800;font-size:17px;white-space:nowrap;flex:none;
+}
+.footer{text-align:center;color:var(--ink-2);font-size:15px;padding:10px 16px 30px;}
+/* Footer links are tall enough to tap with a finger */
+.footer a{display:inline-block;padding:12px 4px;}
+
+/* Very small phones (360px wide or less): a smaller logo and buttons */
+@media (max-width:360px){
+  .logo-name{font-size:19px;}
+  .logo .logo-img{height:32px;}
+  .help-button{padding:6px 10px;font-size:16px;}
+  .home-button{width:44px;height:44px;}
+  .topbar{gap:8px;padding-left:12px;padding-right:12px;}
+}
+
+/* ---------- 5. Buttons and the Back link ---------- */
+/* The big purple button. It sinks a little when pressed. */
+.button{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:60px;padding:12px 26px;border:0;border-radius:0;cursor:pointer;
+  background:var(--brand);color:var(--on-brand);text-decoration:none;
+  font-family:var(--f-display);font-size:19px;font-weight:700;
+  box-shadow:0 5px 0 var(--brand-ink);transition:transform .1s ease, box-shadow .1s ease;
+}
+.button:active{transform:translateY(3px);box-shadow:0 2px 0 var(--brand-ink);}
+/* A white button with a purple word, for the second choice */
+.button.quiet{background:var(--card);color:var(--brand-ink);box-shadow:0 5px 0 var(--line-2);border:3px solid var(--line-2);}
+/* A button that fills the whole width, like the ones in the bottom bar */
+.button.wide{width:100%;}
+/* A row of buttons side by side */
+.button-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px;}
+.button-row.center{justify-content:center;}
+
+/* "Back" link at the top of a screen. 44px tall so it is easy to tap. */
+.back{display:inline-flex;align-items:center;gap:6px;margin:4px 0 12px;font-weight:700;text-decoration:none;font-size:18px;min-height:44px;}
+
+/* ---------- 6. Calm mode ----------
+   When the device asks for less movement, nothing slides, bounces or fades. */
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important;transition:none !important;}
+}

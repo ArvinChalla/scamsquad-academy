@@ -1,0 +1,13 @@
+{
+  "name": "ScamSquad Academy",
+  "short_name": "ScamSquad",
+  "description": "A free game that teaches kids aged 6 to 18 to spot online scams.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EEF1FF",
+  "theme_color": "#4B3FE4",
+  "icons": [
+    { "src": "images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

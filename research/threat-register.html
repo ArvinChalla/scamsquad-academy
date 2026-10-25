@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Under-18 Threat Register</title>
+<!-- No webfont request on purpose: loading Google Fonts sends every visitor's IP address to a third party. The font stacks below fall back to fonts already on the device. -->
+
+<style>
+  :root{
+    --ground:#F2F5F3;
+    --surface:#FFFFFF;
+    --surface-2:#E7ECE9;
+    --ink:#111B19;
+    --ink-2:#495753;
+    --ink-3:#78867F;
+    --line:#D2DAD6;
+    --line-2:#BFC9C4;
+    --accent:#0E6B5E;
+    --accent-ink:#0A4C43;
+    --accent-soft:#DCEDE8;
+    --amber:#8E5E06;
+    --amber-soft:#F6EAD2;
+    --contest:#9B2F50;
+    --contest-soft:#F7DFE6;
+    --shadow:0 1px 2px rgba(17,27,25,.05), 0 6px 18px -10px rgba(17,27,25,.18);
+
+    --f-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+    --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0C1312;
+      --surface:#141E1C;
+      --surface-2:#1C2724;
+      --ink:#E5EDE9;
+      --ink-2:#A3B2AD;
+      --ink-3:#7C8A85;
+      --line:#27332F;
+      --line-2:#36443F;
+      --accent:#48C3AC;
+      --accent-ink:#8FDCCB;
+      --accent-soft:#15332D;
+      --amber:#D9A34A;
+      --amber-soft:#332918;
+      --contest:#E8829E;
+      --contest-soft:#361B24;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px -12px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0C1312;
+    --surface:#141E1C;
+    --surface-2:#1C2724;
+    --ink:#E5EDE9;
+    --ink-2:#A3B2AD;
+    --ink-3:#7C8A85;
+    --line:#27332F;
+    --line-2:#36443F;
+    --accent:#48C3AC;
+    --accent-ink:#8FDCCB;
+    --accent-soft:#15332D;
+    --amber:#D9A34A;
+    --amber-soft:#332918;
+    --contest:#E8829E;
+    --contest-soft:#361B24;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 22px -12px rgba(0,0,0,.7);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--f-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px;}
+  a:hover{text-decoration-thickness:2px;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;}
+
+  h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.015em;}
+
+  .eyebrow{
+    font-family:var(--f-mono);font-size:11px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+  }
+
+  /* ---------- masthead ---------- */
+  header.mast{
+    border-bottom:1px solid var(--line);
+    background:var(--surface);
+  }
+  .mast-inner{display:flex;flex-direction:column;gap:26px;padding-top:52px;padding-bottom:40px;}
+  .mast h1{font-size:clamp(38px,6vw,66px);font-weight:800;line-height:.98;}
+  .mast .lede{
+    font-size:clamp(17px,1.5vw,20px);color:var(--ink-2);max-width:62ch;margin:0;
+  }
+  .mast-meta{
+    display:flex;flex-wrap:wrap;gap:8px 28px;
+    padding-top:22px;border-top:1px solid var(--line);
+    font-family:var(--f-mono);font-size:12px;color:var(--ink-3);
+  }
+  .mast-meta b{color:var(--ink-2);font-weight:600;}
+
+  /* ---------- callout ---------- */
+  .note{
+    background:var(--surface);border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    padding:18px 22px;border-radius:3px;
+    font-size:15px;color:var(--ink-2);
+  }
+  .note strong{color:var(--ink);}
+
+  /* ---------- filter bar ---------- */
+  .filterbar{
+    position:sticky;top:0;z-index:20;
+    background:color-mix(in srgb, var(--ground) 92%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .filter-inner{
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding-top:12px;padding-bottom:12px;
+  }
+  .filter-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .filter-label{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+  .chipbtn{
+    font-family:var(--f-mono);font-size:12px;font-weight:500;
+    border:1px solid var(--line-2);background:transparent;color:var(--ink-2);
+    padding:5px 11px;border-radius:999px;cursor:pointer;
+    transition:background .12s ease,color .12s ease,border-color .12s ease;
+  }
+  .chipbtn:hover{border-color:var(--accent);color:var(--accent-ink);}
+  .chipbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface);}
+  .count{margin-left:auto;font-family:var(--f-mono);font-size:12px;color:var(--ink-3);}
+
+  /* ---------- sections ---------- */
+  section{padding:56px 0;border-bottom:1px solid var(--line);}
+  .sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:30px;max-width:70ch;}
+  .sec-head h2{font-size:clamp(24px,3vw,34px);font-weight:700;}
+  .sec-head p{margin:0;color:var(--ink-2);font-size:16px;}
+
+  /* ---------- matrix ---------- */
+  .matrix-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface);}
+  table.matrix{border-collapse:collapse;width:100%;min-width:660px;font-family:var(--f-mono);font-size:12.5px;}
+  table.matrix th,table.matrix td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);}
+  table.matrix thead th{
+    font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:600;
+    background:var(--surface-2);
+  }
+  table.matrix tbody th{font-weight:500;color:var(--ink);white-space:nowrap;}
+  table.matrix td{text-align:center;color:var(--accent-ink);letter-spacing:.08em;font-weight:600;}
+  table.matrix td.thin{color:var(--ink-3);font-weight:400;}
+  table.matrix tbody tr:last-child th,table.matrix tbody tr:last-child td{border-bottom:none;}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:14px;font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);}
+
+  /* ---------- class blocks ---------- */
+  .class-block{margin-bottom:56px;scroll-margin-top:70px;}
+  .class-block:last-child{margin-bottom:0;}
+  .class-head{
+    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+    padding-bottom:12px;border-bottom:2px solid var(--ink);margin-bottom:8px;
+  }
+  .class-head h3{font-size:clamp(21px,2.4vw,27px);font-weight:700;}
+  .class-code{
+    font-family:var(--f-mono);font-size:12px;font-weight:600;letter-spacing:.1em;
+    color:var(--surface);background:var(--ink);padding:3px 8px;border-radius:2px;
+  }
+  .class-desc{color:var(--ink-2);font-size:15.5px;margin:0 0 22px;max-width:74ch;}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;}
+  article.card{
+    background:var(--surface);border:1px solid var(--line);border-radius:4px;
+    padding:20px 20px 18px;box-shadow:var(--shadow);
+    display:flex;flex-direction:column;gap:13px;
+  }
+  .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+  .card-id{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.09em;color:var(--ink-3);}
+  .card h4{font-size:18px;font-weight:700;line-height:1.25;margin-top:3px;}
+  .tag{
+    font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    padding:3px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0;
+  }
+  .tag.doc{background:var(--surface-2);color:var(--ink-2);}
+  .tag.emg{background:var(--amber-soft);color:var(--amber);}
+  .tag.con{background:var(--contest-soft);color:var(--contest);}
+  .def{margin:0;font-size:15px;color:var(--ink-2);}
+  .card .sub{font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin:0 0 5px;}
+  .card ul{margin:0;padding-left:17px;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px;}
+  .card ul li::marker{color:var(--accent);}
+  .card .signals li::marker{color:var(--amber);}
+  .meta-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line);}
+  .pill{
+    font-family:var(--f-mono);font-size:10.5px;letter-spacing:.04em;
+    border:1px solid var(--line-2);color:var(--ink-3);padding:2px 7px;border-radius:999px;
+  }
+  .pill.age{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft);}
+  .src{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);line-height:1.5;}
+  .src a{color:var(--ink-3);}
+
+  .card.dim{display:none;}
+  .class-block.dim{display:none;}
+
+  /* ---------- age profiles ---------- */
+  .bands{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;}
+  .band{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:20px;}
+  .band h4{font-size:19px;font-weight:700;margin-bottom:4px;}
+  .band .yr{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:12px;}
+  .band p{margin:0 0 12px;font-size:15px;color:var(--ink-2);}
+  .band ul{margin:0;padding-left:17px;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px;}
+
+  /* ---------- signal list ---------- */
+  .signal-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+  .sig{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:20px;}
+  .sig h4{font-size:16px;font-weight:700;margin-bottom:10px;}
+  .sig ul{margin:0;padding-left:17px;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px;}
+
+  /* ---------- resources ---------- */
+  .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;}
+  .res-item{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:3px;padding:16px 18px;}
+  .res-item h4{font-size:16px;font-weight:700;margin-bottom:5px;}
+  .res-item p{margin:0;font-size:14.5px;color:var(--ink-2);}
+
+  /* ---------- caveats ---------- */
+  .caveats{display:flex;flex-direction:column;gap:12px;max-width:80ch;}
+  .caveat{display:flex;gap:14px;align-items:flex-start;font-size:15px;color:var(--ink-2);}
+  .caveat .k{
+    font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    padding:3px 7px;border-radius:2px;flex-shrink:0;margin-top:2px;
+    background:var(--contest-soft);color:var(--contest);
+  }
+  .caveat .k.gap{background:var(--amber-soft);color:var(--amber);}
+
+  /* ---------- sources ---------- */
+  .srclist{columns:2;column-gap:36px;font-size:14px;color:var(--ink-2);}
+  .srclist p{margin:0 0 9px;break-inside:avoid;}
+  @media (max-width:760px){.srclist{columns:1;}}
+
+  footer{padding:40px 0 64px;font-family:var(--f-mono);font-size:12px;color:var(--ink-3);}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;}}
+</style>
+<style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<header class="mast">
+  <div class="wrap mast-inner">
+    <div>
+      <p style="margin:0 0 14px;font-family:var(--f-mono);font-size:13px;"><a href="../">&larr; ScamSquad Academy</a></p>
+      <div class="eyebrow">Child online safety &middot; threat taxonomy &middot; ages 6&ndash;18</div>
+      <h1>Under-18 Threat Register</h1>
+    </div>
+    <p class="lede">Fifty-six ways children and teenagers are targeted online: in games, chat apps, feeds, schools, and on the devices in their bedrooms. Each entry explains how it works, which ages it mostly affects, and what it looks like from the outside.</p>
+    <div class="mast-meta">
+      <span><b>Compiled</b> August 2026</span>
+      <span><b>Evidence window</b> mainly 2024&ndash;2026; older sources dated inline</span>
+      <span><b>Classes</b> 8</span>
+      <span><b>Entries</b> 56</span>
+      <span><b>Primary sources</b> NCMEC, FBI/IC3, IWF, Thorn, FTC, Europol, Kaspersky, Comparitech, Pew, Common Sense Media</span>
+    </div>
+  </div>
+</header>
+
+<div class="filterbar">
+  <div class="wrap filter-inner">
+    <div class="filter-group">
+      <span class="filter-label">Age</span>
+      <button class="chipbtn" data-age="all" aria-pressed="true">All</button>
+      <button class="chipbtn" data-age="6-9" aria-pressed="false">6&ndash;9</button>
+      <button class="chipbtn" data-age="10-12" aria-pressed="false">10&ndash;12</button>
+      <button class="chipbtn" data-age="13-15" aria-pressed="false">13&ndash;15</button>
+      <button class="chipbtn" data-age="16-18" aria-pressed="false">16&ndash;18</button>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Evidence</span>
+      <button class="chipbtn" data-ev="all" aria-pressed="true">All</button>
+      <button class="chipbtn" data-ev="doc" aria-pressed="false">Documented</button>
+      <button class="chipbtn" data-ev="emg" aria-pressed="false">Emerging</button>
+      <button class="chipbtn" data-ev="con" aria-pressed="false">Contested</button>
+    </div>
+    <span class="count" id="count">56 of 56 entries</span>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="note">
+      <strong>How to read this.</strong> Every entry is a real pattern with a source behind it. Nothing here is hypothetical or extrapolated. The <em>evidence</em> tag says how solid the ground is: <strong>Documented</strong> means a named institution has published data or advisories on it; <strong>Emerging</strong> means it is real and moving fast but the numbers are still thin; <strong>Contested</strong> means the harm is popularly reported but the causal claim is disputed or debunked, those entries exist so a product does not chase a moral panic. Age bands mark where a threat <em>concentrates</em>, not its only reach.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Overview</div>
+      <h2>Where each class concentrates</h2>
+      <p>Pulled together from the age-specific findings in the sources listed below. Filled circles mark where the evidence points to the heaviest concentration. Open circles mark where it is present but the evidence is thinner.</p>
+    </div>
+    <div class="matrix-scroll">
+      <table class="matrix">
+        <thead>
+          <tr><th scope="col">Threat class</th><th scope="col">6&ndash;9</th><th scope="col">10&ndash;12</th><th scope="col">13&ndash;15</th><th scope="col">16&ndash;18</th><th scope="col">Entries</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">PRED &middot; Predatory contact</th><td class="thin">○</td><td>●●</td><td>●●●</td><td>●●●</td><td class="thin">5</td></tr>
+          <tr><th scope="row">AI &middot; Synthetic &amp; AI harms</th><td class="thin">○</td><td>●●</td><td>●●●</td><td>●●●</td><td class="thin">6</td></tr>
+          <tr><th scope="row">FIN &middot; Scams &amp; fraud</th><td>●●</td><td>●●●</td><td>●●●</td><td>●●●</td><td class="thin">10</td></tr>
+          <tr><th scope="row">MON &middot; Gambling &amp; monetization</th><td>●●</td><td>●●</td><td>●●●</td><td>●●●</td><td class="thin">5</td></tr>
+          <tr><th scope="row">TECH &middot; Malware &amp; compromise</th><td class="thin">○</td><td>●●</td><td>●●●</td><td>●●●</td><td class="thin">8</td></tr>
+          <tr><th scope="row">DATA &middot; Data &amp; surveillance</th><td>●●●</td><td>●●</td><td>●●</td><td>●●</td><td class="thin">9</td></tr>
+          <tr><th scope="row">PEER &middot; Peer aggression</th><td class="thin">○</td><td>●●</td><td>●●●</td><td>●●●</td><td class="thin">6</td></tr>
+          <tr><th scope="row">CONT &middot; Content &amp; influence</th><td>●●</td><td>●●●</td><td>●●●</td><td>●●●</td><td class="thin">7</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span>●●● heaviest concentration</span>
+      <span>●● present, documented</span>
+      <span>○ present, evidence thin for this band</span>
+      <span>DATA leads at 6&ndash;9 because the risk there is carried by devices and institutions, not by the child's own behavior.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">The register</div>
+      <h2>Fifty-six threats, by class</h2>
+      <p>Filter by age band or evidence strength using the bar above.</p>
+    </div>
+    <div id="register"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Developmental profile</div>
+      <h2>What changes as they get older</h2>
+      <p>The risk changes shape three times between a child's first tablet and their last year of high school. Each stage needs a different response.</p>
+    </div>
+    <div class="bands">
+      <div class="band">
+        <h4>Device-borne risk</h4>
+        <div class="yr">Ages 6&ndash;9</div>
+        <p>At this age the child is rarely the target. The devices, apps and organizations around them are.</p>
+        <ul>
+          <li>Fake-currency and giveaway tricks inside Roblox and Minecraft. The UK Safer Internet Centre found money losses "including 8-year-olds"</li>
+          <li>Connected toys, kids' watches and home cameras with weak or absent security</li>
+          <li>Unauthorized in-app purchases and manipulative monetization</li>
+          <li>Algorithmic content exposure on YouTube and short-video feeds</li>
+          <li><em>Evidence gap:</em> no source found segments contact-crime prevalence for this band specifically</li>
+        </ul>
+      </div>
+      <div class="band">
+        <h4>The unguarded middle</h4>
+        <div class="yr">Ages 10&ndash;12</div>
+        <p>Old enough to use apps alone and lie about their age. Too young for the teen safety features that start at 13.</p>
+        <ul>
+          <li>Thorn found that 1 in 6 children aged 9 to 12 report an online sexual interaction, and that 43% of preteens get around age restrictions</li>
+          <li>FBI's 764 / violent-network victim profile starts at age 10</li>
+          <li>Trust trades, item theft and first Discord exposure</li>
+          <li>Exclusion-based cyberbullying begins to dominate</li>
+        </ul>
+      </div>
+      <div class="band">
+        <h4>Peak targeting</h4>
+        <div class="yr">Ages 13&ndash;15</div>
+        <p>This age group shows the highest recorded rates in almost every category, and the most serious outcomes happen here.</p>
+        <ul>
+          <li>Thorn: 53% of sextortion victims were first targeted at 13&ndash;15</li>
+          <li>Peer deepfake-nude incidents in schools; nudify-app victimization</li>
+          <li>Cyberbullying at its measured peak; boys report higher rates than girls</li>
+          <li>AI companion chatbot dependency begins; younger teens trust them more than older teens do</li>
+          <li>Skin gambling onset, earliest reported start age 13</li>
+        </ul>
+      </div>
+      <div class="band">
+        <h4>Adult-coded fraud</h4>
+        <div class="yr">Ages 16&ndash;18</div>
+        <p>They handle money on their own for the first time, with their own payment apps, a first job and a first marketplace account, but without the experience that comes later.</p>
+        <ul>
+          <li>Financial sextortion peaks: IWF found 98% of sextortion victims were boys aged 14&ndash;17</li>
+          <li>Fake job offers, fake-check scams, money-mule recruitment</li>
+          <li>Crypto and "investment club" pump schemes</li>
+          <li>Marketplace and resale fraud; BBB's 18&ndash;24 band shows the highest median loss of any age group</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Detection</div>
+      <h2>Signals that cut across classes</h2>
+      <p>Any one of these on its own means very little. Every source that discusses warning signs says the same thing: look for several at once, not for a single indicator.</p>
+    </div>
+    <div class="signal-cols">
+      <div class="sig">
+        <h4>Conversational</h4>
+        <ul>
+          <li>"Let's move this to Discord / Telegram / Snap". The move off the original app, which shows up in both grooming and trade scams</li>
+          <li>Secrecy framing: "keep this between us," "don't tell your parents"</li>
+          <li>Flattery out of proportion to how long they have known each other, such as "you're so mature for your age"</li>
+          <li>Manufactured urgency, countdown timers, "claim before it expires," "verify or be banned"</li>
+          <li>Near-identical scripted phrasing recurring across unrelated conversations (Thorn found this in 38% of sextortion chat logs)</li>
+          <li>"Send first and I'll send back". The same structure whether the currency is Robux or images</li>
+        </ul>
+      </div>
+      <div class="sig">
+        <h4>Behavioral</h4>
+        <ul>
+          <li>Sudden secrecy around a device, panic at a notification, or the screen being switched when someone walks in</li>
+          <li>Withdrawal from family and offline friends, or from an activity a specific contact has access to</li>
+          <li>Unexplained gifts, game currency, packages or money</li>
+          <li>Attempts to acquire gift cards, crypto, or peer-to-peer payments</li>
+          <li>Fresh wounds or scars in patterns; long sleeves in warm weather (specifically flagged in FBI 764 advisories)</li>
+          <li>An AI chatbot treated as the primary confidant for serious problems</li>
+        </ul>
+      </div>
+      <div class="sig">
+        <h4>Technical</h4>
+        <ul>
+          <li>"New device" logins, password-reset emails, or unrecognized active sessions on game and social accounts</li>
+          <li>Heat, battery drain or unexplained data use consistent with a background infostealer or clicker</li>
+          <li>Newly installed executors, mod loaders, cheat tools, or browser extensions</li>
+          <li>Look-alike domains in browser history, using swapped characters and near-miss spellings of real platform names</li>
+          <li>Carrier notifications about SIM or number changes</li>
+          <li>Requests to screen-share or to send a screenshot of a login page. This steals the login session without ever asking for a password</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Response</div>
+      <h2>Where to report, by threat type</h2>
+      <p>Current services, named. Two of them share the name "Take It Down" and are easily mixed up, so both are listed.</p>
+    </div>
+    <div class="res">
+      <div class="res-item">
+        <h4>NCMEC CyberTipline</h4>
+        <p>The central US clearinghouse for child sexual exploitation reports, grooming, sextortion, CSAM. missingkids.org/cybertipline or 1-800-843-5678.</p>
+      </div>
+      <div class="res-item">
+        <h4>NCMEC Take It Down</h4>
+        <p>For a minor whose explicit image is circulating. Hashes the image on the child's own device so participating platforms can block it, the image itself never leaves. Can be used anonymously.</p>
+      </div>
+      <div class="res-item">
+        <h4>FTC TakeItDown.ftc.gov</h4>
+        <p>Separate from NCMEC's tool. Where to report a <em>platform</em> that failed its 48-hour removal obligation under the TAKE IT DOWN Act; FTC enforcement began 19 May 2026.</p>
+      </div>
+      <div class="res-item">
+        <h4>FBI / IC3</h4>
+        <p>ic3.gov, local field offices, or 1-800-CALL-FBI, for sextortion, violent online networks, mule recruitment, and fraud. The FBI's own framing to victims: you are not alone, and this is not your fault.</p>
+      </div>
+      <div class="res-item">
+        <h4>Report Remove (UK)</h4>
+        <p>Childline and IWF joint service for under-18s in the UK seeking removal of their own intimate images. 1,894 submissions in 2025, up 66%.</p>
+      </div>
+      <div class="res-item">
+        <h4>988 Suicide &amp; Crisis Lifeline</h4>
+        <p>US. The first call to make if a child discloses self-harm or suicidal thinking, including when an online group pushed them towards it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Honesty about the evidence</div>
+      <h2>What this register cannot tell you</h2>
+      <p>Places where popular claims outrun the data, or where the data simply does not exist yet. If you are building something from this, read these before the confident parts.</p>
+    </div>
+    <div class="caveats">
+      <div class="caveat"><span class="k gap">Gap</span><div>No source found segments online contact-crime prevalence for <strong>ages 6&ndash;9</strong>. The youngest band's entries here are device-, platform- and institution-borne because that is what the evidence covers, not because nothing else happens.</div></div>
+      <div class="caveat"><span class="k gap">Gap</span><div>NCMEC's own totals are <strong>not consistent across its publications</strong>, "50,000 financial sextortion reports," "80,000+ sextortion reports" and "1.4 million online enticement reports" all appear in 2025&ndash;2026 NCMEC materials under different category definitions. Treat the trend direction as reliable, not cross-publication arithmetic.</div></div>
+      <div class="caveat"><span class="k gap">Gap</span><div>No current figure isolates <strong>SIM swapping of minors</strong>, <strong>swatting of minor streamers</strong>, or <strong>teen losses to finfluencer schemes</strong>. Adult or all-ages figures are the best available and are labeled as such in the entries.</div></div>
+      <div class="caveat"><span class="k">Contested</span><div>The <strong>Momo Challenge is a confirmed hoax.</strong> India's CBI found no linked death; the NSPCC, Samaritans and UK Safer Internet Centre declared it a moral panic. It should never appear in a product's threat list.</div></div>
+      <div class="caveat"><span class="k">Contested</span><div><strong>Blackout-challenge causation is unresolved.</strong> The deaths are real and litigated, but the CDC documented 82 probable choking-game deaths among 6&ndash;19-year-olds between 1995 and 2007, long before TikTok. Courts have ruled on Section 230 immunity, not on whether an algorithm caused anything.</div></div>
+      <div class="caveat"><span class="k">Contested</span><div><strong>Every major AI-chatbot case is still open.</strong> Garcia v. Character Technologies, Raine v. OpenAI and Kentucky's suit against Character.AI are all pending. Nothing is adjudicated; describe them as allegations.</div></div>
+      <div class="caveat"><span class="k gap">Source quality</span><div>Several patterns, skin-trading scam mechanics, the Roblox scam taxonomy, Discord Nitro variants, are documented mainly by security vendors and gaming blogs, not government or peer-reviewed data. Useful for direction, but not solid enough to quote as a statistic.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">References</div>
+      <h2>Sources</h2>
+      <p>Primary institutional sources behind the figures in this register.</p>
+    </div>
+    <div class="srclist">
+      <p><a href="https://www.missingkids.org/gethelpnow/cybertipline/cybertiplinedata">NCMEC, CyberTipline Data</a></p>
+      <p><a href="https://www.missingkids.org/blog/2026/ncmec-releases-new-sextortion-data-2025">NCMEC, 2025 Sextortion Data</a></p>
+      <p><a href="https://www.missingkids.org/theissues/generative-ai">NCMEC, Generative AI reports</a></p>
+      <p><a href="https://www.missingkids.org/theissues/onlineenticement">NCMEC, Online Enticement</a></p>
+      <p><a href="https://www.iwf.org.uk/annual-data-insights-report-2025/executive-summary/">IWF, 2025 Annual Data &amp; Insights Report</a></p>
+      <p><a href="https://www.thorn.org/research/library/financial-sextortion/">Thorn, Trends in Financial Sextortion</a></p>
+      <p><a href="https://www.thorn.org/research/library/2025-youth-perspectives-on-online-safety/">Thorn, 2025 Youth Perspectives on Online Safety</a></p>
+      <p><a href="https://www.fbi.gov/how-we-can-help-you/common-frauds-and-scams/sextortion/financially-motivated-sextortion">FBI, Financially Motivated Sextortion</a></p>
+      <p><a href="https://www.ic3.gov/PSA/2025/PSA250723-3">IC3, The Com: Theft, Extortion, and Violence</a></p>
+      <p><a href="https://www.fbi.gov/contact-us/field-offices/boston/news/fbi-boston-warns-of-nihilistic-violent-extremists-targeting-children-and-vulnerable-victims-online">FBI Boston, Nihilistic Violent Extremists</a></p>
+      <p><a href="https://www.fbi.gov/contact-us/field-offices/omaha/news/money-mule-scheme-targets-teenagers-and-young-adults">FBI Omaha, Money Mule Scheme Targets Teenagers</a></p>
+      <p><a href="https://www.fincen.gov/system/files/2025-09/FinCEN-Notice-FMS-508C.pdf">FinCEN, Notice on Financially Motivated Sextortion</a></p>
+      <p><a href="https://www.isdglobal.org/isd-explainer/764/">ISD Global, 764 explainer</a></p>
+      <p><a href="https://www.nspcc.org.uk/about-us/news-opinion/2025/data-shows-how-criminals-are-using-private-messaging-platforms-to-manipulate-and-groom-children/">NSPCC, Grooming on private messaging platforms</a></p>
+      <p><a href="https://saferinternet.org.uk/blog/almost-half-of-8-to-17-year-olds-have-been-scammed-online">UK Safer Internet Centre, Scam exposure among 8&ndash;17s</a></p>
+      <p><a href="https://www.vodafone.co.uk/newscentre/press-release/almost-one-million-british-children-scammed-online-last-year/">Vodafone UK, Children scammed online</a></p>
+      <p><a href="https://bbbmarketplacetrust.org/wp-content/uploads/2024/02/Targeting-our-youth-full-report.pdf">BBB Institute, Targeting Our Youth</a></p>
+      <p><a href="https://trustplay.gg/articles/skin-gambling-report-2025/">TrustPlay, Skin Gambling Report 2025</a></p>
+      <p><a href="https://www.kaspersky.com/about/press-releases/gen-zs-favorite-games-used-as-bait-in-over-19-million-attempted-cyberattacks">Kaspersky, Game-name malware lures</a></p>
+      <p><a href="https://flare.io/company/press/gaming-rising-target-infostealer-malware-41-infections-gaming-related-file">Flare, Gaming files in infostealer infections</a></p>
+      <p><a href="https://www.bleepingcomputer.com/news/security/not-a-kids-game-from-roblox-mod-to-compromising-your-company/">BleepingComputer, Roblox mods to infostealers</a></p>
+      <p><a href="https://www.malwarebytes.com/blog/news/2026/04/hackers-stole-hundreds-of-thousands-of-roblox-accounts-heres-what-to-do">Malwarebytes, Roblox account theft ring</a></p>
+      <p><a href="https://www.vice.com/en/article/roblox-beaming-hackers/">Vice, Roblox "beaming"</a></p>
+      <p><a href="https://www.security.org/identity-theft/breach/powerschool/">Security.org, PowerSchool breach</a></p>
+      <p><a href="https://www.govtech.com/education/cyber-attacks-on-schools-plateaued-in-2025-but-more-records-exposed">GovTech / Comparitech, School ransomware 2025</a></p>
+      <p><a href="https://en.wikipedia.org/wiki/Kido_International_cyberattack">Kido International nursery attack</a></p>
+      <p><a href="https://www.mozillafoundation.org/en/nothing-personal/toys-data-security-safety-report-2025/">Mozilla, Privacy Not Included: Toys 2025</a></p>
+      <p><a href="https://www.techrepublic.com/article/news-meari-iot-baby-monitor-camera-vulnerabilities/">TechRepublic, Meari baby monitor flaws</a></p>
+      <p><a href="https://www.malwarebytes.com/blog/news/2025/07/catwatchful-child-monitoring-app-exposes-victims-data">Malwarebytes, Catwatchful stalkerware breach</a></p>
+      <p><a href="https://pirg.org/edfund/resources/ai-toys/">US PIRG, AI toys testing</a></p>
+      <p><a href="https://www.ftc.gov/news-events/news/press-releases/2025/09/ftc-launches-inquiry-ai-chatbots-acting-companions">FTC, Inquiry into AI companion chatbots</a></p>
+      <p><a href="https://www.ftc.gov/business-guidance/blog/2026/05/take-it-down-act-enforcement-starts-now-what-know-about-ftc-tida">FTC, TAKE IT DOWN Act enforcement</a></p>
+      <p><a href="https://consumer.ftc.gov/consumer-alerts/2025/09/disney-settles-charges-it-violated-childrens-online-privacy-protection-law">FTC, Disney COPPA settlement</a></p>
+      <p><a href="https://www.commonsensemedia.org/press-releases/nearly-3-in-4-teens-have-used-ai-companions-new-national-survey-finds">Common Sense Media, Teens and AI companions</a></p>
+      <p><a href="https://www.apa.org/topics/artificial-intelligence-machine-learning/health-advisory-ai-adolescent-well-being">APA, Health Advisory on AI and Adolescent Well-being</a></p>
+      <p><a href="https://cyberbullying.org/2025-cyberbullying-data">Cyberbullying Research Center, 2025 data</a></p>
+      <p><a href="https://www.pewresearch.org/internet/2025/04/22/teens-social-media-and-mental-health/">Pew, Teens, Social Media and Mental Health</a></p>
+      <p><a href="https://counterhate.com/research/deadly-by-design/">CCDH, Deadly by Design</a></p>
+      <p><a href="https://hai.stanford.edu/assets/files/hai-policy-brief-addressing-ai-csam.pdf">Stanford HAI, AI-CSAM in schools</a></p>
+      <p><a href="https://en.wikipedia.org/wiki/Momo_Challenge_hoax">Momo Challenge hoax, documentation of the debunking</a></p>
+      <p><a href="https://en.wikipedia.org/wiki/Child_safety_on_Roblox">Child safety on Roblox, consolidated case and regulatory record</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Under-18 Threat Register &middot; compiled August 2026 from the sources listed above &middot; figures are attributed to their publisher and period; nothing is extrapolated.
+  </div>
+</footer>
+
+<script src="threat-register.js"></script>
+
+</body>
+</html>

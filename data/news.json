@@ -1,0 +1,5 @@
+{
+  "note": "Approved news goes here. Made by backend/news/approve.py. Empty means the News page says there are no new warnings (and shows SAMPLE stories only when testing on localhost).",
+  "updated": "",
+  "items": []
+}

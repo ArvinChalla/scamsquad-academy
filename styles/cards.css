@@ -1,0 +1,221 @@
+/* ========================================================================
+   cards.css
+   The cards and boxes that make up the simpler screens: the home page and
+   its age picker, the learn cards inside a lesson (with their steps and
+   checklists), the news page, and the "If it happened to you" help page.
+
+   1. A plain white card
+   2. Home: the age picker, then the home page sections
+   3. Learn cards inside a lesson
+   4. Steps and checklists on learn cards
+   5. News
+   6. Help: "If it happened to you"
+   ======================================================================== */
+
+/* ---------- 1. A plain white card ---------- */
+.panel{background:var(--card);border-radius:0;border:var(--edge);box-shadow:var(--shadow);padding:22px;margin-bottom:18px;}
+
+/* ---------- 2. Home: the age picker, then the home page sections ---------- */
+
+/* One big card per age group. The help page uses the same cards. */
+.age-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;}
+.age-card{
+  display:flex;flex-direction:column;align-items:center;gap:4px;padding:22px 14px;
+  border-radius:0;text-decoration:none;color:var(--ink);
+  background:var(--card);border:var(--edge);box-shadow:var(--shadow);
+  transition:transform .12s ease, border-color .12s ease;
+}
+.age-card:hover{transform:translateY(-3px);border-color:var(--brand);}
+.age-card .age-face{font-size:52px;line-height:1;}
+.age-card .age-range{font-family:var(--f-display);font-size:34px;font-weight:700;}
+.age-card .age-name{font-weight:800;color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;font-size:15px;}
+
+/* The home page, laid out like a regular home page (see screens/home.js).
+   Only things you can tap are cards; everything else is plain. */
+
+/* 1. The hero: words on the left, a real lesson screen on the right */
+.home-hero{display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center;padding:24px 0 34px;}
+.home-eyebrow{margin:0 0 10px;font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-ink);}
+/* On phones the top line splits in two at the ages, so no dot is left hanging at a line end */
+@media (max-width:600px){
+  .home-eyebrow span{display:block;}
+  .home-eyebrow .home-eyebrow-dot{display:none;}
+}
+@media (max-width:360px){ .home-eyebrow{font-size:12.5px;letter-spacing:.04em;} }
+.home-hero h1{font-size:clamp(34px,5.4vw,54px);line-height:1.08;margin:0 0 14px;}
+.home-lead{font-size:20px;line-height:1.5;color:var(--ink-2);margin:0 0 22px;max-width:30em;}
+.home-actions{display:flex;flex-wrap:wrap;gap:12px;}
+.home-hero-picture{margin:0;}
+.home-hero-picture .screen,.home-hero-picture .device{margin-top:0;}
+.home-hero-picture .flag-reasons{display:none;}
+.home-hero-picture figcaption{margin-top:12px;font-size:14.5px;color:var(--ink-2);text-align:center;}
+
+/* Every section after the hero: a heading, a line under it, then its content */
+.home-section{padding:30px 0;border-top:2px solid var(--line-2);text-align:center;}
+.home-section h2{margin:0 0 6px;}
+.home-sub{margin:0 0 18px;font-size:17px;color:var(--ink-2);}
+.home-section .age-grid{text-align:left;}
+
+/* How it works: three numbered steps in a row */
+.home-steps{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.home-step{display:flex;flex-direction:column;align-items:center;gap:4px;padding:0 6px;}
+.home-step-icon{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--brand-soft);font-size:32px;line-height:1;}
+.home-step-number{margin-top:6px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-ink);}
+.home-step h3{margin:0;font-size:21px;}
+.home-step p{margin:0;font-size:16px;line-height:1.45;color:var(--ink-2);max-width:18em;}
+.home-note{margin:18px 0 0;font-size:16px;color:var(--ink-2);}
+
+/* The worlds: icon, name and a few words, in columns, no boxes */
+.home-worlds{list-style:none;margin:0 auto;padding:0;max-width:760px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px 18px;text-align:left;}
+.home-worlds li{display:flex;align-items:center;gap:12px;}
+.home-world-icon{flex:none;font-size:30px;line-height:1;}
+.home-worlds b{display:block;font-size:17px;}
+.home-worlds small{display:block;font-size:14.5px;color:var(--ink-2);}
+
+/* Three promises in one row */
+.home-promises{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.home-promises li{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:15.5px;color:var(--ink-2);}
+.home-promises span{font-size:30px;line-height:1;margin-bottom:4px;}
+.home-promises b{color:var(--ink);font-size:17px;}
+
+/* The band for parents and teachers */
+.home-grownups{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px;background:var(--brand-soft);}
+.home-grownups h2{margin:0 0 4px;font-size:24px;}
+.home-grownups p{margin:0;font-size:16.5px;color:var(--ink-2);}
+.home-grownups .button{flex:none;}
+.home-made{margin:18px 0 0;text-align:center;color:var(--ink-2);font-size:15px;}
+
+/* Tablets (900px wide or less): the hero picture goes under the words */
+@media (max-width:900px){
+  .home-hero{grid-template-columns:minmax(0,1fr);gap:22px;text-align:center;}
+  .home-lead{margin-left:auto;margin-right:auto;}
+  .home-actions{justify-content:center;}
+  .home-hero-picture{max-width:420px;margin:0 auto;}
+}
+/* Phones (600px wide or less): steps and promises one under the other */
+@media (max-width:600px){
+  .home-steps,.home-promises{grid-template-columns:1fr;gap:22px;}
+  .home-worlds{grid-template-columns:1fr 1fr;gap:14px 12px;}
+  .home-world-icon{font-size:26px;}
+  .home-worlds b{font-size:15.5px;}
+  .home-worlds small{font-size:13px;}
+  .home-actions .button{width:100%;}
+  .home-grownups{flex-direction:column;align-items:stretch;text-align:center;}
+}
+
+/* On the home page the footer's own "No sign-up" and parents link would
+   repeat what the page just said, so only the play counter stays. */
+body.on-home .footer p:not(#device-counter){display:none;}
+
+/* ---------- 3. Learn cards inside a lesson ----------
+   A learn card sits right on the page, like the question screen: a big
+   icon in a soft tile, the title, a few words, the picture, then the one
+   line to keep in a green note. No heavy box around it. */
+.learn-card{max-width:620px;margin:0 auto;padding:6px 0 0;animation:slideIn .3s ease both;}
+.learn-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
+.learn-icon{display:grid;place-items:center;width:84px;height:84px;background:var(--soft);font-size:50px;line-height:1;}
+.learn-card .learn-title{color:var(--ink);font-size:clamp(25px,4.2vw,32px);line-height:1.2;margin:0 0 10px;}
+.learn-card .learn-text{font-size:19px;line-height:1.55;margin:0;color:var(--ink);}
+.learn-card .learn-text b{color:var(--strong);}
+@keyframes slideIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* The green "Keep this" note. The results screen uses it too. */
+.keep-box{
+  display:flex;gap:12px;align-items:flex-start;margin-top:22px;padding:14px 16px;border-radius:0;
+  background:var(--good-soft);border-left:6px solid var(--good);
+}
+.keep-box .keep-icon{font-size:28px;line-height:1.1;}
+.keep-box .keep-label{font-size:13.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--good);}
+.keep-box .keep-text{font-family:var(--f-display);font-size:19px;font-weight:600;line-height:1.35;}
+
+/* Phones (560px wide or less): a smaller icon tile and words */
+@media (max-width:560px){
+  .learn-icon{width:72px;height:72px;font-size:42px;}
+  .learn-card .learn-text{font-size:18px;}
+}
+
+/* ---------- 4. Steps and checklists on learn cards ----------
+   The picture on a learn card (see js/pictures.js). Fake screens (a web
+   page, a chat, an email and so on) are in screens.css. */
+.picture{margin-top:16px;}
+.picture.steps,.picture.checklist{list-style:none;padding:0;margin:16px 0 0;}
+
+/* Steps: what happens if you fall for it, each with a red number */
+.steps{display:grid;gap:10px;counter-reset:step;}
+.step{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:0;background:var(--card-2);}
+.step .step-num{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--bad);color:var(--card);font-family:var(--f-display);font-weight:700;font-size:22px;}
+.step .step-icon{font-size:34px;line-height:1;flex:none;}
+.step .step-text{font-size:17px;font-weight:700;line-height:1.35;}
+
+/* A checklist: red for warning signs, green for "do this" */
+.checklist{display:grid;gap:10px;}
+.check{display:flex;gap:12px;align-items:center;padding:11px 15px;border-radius:0;font-size:17px;font-weight:700;}
+.check.red{background:var(--bad-soft);}
+.check.green{background:var(--good-soft);}
+.check .check-icon{font-size:28px;line-height:1;flex:none;}
+
+/* ---------- 5. News ----------
+   One card per story, with a colored edge for its category. */
+.sample-note{padding:12px 16px;border-radius:0;background:var(--warn-soft);color:var(--ink);font-weight:700;font-size:17px;margin-bottom:14px;}
+.news-list{display:grid;gap:14px;}
+.news-card{background:var(--card);border-radius:0;border:var(--edge);box-shadow:var(--shadow);padding:20px;border-left:10px solid var(--strong);}
+.news-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+.news-icon{font-size:34px;line-height:1;}
+.news-tag{background:var(--soft);color:var(--ink);border:1px solid var(--strong);border-radius:0;padding:3px 12px;font-weight:800;font-size:15px;}
+.news-date{margin-left:auto;color:var(--ink-2);font-size:15px;font-weight:700;}
+.news-card p{font-size:19px;}
+.news-do{padding:10px 14px;border-radius:0;background:var(--good-soft);font-size:19px;}
+.news-source{margin:10px 0 0;font-size:15px;color:var(--ink-2);}
+
+/* ---------- 6. Help: "If it happened to you" ---------- */
+/* Help opened from the home page: what it is for, then the age cards */
+.help-examples{list-style:none;margin:14px auto 0;padding:0;max-width:30em;display:grid;gap:8px;text-align:left;}
+.help-examples li{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--card);font-weight:700;font-size:17px;}
+.help-examples span{font-size:22px;line-height:1;flex:none;}
+.help-pick{text-align:center;margin:22px 0 12px;}
+.help-danger{margin:18px 0 0;text-align:center;font-size:18px;}
+/* A Back button that looks like the Back link */
+button.back{background:none;border:0;cursor:pointer;color:var(--brand-ink);font-family:inherit;padding:0;}
+
+/* The pink box at the top, with the heart in the middle like the words under it */
+.help-first{background:var(--people-soft);text-align:center;}
+.help-first .learn-icon{margin:0 auto 8px;}
+
+/* "What happened?" Each one opens to show the steps. */
+.help-list{display:grid;gap:10px;}
+.help-what{background:var(--card);border-radius:0;border:var(--edge);box-shadow:var(--shadow);padding:6px 18px;}
+.help-what summary{display:flex;align-items:center;gap:12px;min-height:64px;cursor:pointer;font-family:var(--f-display);font-size:21px;font-weight:700;list-style:none;}
+.help-what summary::-webkit-details-marker{display:none;}
+.help-what summary::after{content:"▾";margin-left:auto;color:var(--ink-2);}
+.help-what[open] summary::after{content:"▴";}
+.help-what-icon{font-size:34px;line-height:1;}
+.help-steps{margin:0 0 14px;padding-left:28px;font-size:20px;font-weight:700;line-height:1.6;}
+
+/* Hotlines to call, text or chat */
+.hotlines{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;}
+.hotline{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:0;background:var(--card);border:var(--edge);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);font-size:18px;line-height:1.3;}
+.hotline small{color:var(--ink-2);font-size:15px;}
+.hotline-icon{font-size:30px;line-height:1;flex:none;}
+/* Hotlines with more than one way in (call, text, chat): each one is a big tap target */
+.hotline-links{display:flex;flex-wrap:wrap;gap:4px 14px;}
+.hotline-links a{display:inline-block;min-height:44px;padding:10px 14px 10px 0;font-weight:800;color:var(--ink);}
+
+/* The hero picture takes turns showing real lesson screens (see home.js).
+   The box keeps one height, so the page does not jump as pictures change. */
+.hero-slide{min-height:625px;display:flex;align-items:center;justify-content:center;}
+.hero-slide .picture{width:100%;}
+.hero-slide.fade-in{animation:heroFade .45s ease both;}
+@keyframes heroFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.home-hero-picture figcaption b{display:block;font-size:16.5px;color:var(--ink);margin-bottom:2px;}
+/* The dots pick a picture; the last button pauses or plays */
+.hero-controls{display:flex;justify-content:center;align-items:center;gap:4px;margin-top:8px;}
+.hero-dot{width:28px;height:28px;padding:0;border:0;background:none;cursor:pointer;position:relative;}
+.hero-dot::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--line-2);}
+.hero-dot.on::before{background:var(--brand);inset:7px;}
+.hero-pause{min-width:44px;min-height:32px;margin-left:6px;border:var(--edge);background:var(--card);color:var(--ink);font-size:14px;cursor:pointer;}
+/* Small phones (360px wide or less): the dots sit closer so the row fits */
+@media (max-width:360px){
+  .hero-controls{gap:0;}
+  .hero-dot{width:26px;}
+}
+@media (max-width:900px){ .hero-slide{min-height:625px;} }

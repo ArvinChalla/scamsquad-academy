@@ -1,0 +1,291 @@
+/* ========================================================================
+   app.css
+   The parts that make the game feel like a phone app: lesson mode, the
+   bars at the top and bottom of a lesson, the buddy's hello, the worlds
+   and the winding road, the bottom menu, and the small boxes that pop up
+   over a screen (help, toasts, "Leave the quiz?", confetti).
+
+   1. Lesson mode and app screens
+   2. The bar at the top of a lesson
+   3. The bar at the bottom of a lesson
+   4. The buddy's hello
+   5. The header on the worlds screens
+   6. Screen 1: the seven worlds
+   7. Screen 2: one world's winding road
+   8. The bottom menu
+   9. Over the screen: help sheet, toast, "Leave the quiz?", confetti
+   ======================================================================== */
+
+/* ---------- 1. Lesson mode and app screens ----------
+   In a lesson, and on screens with the bottom menu, the site's own top bar
+   and footer step aside, so there is only one set of buttons to tap. */
+body.in-lesson .topbar, body.in-lesson .footer,
+body:has(.bottom-nav) .topbar, body:has(.bottom-nav) .footer{display:none;}
+/* Room at the bottom so the menu never covers the last thing on the page */
+body:has(.bottom-nav) #app{padding-bottom:110px;}
+/* App screens stay phone-width even on a big screen, like an app,
+   a little wider on a tablet (768px or more) and a computer (1100px or more) */
+body:has(.bottom-nav) #app, body.in-lesson #app{max-width:620px;}
+@media (min-width:768px){
+  body:has(.bottom-nav) #app, body.in-lesson #app{max-width:720px;}
+}
+@media (min-width:1100px){
+  body:has(.bottom-nav) #app, body.in-lesson #app{max-width:760px;}
+}
+/* Lesson screens fill the whole height, so Continue always sits at the
+   very bottom, in the same place on every card. (100dvh is the height
+   that is really visible on a phone; older browsers use 100vh.) */
+body.in-lesson #app{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;}
+body.in-lesson #app > .bottom-bar{margin-top:auto;}
+body.in-lesson #app > .learn-card, body.in-lesson #app > .quiz-card, body.in-lesson #app > .results{margin-bottom:18px;}
+/* Tablets and computers (768px wide or more): a big window would push the
+   button far below the words, so the screen stops growing at 860px tall.
+   The button then sits close under the content, and still in the same
+   place from card to card. */
+@media (min-width:768px){
+  body.in-lesson #app{min-height:min(100dvh, 860px);}
+}
+
+/* ---------- 2. The bar at the top of a lesson ----------
+   The shield, an ✕ to leave, the progress bar, the coins and Help.
+   It stays at the top while the page scrolls. */
+.lesson-bar{
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;
+  margin:0 -16px 16px;padding:10px 16px;background:var(--ground);border-bottom:2px solid var(--line-2);
+}
+.lesson-logo{display:block;flex:none;width:auto;height:34px;}
+.quit{display:grid;place-items:center;width:44px;height:44px;flex:none;text-decoration:none;color:var(--ink-2);font-size:26px;font-weight:700;}
+/* The progress bar fills in the world's own color */
+.meter{flex:1;height:16px;background:var(--line);border:2px solid var(--line-2);}
+.meter i{display:block;height:100%;background:var(--strong, var(--brand));transition:width .3s ease;}
+.coin-count{flex:none;font-weight:800;font-size:18px;background:var(--card);border:var(--edge);padding:4px 10px;}
+.lesson-help{flex:none;display:inline-flex;align-items:center;gap:4px;min-height:44px;padding:0 10px;
+  text-decoration:none;color:var(--ink);font-weight:800;font-size:16px;background:var(--card);border:var(--edge);}
+/* Small phones (420px wide or less): a little tighter so everything fits */
+@media (max-width:420px){ .lesson-bar{gap:8px;} .lesson-help{padding:0 8px;font-size:15px;} .lesson-bar .sound-button{width:40px;} }
+/* Phones: the coin count steps out of the lesson bar so the
+   progress bar keeps its room. The coins earned still show after each
+   right answer and on the results screen. */
+@media (max-width:480px){ .lesson-bar .coin-count{display:none;} }
+
+/* Sound on or off, and the size buttons (see js/settings.js).
+   The size buttons draw the whole page bigger or smaller. */
+body{zoom:var(--ui-zoom,1);}
+.sound-button{flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border:var(--edge);background:var(--card);font-size:20px;cursor:pointer;}
+.settings{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:var(--card);border:var(--edge);border-radius:999px;}
+.settings .sound-button{border:0;background:none;}
+.settings-line{width:2px;height:28px;margin:0 6px;background:var(--line-2);}
+.size-button{min-width:52px;height:44px;padding:0 6px;border:0;background:none;color:var(--ink);font-size:18px;font-weight:800;cursor:pointer;}
+.size-button:disabled{opacity:.35;cursor:default;}
+.size-now{min-width:52px;text-align:center;font-weight:800;color:var(--ink-2);}
+#footer-settings{margin-top:14px;}
+
+/* ---------- 3. The bar at the bottom of a lesson ----------
+   It holds the Continue button and stays at the bottom of the screen. */
+.bottom-bar{
+  position:sticky;bottom:0;z-index:5;display:grid;gap:10px;
+  margin:18px -16px -40px;padding:14px 16px calc(16px + env(safe-area-inset-bottom));
+  background:var(--ground);border-top:2px solid var(--line-2);
+}
+/* Short screens (a phone turned sideways, 560px tall or less): the bar
+   scrolls with the page instead of covering the picture */
+@media (max-height:560px){
+  .bottom-bar{position:static;}
+}
+/* On a question, the bar is empty until the player answers */
+#bottom:empty{display:none;}
+/* After answering, the bar turns into a green or red sheet with the reason */
+.bottom-bar.sheet{animation:sheetUp .22s ease both;}
+.bottom-bar.sheet.right{background:var(--good-soft);border-top-color:var(--good);}
+.bottom-bar.sheet.wrong{background:var(--bad-soft);border-top-color:var(--bad);}
+.sheet-title{font-family:var(--f-display);font-size:21px;font-weight:700;}
+.sheet.right .sheet-title{color:var(--good);}
+.sheet.wrong .sheet-title{color:var(--bad);}
+.sheet-why{font-size:17px;line-height:1.45;}
+/* The right-answer sheet shows the coins just earned */
+.sheet-coins{display:inline-block;margin-left:8px;padding:1px 10px;background:var(--card);border:2px solid var(--good);font-size:16px;color:var(--ink);vertical-align:2px;}
+@keyframes sheetUp{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+
+/* ---------- 4. The buddy's hello ----------
+   The first screen of an age group: the buddy bobs up and down, with a
+   speech bubble and three short lines about coins, badges and the certificate. */
+.hello-logo{justify-content:center;margin:10px 0 0;}
+.hello{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;padding:40px 8px 10px;min-height:60vh;justify-content:center;}
+/* Tablets and computers: no extra height, so the button follows the words */
+@media (min-width:768px){
+  .hello{min-height:0;padding-top:24px;}
+  body.in-lesson #app > .hello + .bottom-bar{margin-top:24px;}
+}
+.hello-face{font-size:120px;line-height:1;animation:bob 2.4s ease-in-out infinite;}
+@keyframes bob{50%{transform:translateY(-8px)}}
+/* The speech bubble, with a small point at the top toward the buddy */
+.speech{position:relative;background:var(--card);border:var(--edge);box-shadow:var(--shadow);padding:20px 22px;max-width:26em;}
+.speech::before{content:"";position:absolute;top:-12px;left:50%;width:20px;height:20px;background:var(--card);
+  border-left:2px solid var(--line-2);border-top:2px solid var(--line-2);transform:translateX(-50%) rotate(45deg);}
+.speech h1{font-size:30px;}
+.speech p{font-size:21px;margin:0;}
+.hello-facts{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-width:26em;text-align:left;}
+.hello-facts li{display:flex;gap:10px;align-items:center;padding:10px 14px;background:var(--card);border:var(--edge);font-size:18px;font-weight:700;}
+.hello-facts span{font-size:26px;line-height:1;flex:none;}
+
+/* ---------- 5. The header on the worlds screens ----------
+   One row: Back, the small logo, the age group, then the coins and stars.
+   It stays at the top while the page scrolls. */
+.path-top{
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:nowrap;
+  margin:0 -16px 12px;padding:12px 16px;background:var(--ground);border-bottom:2px solid var(--line-2);
+}
+.path-left{display:flex;align-items:center;gap:10px;flex-wrap:nowrap;min-width:0;}
+.path-back{display:grid;place-items:center;width:44px;height:44px;flex:none;text-decoration:none;color:var(--ink);font-size:26px;font-weight:700;border:var(--edge);background:var(--card);}
+.mini-logo{display:flex;align-items:center;gap:6px;min-height:44px;flex:none;text-decoration:none;color:var(--ink);font-family:var(--f-display);font-size:21px;font-weight:700;}
+.mini-logo .logo-img{height:38px;}
+/* Phones (480px wide or less): the word "ScamSquad" steps aside */
+@media (max-width:480px){ .mini-logo-name{display:none;} }
+.age-chip{background:var(--card);border:var(--edge);padding:3px 10px;font-weight:800;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.stats{display:flex;gap:8px;}
+.stat{background:var(--card);border:var(--edge);padding:4px 10px;font-weight:800;font-size:17px;white-space:nowrap;}
+
+/* ---------- 6. Screen 1: the seven worlds ---------- */
+.worlds-title{font-size:26px;margin:6px 0 12px;}
+/* What to do next, at the top of the worlds screen */
+.next-step{display:flex;align-items:center;gap:12px;margin:0 0 16px;padding:14px 16px;background:var(--brand-soft);border:2px solid var(--brand);
+  text-decoration:none;color:var(--ink);font-weight:800;font-size:18px;}
+.next-step span:first-child{font-size:26px;line-height:1;}
+/* Under a finished world's road: what to do next */
+.world-next{margin:6px auto 28px;max-width:520px;}
+.world-next::after{content:"\2192";margin-left:auto;font-size:22px;}
+.next-note{margin:-4px 0 16px;color:var(--ink-2);font-size:17px;}
+
+/* The worlds as big square cards: two across on phones, three on wider
+   screens (560px or more). minmax(0,1fr) keeps a column from growing wider
+   than the screen when a world's name is long. */
+.world-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 24px;padding-top:12px;}
+@media (min-width:560px){ .world-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
+.world-card{
+  position:relative;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  min-width:0;padding:14px 10px;text-align:center;text-decoration:none;color:var(--ink);
+  background:var(--soft);border:3px solid var(--strong);box-shadow:0 6px 0 var(--strong);
+  transition:transform .1s ease, box-shadow .1s ease;
+}
+.world-card:active{transform:translateY(4px);box-shadow:0 2px 0 var(--strong);}
+.world-icon{font-size:50px;line-height:1;}
+.world-name{font-family:var(--f-display);font-weight:700;font-size:19px;line-height:1.15;color:var(--strong);overflow-wrap:anywhere;}
+.world-progress{width:80%;height:10px;background:var(--card);border:2px solid var(--strong);}
+.world-progress i{display:block;height:100%;background:var(--strong);}
+.world-count{font-size:14px;font-weight:800;color:var(--ink-2);}
+/* The small label on the top edge of a card ("🏅 Badge", "Start") */
+.world-flag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  background:var(--card);border:var(--edge);padding:2px 8px;font-size:14px;font-weight:800;}
+.world-flag.go{background:var(--brand);color:var(--on-brand);border-color:var(--brand-ink);}
+/* The world to play next has a dark edge */
+.world-card.current{border-color:var(--ink);box-shadow:0 6px 0 var(--ink);}
+/* A world with no lessons yet: grey and dashed */
+.world-card.empty{background:var(--card-2);border:3px dashed var(--line-2);box-shadow:none;}
+.world-card.empty .world-icon{filter:grayscale(1);opacity:.4;}
+.world-card.empty .world-name{color:var(--ink-2);}
+/* Very small phones (400px wide or less): less space between the cards,
+   and cards that grow taller instead of staying square */
+@media (max-width:400px){
+  .world-grid{gap:30px 14px;}
+  .world-card{aspect-ratio:auto;min-height:150px;}
+  .world-icon{font-size:42px;}
+}
+
+/* ---------- 7. Screen 2: one world's winding road ----------
+   The world's name at the top, then its lessons as stops on a winding
+   road, like Duolingo, with a trophy at the end. */
+.world-head{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--soft);border:2px solid var(--strong);}
+.world-head-icon{font-size:40px;line-height:1;flex:none;}
+.world-head-name{margin:0;font-size:24px;color:var(--strong);}
+.world-head-rule{margin:2px 0 0;font-size:17px;font-weight:700;}
+
+/* The road: path.js draws the line behind the stops */
+.road{position:relative;display:flex;flex-direction:column;align-items:center;padding:20px 0 10px;}
+.road-line{position:absolute;left:0;top:0;pointer-events:none;}
+/* One stop. --shift moves it left or right of the middle, so the road winds. */
+.stop{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;margin:16px 0;width:min(200px,62vw);text-align:center;transform:translateX(var(--shift, 0px));}
+/* Very small phones (360px wide or less): smaller swings */
+@media (max-width:360px){ .stop{transform:translateX(calc(var(--shift, 0px) * .55));} }
+
+/* The round button of a stop. It sinks a little when pressed. */
+.node{
+  display:grid;place-items:center;width:84px;height:84px;text-decoration:none;font-size:40px;line-height:1;
+  background:var(--soft);border:3px solid var(--strong);box-shadow:0 7px 0 var(--strong);
+  transition:transform .1s ease, box-shadow .1s ease;
+}
+.node:active{transform:translateY(5px);box-shadow:0 2px 0 var(--strong);}
+/* The next lesson: bigger, filled in, and gently pulsing */
+.node.next{width:100px;height:100px;font-size:48px;background:var(--strong);border-color:var(--ink);box-shadow:0 7px 0 var(--ink);animation:pulse 1.6s ease-in-out infinite;}
+@keyframes pulse{50%{transform:scale(1.06)}}
+.node.done{background:var(--good-soft);border-color:var(--good);box-shadow:0 7px 0 var(--good);}
+.node.locked{background:var(--card-2);border-color:var(--line-2);box-shadow:0 7px 0 var(--line-2);font-size:30px;}
+.node.locked span{filter:grayscale(1);opacity:.6;}
+/* Locked lessons are buttons, so tapping one says what to finish first */
+button.node.locked{cursor:pointer;font:inherit;font-size:30px;padding:0;color:inherit;}
+.node.soon{background:var(--card-2);border:3px dashed var(--line-2);box-shadow:none;}
+.node.soon span{filter:grayscale(1);opacity:.4;}
+/* The trophy at the end: grey until the world's badge is won */
+.node.trophy{background:var(--warn-soft);border-color:var(--line-2);box-shadow:0 7px 0 var(--line-2);}
+.node.trophy span{filter:grayscale(1);opacity:.5;}
+.node.trophy.won{border-color:var(--warn);box-shadow:0 7px 0 var(--warn);}
+.node.trophy.won span{filter:none;opacity:1;}
+
+/* The words under a stop: its name, "Soon", its stars, or "Start here" */
+.stop-title{font-family:var(--f-display);font-weight:700;font-size:18px;line-height:1.2;background:transparent;padding:0 4px;}
+.stop-note{font-size:14px;font-weight:700;color:var(--ink-2);}
+.stop-stars{font-size:18px;letter-spacing:2px;}
+.stop-stars .dim{opacity:.2;filter:grayscale(1);}
+.start-here{background:var(--card);border:var(--edge);padding:4px 10px;font-weight:800;font-size:16px;}
+
+/* A world with no lessons yet */
+.world-empty{display:flex;align-items:center;gap:14px;margin-top:18px;padding:18px;background:var(--card);border:var(--edge);}
+.world-empty span{font-size:52px;line-height:1;}
+.world-empty p{margin:0;font-size:19px;}
+
+/* ---------- 8. The bottom menu ----------
+   Worlds, Spot Check, Tips or News, Me and Help, fixed to the bottom of
+   the screen. The one for the current screen has a purple line on top. */
+.bottom-nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  background:var(--card);border-top:2px solid var(--line-2);padding-bottom:env(safe-area-inset-bottom);
+}
+/* Tablets and computers (768px wide or more): the menu items sit under
+   the content, not spread across the whole screen */
+@media (min-width:768px){
+  .bottom-nav{padding-left:calc((100vw - 760px) / 2);padding-right:calc((100vw - 760px) / 2);}
+}
+.bottom-nav a{
+  position:relative;flex:1;max-width:200px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px 12px;
+  text-decoration:none;color:var(--ink-2);font-weight:800;font-size:15px;white-space:nowrap;border-top:4px solid transparent;
+}
+.bottom-nav a span{font-size:28px;line-height:1;}
+.bottom-nav a.on{color:var(--brand-ink);border-top-color:var(--brand);}
+/* Small phones (420px wide or less): smaller words so they stay on one line */
+@media (max-width:420px){ .bottom-nav a{font-size:13.5px;padding-left:2px;padding-right:2px;} }
+/* Tablets and computers (768px wide or more): slightly bigger words */
+@media (min-width:768px){ .bottom-nav a{font-size:16px;} }
+/* The red dot on Me: a certificate is waiting */
+.nav-dot{position:absolute;top:8px;left:calc(50% + 12px);width:12px;height:12px;border-radius:50%;background:var(--bad);border:2px solid var(--card);}
+
+/* ---------- 9. Over the screen ---------- */
+/* Help opens as a sheet over a lesson. The page behind it stops scrolling. */
+.help-sheet{position:fixed;inset:0;z-index:80;overflow-y:auto;background:var(--ground);}
+.help-sheet-inner{max-width:720px;margin:0 auto;padding:16px 16px 40px;display:grid;gap:12px;}
+body.sheet-open{overflow:hidden;}
+
+/* A short message at the bottom ("Finish this lesson first") that fades in and out */
+.toast{position:fixed;left:50%;bottom:96px;z-index:60;max-width:min(92vw,460px);transform:translate(-50%,20px);
+  padding:12px 18px;background:var(--ink);color:var(--card);font-weight:800;font-size:17px;text-align:center;
+  opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;}
+.toast.show{opacity:1;transform:translate(-50%,0);}
+
+/* "Leave the quiz?": a box that rises from the bottom over a dark backdrop */
+.ask-backdrop{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center;background:rgba(15,16,36,.45);}
+.ask{width:100%;max-width:520px;display:grid;gap:12px;padding:22px 18px calc(22px + env(safe-area-inset-bottom));background:var(--card);border-top:4px solid var(--brand);}
+.ask h2{margin:0;}
+.ask p{margin:0;font-size:18px;color:var(--ink-2);}
+
+/* Confetti: confetti.js drops small colored pieces from the top */
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50;}
+.confetti i{position:absolute;top:-20px;width:10px;height:16px;animation-name:fall;animation-timing-function:linear;animation-fill-mode:forwards;}
+@keyframes fall{to{top:105vh;transform:rotate(720deg) translateX(40px);}}

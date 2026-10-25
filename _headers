@@ -1,0 +1,13 @@
+# Cloudflare Pages: security headers for every page.
+# Scripts, styles and pictures load only from this site. The only outside
+# connection allowed is the device counter. news.json is on this site.
+# index.html has the same policy in a meta tag, in case the site is hosted
+# somewhere that ignores this file (GitHub Pages does). Keep the two the same,
+# except frame-ancestors (only works as a header) and upgrade-insecure-requests
+# (left out of the meta tag so testing on http://localhost still works).
+/*
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://scamsquad.cdr0314.workers.dev; frame-ancestors 'none'; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
